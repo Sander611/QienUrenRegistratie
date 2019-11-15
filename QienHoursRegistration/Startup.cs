@@ -6,10 +6,15 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using QienHoursRegistration.DataContext;
+
+//SETUP DATABASE CONNECTION :
+// https://code-maze.com/net-core-web-api-ef-core-code-first/
 
 namespace QienHoursRegistration
 {
@@ -25,6 +30,8 @@ namespace QienHoursRegistration
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<RepositoryContext>(opt =>
+                            opt.UseSqlServer(Configuration.GetConnectionString("ConnectAzure")));
             services.AddControllers();
         }
 
