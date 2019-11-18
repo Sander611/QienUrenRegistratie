@@ -8,8 +8,8 @@ namespace QienHoursRegistration.Repositories
     {
         void EditForm(HoursForm editform);
         Task<List<HoursForm>> GetAllHoursForms();
-        Task<HoursForm> GetHoursForm(HoursForm hoursformmodel);
-        Task<HoursForm> GetSingleAccountForms();
-        Task<HoursForm> GetSingleForm();
+        HoursForm GetHoursForm(HoursForm hoursformmodel);
+        Task<HoursForm> GetSingleAccountForms(int id);
+        Task<HoursForm> GetSingleForm(int id);
     }
 }

@@ -24,7 +24,7 @@ namespace QienHoursRegistration.Repositories
         //returning all hoursforms, ordered by account Id
         public async Task<List<HoursForm>> GetAllHoursForms()
         {
-            var models = context.HoursForm
+            var models = context.HoursForms
                 .Select(p => new HoursForm
                 {
                     FormId = p.FormId,
@@ -36,11 +36,11 @@ namespace QienHoursRegistration.Repositories
                     IsAcceptedClient = p.IsAcceptedClient
 
                 });
-            return await models.OrderBy(m => m.AccountId).ToList();
+            return await models.OrderBy(m => m.AccountId).ToListAsync();
         }
 
         //new hoursform
-        public async Task<HoursForm> GetHoursForm(HoursForm hoursformmodel)
+        public HoursForm GetHoursForm(HoursForm hoursformmodel)
         {
             return new HoursForm
             {
@@ -50,22 +50,22 @@ namespace QienHoursRegistration.Repositories
         }
 
         //getting all forms for specific account
-        public async Task<HoursForm> GetSingleAccountForms()
+        public async Task<HoursForm> GetSingleAccountForms(int accountId)
         {
-            return await context.HoursForm.Where(x => x.AccountId).ToList();
+            return await context.HoursForms.FindAsync(accountId);
 
         }
 
         //getting a single form
-        public async Task<HoursForm> GetSingleForm()
+        public async Task<HoursForm> GetSingleForm(int formId)
         {
-            return await context.HoursForm.Where(x => x.FormId).toList();
+            return await context.HoursForms.FindAsync(formId);
         }
 
         //edit the form
         public async void EditForm(HoursForm editform)
         {
-            context.HoursForm.Add(new HoursForm
+            context.HoursForms.Add(new HoursForm
             {
                 FormId = editform.FormId,
                 AccountId = editform.AccountId,

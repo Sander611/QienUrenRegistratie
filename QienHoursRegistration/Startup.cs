@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using QienHoursRegistration.DataContext;
+using QienHoursRegistration.Repositories;
 
 //SETUP DATABASE CONNECTION :
 // https://code-maze.com/net-core-web-api-ef-core-code-first/
@@ -32,6 +33,10 @@ namespace QienHoursRegistration
         {
             services.AddDbContext<RepositoryContext>(opt =>
                             opt.UseSqlServer(Configuration.GetConnectionString("ConnectAzure")));
+            services.AddScoped<IAccountRepository, AccountRepository>();
+            services.AddScoped<IClientRepository, ClientRepository>();
+            services.AddScoped<IHoursFormRepository, HoursFormRepository>();
+            services.AddScoped<IHoursPerDayRepository, HoursPerDayRepository>();
             services.AddControllers();
         }
 
