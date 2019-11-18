@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using QienHoursRegistration.Models;
 
 namespace QienHoursRegistration.Repositories
@@ -6,9 +7,9 @@ namespace QienHoursRegistration.Repositories
     public interface IHoursFormRepository
     {
         void EditForm(HoursForm editform);
-        List<HoursForm> GetAllHoursForms();
-        HoursForm GetHoursForm();
-        HoursForm GetSingleAccountForms();
-        HoursForm GetSingleForm();
+        Task<List<HoursForm>> GetAllHoursForms();
+        Task<HoursForm> GetHoursForm(HoursForm hoursformmodel);
+        Task<HoursForm> GetSingleAccountForms();
+        Task<HoursForm> GetSingleForm();
     }
 }
