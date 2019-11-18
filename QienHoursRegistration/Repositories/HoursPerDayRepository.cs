@@ -1,4 +1,6 @@
-﻿using QienHoursRegistration.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using QienHoursRegistration.DataContext;
+using QienHoursRegistration.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,22 +8,72 @@ using System.Threading.Tasks;
 
 namespace QienHoursRegistration.Repositories
 {
-    public class HoursPerDayRepository
+    public class HoursPerDayRepository : IHoursPerDayRepository
     {
-        private readonly DbContext context;
-        public HoursPerDayRepository (DbContext context)
+        private readonly RepositoryContext context;
+        public HoursPerDayRepository(RepositoryContext _context)
         {
-            this.context = context;
+            context = _context;
         }
-        public HoursPerDay GetNewSingleDay()
+
+        private readonly HoursPerDay hoursperday;
+        public HoursPerDayRepository(HoursPerDay hoursperday)
         {
-            return new HoursPerDay
-            { 
-            }; 
+            this.hoursperday = hoursperday;
         }
-        public void SaveADay(HoursPerDay dayedit)
+
+        public async void CreateOneMonth(HoursForm hoursform)
         {
-            context.HoursPerDay.Add(new HoursPerDay
+            var DaysinMonth = 0;
+
+            switch (hoursperday.Month)
+            {
+                case "Januari":
+                case "Maart":
+                case "Mei":
+                case "Juli":
+                case "Augustus":
+                case "Oktober":
+                case "December":
+                    DaysinMonth = 31;
+                    break;
+                case "Februari":
+                    if (DateTime.IsLeapYear(hoursperday.Year) == true)
+                    {
+                        DaysinMonth = 29;
+                    }
+                    else
+                    {
+                        DaysinMonth = 28;
+                    }
+                    break;
+                case "April":
+                case "Juni":
+                case "September":
+                case "November":
+                    DaysinMonth = 30;
+                    break;
+            }
+
+            while (DaysinMonth > 0)
+            {
+
+                context.HoursPerDays.Add(new HoursPerDay
+                {
+                    FormId = hoursform.FormId,
+                    Day = DaysinMonth,
+                    Month = hoursperday.Month,
+                    Year = hoursperday.Year
+
+                });
+                DaysinMonth--;
+                await context.SaveChangesAsync();
+            }
+        }
+
+        public async void SaveADay(HoursPerDay dayedit)
+        {
+            HoursPerDay newHoursPerDay = new HoursPerDay()
             {
                 HoursPerDayId = dayedit.HoursPerDayId,
                 ClientId = dayedit.ClientId,
@@ -37,9 +89,16 @@ namespace QienHoursRegistration.Repositories
                 ProjectDay = dayedit.ProjectDay,
                 OverTimeHours = dayedit.OverTimeHours,
                 Reasoning = dayedit.Reasoning
-            });
-            context.SaveChanges();
+            };
+
+            context.HoursPerDays.Add(newHoursPerDay);
+            await context.SaveChangesAsync();
         }
 
+        public async void Update(HoursPerDay daychange)
+        {
+            context.Entry(daychange).State = EntityState.Modified;
+            await context.SaveChangesAsync();
+        }
     }
 }

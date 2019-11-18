@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using QienHoursRegistration.DataContext;
 using QienHoursRegistration.Models;
 using System;
 using System.Collections.Generic;
@@ -9,14 +10,19 @@ namespace QienHoursRegistration.Repositories
 {
     public class HoursFormRepository : IHoursFormRepository
     {
-        private readonly DbContext context;
-        public HoursFormRepository(DbContext context)
+        private readonly RepositoryContext context;
+        public HoursFormRepository(RepositoryContext context)
         {
             this.context = context;
         }
+        private readonly HoursForm hoursform;
+        public HoursFormRepository(HoursForm hoursform)
+        { 
+            this.hoursform = hoursform; 
+        }
 
         //returning all hoursforms, ordered by account Id
-        public List<HoursForm> GetAllHoursForms()
+        public async Task<List<HoursForm>> GetAllHoursForms()
         {
             var models = context.HoursForm
                 .Select(p => new HoursForm
@@ -30,32 +36,34 @@ namespace QienHoursRegistration.Repositories
                     IsAcceptedClient = p.IsAcceptedClient
 
                 });
-            return models.OrderBy(m => m.AccountId).ToList();
+            return await models.OrderBy(m => m.AccountId).ToList();
         }
 
         //new hoursform
-        public HoursForm GetHoursForm()
+        public async Task<HoursForm> GetHoursForm(HoursForm hoursformmodel)
         {
             return new HoursForm
             {
+                AccountId = hoursformmodel.AccountId,
+                IsAcceptedClient = hoursformmodel.IsAcceptedClient
             };
         }
 
         //getting all forms for specific account
-        public HoursForm GetSingleAccountForms()
+        public async Task<HoursForm> GetSingleAccountForms()
         {
-            return context.HoursForm.Where(x => x.AccountId).ToList();
+            return await context.HoursForm.Where(x => x.AccountId).ToList();
 
         }
 
         //getting a single form
-        public HoursForm GetSingleForm()
+        public async Task<HoursForm> GetSingleForm()
         {
-            return context.HoursForm.Where(x => x.FormId).toList();
+            return await context.HoursForm.Where(x => x.FormId).toList();
         }
 
         //edit the form
-        public void EditForm(HoursForm editform)
+        public async void EditForm(HoursForm editform)
         {
             context.HoursForm.Add(new HoursForm
             {
@@ -68,7 +76,7 @@ namespace QienHoursRegistration.Repositories
                 IsAcceptedClient = editform.IsAcceptedClient
 
             });
-            context.SaveChanges();
+            await context.SaveChangesAsync();
         }
     }
 }
