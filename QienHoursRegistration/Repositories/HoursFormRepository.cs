@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace QienHoursRegistration.Repositories
 {
-    public class HoursFormRepository
+    public class HoursFormRepository : IHoursFormRepository
     {
         private readonly DbContext context;
         public HoursFormRepository(DbContext context)
@@ -45,7 +45,7 @@ namespace QienHoursRegistration.Repositories
         public HoursForm GetSingleAccountForms()
         {
             return context.HoursForm.Where(x => x.AccountId).ToList();
-               
+
         }
 
         //getting a single form
