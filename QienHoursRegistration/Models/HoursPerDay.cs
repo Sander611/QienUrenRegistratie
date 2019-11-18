@@ -30,7 +30,7 @@ namespace QienHoursRegistration.Models
         public string ProjectDay { get; set; }
 
         [ForeignKey("Client")]
-        public string CompanyName { get; set; }
+        public int ClientId { get; set; }
         public bool IsSick { get; set; }
 
     }
