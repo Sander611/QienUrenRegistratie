@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace QienHoursRegistration.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class AccountController : Controller
     {
         private readonly IAccountRepository accountRepository;
@@ -17,12 +19,14 @@ namespace QienHoursRegistration.Controllers
             this.accountRepository = accountRepository;
         }
 
+        [HttpGet("accounts")]
         public async Task<List<Account>> Index()
         {
             var accounts = accountRepository.GetAllAccounts();
             return await accounts;
         }
 
+        [HttpGet("{id}")]
         public async Task<ActionResult<Account>> Details(int id)
         {
             var account = accountRepository.GetOneAccount(id);
@@ -30,7 +34,7 @@ namespace QienHoursRegistration.Controllers
         }
 
 
-        [HttpPost]
+        [HttpPost("newAccount")]
         public async Task<ActionResult<Account>> AddAccount(Account account)
         {
             if (!ModelState.IsValid)
