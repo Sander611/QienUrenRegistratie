@@ -18,36 +18,33 @@ namespace QienHoursRegistration.Controllers.Account_
             this.accountRepository = accountRepository;
         }
 
-        public IActionResult Index()
+        public async Task<List<Account>> Index()
         {
             var accounts = accountRepository.GetAllAccounts();
-            return View(accounts);
+            return await accounts;
         }
 
-        public IActionResult Details(int id)
+        public async Task<ActionResult<Account>> Details(int id)
         {
             var account = accountRepository.GetOneAccount(id);
-            return View(account);
+            return await account;
         }
 
-        public IActionResult Add()
-        {
-            return View(new Account());
-        }
 
         [HttpPost]
-        public IActionResult AddAccount(Account account)
+        public async Task<ActionResult<Account>> AddAccount(Account account)
         {
             if (!ModelState.IsValid)
-                return View(account);
-            accountRepository.AddNewAccount(account);
-            return RedirectToAction("Index", new Account { AccountId = account.AccountId });
+                return account;
+            
+            return await accountRepository.AddNewAccount(account);
+            //return RedirectToAction("Index", new Account { AccountId = account.AccountId });
         }
 
-        public IActionResult Update(int id)
+        public async Task<ActionResult<Account>> Update(int id)
         {
-            var account = accountRepository.GetOneAccount(id);
-            return View(account);   
+            //var account = accountRepository.GetOneAccount(id);
+            return await accountRepository.GetOneAccount(id);
         }
     }
 }

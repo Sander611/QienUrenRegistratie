@@ -17,38 +17,15 @@ namespace QienHoursRegistration.Repositories
             this.repositoryContext = context;
         }
 
-        public List<Account> GetAllAccounts()
+        public async Task<List<Account>> GetAllAccounts()
         {
-            var All_Accounts = repositoryContext.Accounts.Select(p => new Account
-            {
-                AccountId = p.AccountId,
-                FirstName = p.FirstName,
-                LastName = p.LastName,
-                Email = p.Email,
-                DateOfBirth = p.DateOfBirth,
-                HashedPassword = p.HashedPassword,
-                Address = p.Address,
-                ZIP = p.ZIP,
-                MobilePhone = p.MobilePhone,
-                City = p.City,
-                IBAN = p.IBAN,
-                CreationDate = p.CreationDate,
-                ProfileImage = p.ProfileImage,
-                IsAdmin = p.IsAdmin,
-                IsActive = p.IsActive,
-                IsQienEmployee = p.IsQienEmployee,
-                IsSeniorDeveloper = p.IsSeniorDeveloper,
-                IsTrainee = p.IsTrainee
-
-            }).ToList();
-
-            return All_Accounts;
+            
+            return await repositoryContext.Accounts.ToListAsync();
         }
 
-        public void AddNewAccount(Account account)
+        public async Task<Account> AddNewAccount(Account account)
         {
-            repositoryContext.Accounts.Add(new Account
-            {
+            var AccountModel = new Account{
                 AccountId = account.AccountId,
                 FirstName = account.FirstName,
                 LastName = account.LastName,
@@ -67,28 +44,40 @@ namespace QienHoursRegistration.Repositories
                 IsQienEmployee = account.IsQienEmployee,
                 IsSeniorDeveloper = account.IsSeniorDeveloper,
                 IsTrainee = account.IsTrainee
-            }); ;
+            };
 
-            repositoryContext.SaveChanges();
+            repositoryContext.Accounts.Add(AccountModel);
+             
+
+            await repositoryContext.SaveChangesAsync();
+
+            return AccountModel;
+
+            
         }
 
-        public void RemoveAccount(int accountId)
+        public async Task RemoveAccount(int accountId)
         {
             var account = repositoryContext.Accounts.SingleOrDefault(p => p.AccountId == accountId);
             repositoryContext.Accounts.Remove(account);
-            repositoryContext.SaveChanges();
+            await repositoryContext.SaveChangesAsync();
         }
 
-        public void ModifyAccountActivity(int accountId, bool IsActive)
+        public async Task<Account> ModifyAccountActivity(int accountId, bool IsActive)
         {
-            var account = repositoryContext.Accounts.SingleOrDefault(p => p.AccountId == accountId);
+            var account = await repositoryContext.Accounts.SingleOrDefaultAsync(p => p.AccountId == accountId);
+            
             account.IsActive = IsActive;
 
+            return account;
+
+            
         }
 
-        public Account GetOneAccount(int accountId)
+        public async Task <Account> GetOneAccount(int accountId)
         {
-            var account = repositoryContext.Accounts.Single(p => p.AccountId == accountId);
+            var account = await repositoryContext.Accounts.SingleAsync(p => p.AccountId == accountId);
+
             return new Account
             {
                 AccountId = account.AccountId,
@@ -112,7 +101,7 @@ namespace QienHoursRegistration.Repositories
             };
         }
 
-        public void UpdateAccount(Account account)
+        public async Task UpdateAccount(Account account)
         {
             var entity = repositoryContext.Accounts.Single(p => p.AccountId == account.AccountId);
             entity.FirstName = account.FirstName;
@@ -132,7 +121,7 @@ namespace QienHoursRegistration.Repositories
             entity.MobilePhone = account.MobilePhone;
             entity.IsTrainee = account.IsTrainee;
 
-            repositoryContext.SaveChanges();
+            await repositoryContext.SaveChangesAsync();
         }
     }
 }
