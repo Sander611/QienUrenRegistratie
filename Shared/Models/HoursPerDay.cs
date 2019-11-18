@@ -5,15 +5,13 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace QienHoursRegistration.Models
+namespace Shared.Models
 {
-    [Table ("HoursPerDay")]
     public class HoursPerDay
     {
-        [Key]
+        [Required]
         public int HoursPerDayId { get; set; }
 
-        [ForeignKey("Account")]
         public int FormId { get; set; }
         [Required]
         public int Day { get; set; }
@@ -28,8 +26,6 @@ namespace QienHoursRegistration.Models
         public string Other { get; set; }
         public string Reasoning { get; set; }
         public string ProjectDay { get; set; }
-
-        [ForeignKey("Client")]
         public int ClientId { get; set; }
         public bool IsSick { get; set; }
 
