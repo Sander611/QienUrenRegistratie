@@ -32,17 +32,17 @@ namespace QienHoursRegistration.Controllers
         }
 
         [HttpGet("{hoursformmodel}")]
-        public async Task<ActionResult<HoursForm>> GetHoursForms(HoursForm hoursformmodel)
+        public ActionResult<HoursForm> GetHoursForms(HoursForm hoursformmodel)
         {
-            return await hoursform.GetHoursForm(hoursformmodel);
+            return hoursform.GetHoursForm(hoursformmodel);
         }
         [HttpGet]
-        public async Task<ActionResult<HoursForm>> GetSingleAccountForms()
+        public async Task<ActionResult<HoursForm>> GetSingleAccountForms(int accountId)
         {
-            return await hoursform.GetSingleAccountForms();
+            return await hoursform.GetSingleAccountForms(accountId);
         }
         [HttpPatch]
-        public async void EditForm(HoursForm editform)
+        public void EditForm(HoursForm editform)
         {
             hoursform.EditForm(editform);
         }
