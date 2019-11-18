@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using QienHoursRegistration.Models;
 
@@ -11,5 +12,6 @@ namespace QienHoursRegistration.Repositories
         void Post(Client clientModel);
         void Delete(int id);
         void Update(Client client);
+        Client VerifyEmail(string email);
     }
 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DataAnnotationsExtensions;
+using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -20,7 +22,11 @@ namespace QienHoursRegistration.Models
         public string ClientName1 { get; set; }
         public string ClientName2 { get; set; }
         [Required]
+        [Email]
+        [Remote(action: "VerifyEmail", controller: "ClientController")]
         public string ClientEmail1 { get; set; }
+        [Email]
+        [Remote(action: "VerifyEmail", controller: "ClientController")]
         public string ClientEmail2 { get; set; }
     }
 }

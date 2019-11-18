@@ -1,10 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using QienHoursRegistration.DataContext;
 using QienHoursRegistration.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web.Helpers;
 using System.Web.Http;
 
 namespace QienHoursRegistration.Repositories
@@ -50,6 +52,10 @@ namespace QienHoursRegistration.Repositories
         {
             context.Entry(client).State = EntityState.Modified;
             await context.SaveChangesAsync();
+        }
+        public Client VerifyEmail(string email)
+        {
+            return context.Clients.Find(email);
         }
     }
 }
