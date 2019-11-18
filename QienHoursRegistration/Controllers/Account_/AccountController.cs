@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using QienHoursRegistration.Models;
 using QienHoursRegistration.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using QienHoursRegistration.Repositories.Interfaces;
 
 namespace QienHoursRegistration.Controllers.Account_
 {
@@ -35,7 +36,7 @@ namespace QienHoursRegistration.Controllers.Account_
         }
 
         [HttpPost]
-        public ActionResult AddAccount(Account account)
+        public IActionResult AddAccount(Account account)
         {
             if (!ModelState.IsValid)
                 return View(account);

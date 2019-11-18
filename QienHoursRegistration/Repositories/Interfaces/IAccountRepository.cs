@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using QienHoursRegistration.Models;
 
-namespace QienHoursRegistration.Repositories
+namespace QienHoursRegistration.Repositories.Interfaces
 {
     public interface IAccountRepository
     {

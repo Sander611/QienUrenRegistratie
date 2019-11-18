@@ -5,8 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using QienHoursRegistration.Models;
 using QienHoursRegistration.DataContext;
-
-
+using QienHoursRegistration.Repositories.Interfaces;
 
 namespace QienHoursRegistration.Repositories
 {
@@ -23,7 +22,8 @@ namespace QienHoursRegistration.Repositories
             var All_Accounts = repositoryContext.Accounts.Select(p => new Account
             {
                 AccountId = p.AccountId,
-                Name = p.Name,
+                FirstName = p.FirstName,
+                LastName = p.LastName,
                 Email = p.Email,
                 DateOfBirth = p.DateOfBirth,
                 HashedPassword = p.HashedPassword,
@@ -50,7 +50,8 @@ namespace QienHoursRegistration.Repositories
             repositoryContext.Accounts.Add(new Account
             {
                 AccountId = account.AccountId,
-                Name = account.Name,
+                FirstName = account.FirstName,
+                LastName = account.LastName,
                 Email = account.Email,
                 DateOfBirth = account.DateOfBirth,
                 HashedPassword = account.HashedPassword,
@@ -66,7 +67,7 @@ namespace QienHoursRegistration.Repositories
                 IsQienEmployee = account.IsQienEmployee,
                 IsSeniorDeveloper = account.IsSeniorDeveloper,
                 IsTrainee = account.IsTrainee
-            });
+            }); ;
 
             repositoryContext.SaveChanges();
         }
@@ -91,7 +92,8 @@ namespace QienHoursRegistration.Repositories
             return new Account
             {
                 AccountId = account.AccountId,
-                Name = account.Name,
+                FirstName = account.FirstName,
+                LastName = account.LastName,
                 Email = account.Email,
                 DateOfBirth = account.DateOfBirth,
                 HashedPassword = account.HashedPassword,
@@ -113,7 +115,8 @@ namespace QienHoursRegistration.Repositories
         public void UpdateAccount(Account account)
         {
             var entity = repositoryContext.Accounts.Single(p => p.AccountId == account.AccountId);
-            entity.Name = account.Name;
+            entity.FirstName = account.FirstName;
+            entity.LastName = account.LastName;
             entity.Address = account.Address;
             entity.City = account.City;
             entity.CreationDate = account.CreationDate;
