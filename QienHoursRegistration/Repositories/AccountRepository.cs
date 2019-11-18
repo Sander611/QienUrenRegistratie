@@ -10,7 +10,7 @@ using QienHoursRegistration.DataContext;
 
 namespace QienHoursRegistration.Repositories
 {
-    public class AccountRepository
+    public class AccountRepository : IAccountRepository
     {
         private readonly RepositoryContext repositoryContext;
         public AccountRepository(RepositoryContext context)
@@ -41,11 +41,11 @@ namespace QienHoursRegistration.Repositories
                 IsTrainee = p.IsTrainee
 
             }).ToList();
-            
+
             return All_Accounts;
         }
-        
-        public void AddNewAccount(Account account) 
+
+        public void AddNewAccount(Account account)
         {
             repositoryContext.Accounts.Add(new Account
             {
@@ -70,7 +70,7 @@ namespace QienHoursRegistration.Repositories
 
             repositoryContext.SaveChanges();
         }
-        
+
         public void RemoveAccount(int accountId)
         {
             var account = repositoryContext.Accounts.SingleOrDefault(p => p.AccountId == accountId);
@@ -78,7 +78,7 @@ namespace QienHoursRegistration.Repositories
             repositoryContext.SaveChanges();
         }
 
-        public void ModifyAccountActivity(int accountId,bool IsActive)
+        public void ModifyAccountActivity(int accountId, bool IsActive)
         {
             var account = repositoryContext.Accounts.SingleOrDefault(p => p.AccountId == accountId);
             account.IsActive = IsActive;
