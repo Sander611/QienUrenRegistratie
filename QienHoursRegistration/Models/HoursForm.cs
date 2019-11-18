@@ -15,8 +15,8 @@ namespace QienHoursRegistration.Models
         [ForeignKey ("Account")]
         [Required]
         public int AccountId { get; set; }
-        public DateTime DateSend { get; set; }
-        public DateTime DateDue { get; set; }
+        public DateTime? DateSend { get; set; }
+        public DateTime? DateDue { get; set; }
         public int TotalHours { get; set; }
         public string ProjectMonth { get; set; }
         [Required]
