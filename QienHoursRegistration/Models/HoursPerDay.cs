@@ -16,7 +16,7 @@ namespace QienHoursRegistration.Models
         [ForeignKey("Account")]
         public int FormId { get; set; }
         [Required]
-        public string Day { get; set; }
+        public int Day { get; set; }
         [Required]
         public string Month { get; set; }
         [Required]
