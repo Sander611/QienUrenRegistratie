@@ -67,5 +67,18 @@ namespace QienHoursRegistration.Controllers
             clientRepo.Update(client);
             return NoContent();
         }
+        [AcceptVerbs("Get", "Post")]
+        public bool VerifyEmail(string email)
+        {
+            var user = clientRepo.VerifyEmail(email);
+            if (user == null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
