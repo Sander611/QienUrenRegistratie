@@ -16,6 +16,11 @@ namespace QienHoursRegistration.DataContext
         }
 
         public DbSet<Account> Accounts { get; set; }
+
         public DbSet<Client> Clients { get; set; }
+
+        public DbSet<HoursPerDay> HoursPerDays { get; set; }
+
+        public DbSet<HoursForm> HoursForms { get; set; }
     }
 }
