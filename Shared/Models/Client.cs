@@ -9,10 +9,12 @@ using System.Web.Mvc;
 
 namespace Shared.Models
 {
+    [Table("Client")]
     public class Client
     {
-        [Required]
+        [Key]
         public int ClientId { get; set; }
+        [ForeignKey("Account")]
         public int AccountId { get; set; }
         [Required]
         public string CompanyName { get; set; }
@@ -27,4 +29,5 @@ namespace Shared.Models
         [Remote(action: "VerifyEmail", controller: "ClientController")]
         public string ClientEmail2 { get; set; }
     }
+}
 }
