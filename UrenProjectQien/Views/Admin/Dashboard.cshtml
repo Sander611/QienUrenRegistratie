@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Shared.Models.HoursForm>
+﻿@model IEnumerable<Shared.Models.AdminTaskModel>
 
 @{
     ViewData["Title"] = "Dashboard";
@@ -6,32 +6,20 @@
 
 <h1>Dashboard</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.FormId)
+                @Html.DisplayNameFor(model => model.FullName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.AccountId)
+                @Html.DisplayNameFor(model => model.Info)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DateSend)
+                @Html.DisplayNameFor(model => model.HandInTime)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DateDue)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TotalHours)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProjectMonth)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsAcceptedClient)
+                @Html.DisplayNameFor(model => model.stateClientCheck)
             </th>
             <th></th>
         </tr>
@@ -40,30 +28,19 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.FormId)
+                @Html.DisplayFor(modelItem => item.FullName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.AccountId)
+                @Html.DisplayFor(modelItem => item.Info)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DateSend)
+                @Html.DisplayFor(modelItem => item.HandInTime)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DateDue)
+                @Html.DisplayFor(modelItem => item.stateClientCheck)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TotalHours)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProjectMonth)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsAcceptedClient)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Controleren", "Controleren", new { id=item.accountId})
             </td>
         </tr>
 }
