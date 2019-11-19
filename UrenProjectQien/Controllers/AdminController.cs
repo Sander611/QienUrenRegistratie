@@ -42,5 +42,11 @@ namespace UrenProjectQien.Controllers
 
             return View(uncheckedForms);
         }
+
+        public async Task<IActionResult> Controleren(int id)
+        {
+            ViewBag.getal = id;
+            return View();
+        }
     }
 }
