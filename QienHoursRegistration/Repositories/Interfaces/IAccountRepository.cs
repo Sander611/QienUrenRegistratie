@@ -10,7 +10,7 @@ namespace QienHoursRegistration.Repositories
         Task<List<Account>> GetAllAccounts();
         Task<Account> GetOneAccount(int accountId);
         Task<Account> ModifyAccountActivity(int accountId, bool IsActive);
-        Task RemoveAccount(int accountId);
-        Task UpdateAccount(Account account);
+        Task<Account> RemoveAccount(int accountId);
+        Task<Account> UpdateAccount(Account account);
     }
 }
