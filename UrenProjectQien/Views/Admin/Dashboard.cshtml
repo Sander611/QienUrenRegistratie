@@ -4,7 +4,10 @@
     ViewData["Title"] = "Dashboard";
 }
 
-<h1>Dashboard</h1>
+    <div style="text-align:center;">
+        <h1>Takenlijst</h1>
+    </div>
+
 
 <table class="table">
     <thead>
@@ -40,7 +43,7 @@
                 @Html.DisplayFor(modelItem => item.stateClientCheck)
             </td>
             <td>
-                @Html.ActionLink("Controleren", "Controleren", new { id=item.accountId})
+                @Html.ActionLink("Controleren", "Controleren", new { id=item.accountId, month=item.Month, year=item.Year})
             </td>
         </tr>
 }

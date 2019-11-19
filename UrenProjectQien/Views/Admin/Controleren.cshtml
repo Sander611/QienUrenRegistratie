@@ -3,6 +3,20 @@
     ViewData["Title"] = "Controleren";
 }
 
-<h1>Controleren</h1>
-@ViewBag.getal
+    <div style="display:inline-block; text-align:center">
+  
+            <div>
+                <img style="display: inline-block; padding-right: 10px; width: 35px; height:auto;" src="~/Images/arrow-circle-left-solid.svg" />
+            </div>
+            <div style="display: inline-block;">
+                <h1>@ViewBag.month (@ViewBag.year)</h1>
+            </div>
+            
+            <div>
+                <img style="display: inline-block; padding-left: 10px; width: 35px; height:auto;" src="~/Images/arrow-circle-right-solid.svg" />
+            </div>
+        
+    </div>
+
+@ViewBag.id
 

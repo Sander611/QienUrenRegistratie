@@ -34,7 +34,7 @@ namespace UrenProjectQien.Controllers
 
             for (int i = 0; i < 6; i++)
             {
-                AdminTaskModel atm = new AdminTaskModel() { accountId = 1, FullName = "Test", HandInTime = DateTime.Now, stateClientCheck = null, Info = "Uren Registratie Januari 2019 bij Macaw" };
+                AdminTaskModel atm = new AdminTaskModel() { accountId = 1, FullName = "Test", HandInTime = DateTime.Now, stateClientCheck = null, Info = "Uren Registratie Januari 2019 bij Macaw", Month="Januari", Year="2019"};
                 uncheckedForms.Add(atm);
             }
 
@@ -43,9 +43,16 @@ namespace UrenProjectQien.Controllers
             return View(uncheckedForms);
         }
 
-        public async Task<IActionResult> Controleren(int id)
+        public async Task<IActionResult> Controleren(int id, string month, string year)
         {
-            ViewBag.getal = id;
+            // get data using arguments
+            // naam
+            // dagen 
+            // make table with headers
+
+            ViewBag.id = id;
+            ViewBag.month = month;
+            ViewBag.year = year;
             return View();
         }
     }
