@@ -7,11 +7,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Shared.Models
 {
+    [Table("HoursPerDay")]
     public class HoursPerDay
     {
-        [Required]
+        [Key]
         public int HoursPerDayId { get; set; }
 
+        [ForeignKey("Account")]
         public int FormId { get; set; }
         [Required]
         public int Day { get; set; }
@@ -26,6 +28,8 @@ namespace Shared.Models
         public string Other { get; set; }
         public string Reasoning { get; set; }
         public string ProjectDay { get; set; }
+
+        [ForeignKey("Client")]
         public int ClientId { get; set; }
         public bool IsSick { get; set; }
 

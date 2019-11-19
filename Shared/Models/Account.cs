@@ -7,9 +7,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Shared.Models
 {
+    [Table("Account")]
     public class Account
     {
-        [Required]
+        [Key]
         public int AccountId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }

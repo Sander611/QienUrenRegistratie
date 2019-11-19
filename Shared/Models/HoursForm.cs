@@ -7,10 +7,12 @@ using System.Threading.Tasks;
 
 namespace Shared.Models
 {
+    [Table("HoursForm")]
     public class HoursForm
     {
-        [Required]
+        [Key]
         public int FormId { get; set; }
+        [ForeignKey("Account")]
         [Required]
         public int AccountId { get; set; }
         public DateTime? DateSend { get; set; }
