@@ -57,11 +57,13 @@ namespace QienHoursRegistration.Repositories
 
         }
 
-        public async Task RemoveAccount(int accountId)
+        public async Task<Account> RemoveAccount(int accountId)
         {
             var account = repositoryContext.Accounts.SingleOrDefault(p => p.AccountId == accountId);
             repositoryContext.Accounts.Remove(account);
             await repositoryContext.SaveChangesAsync();
+
+            return account;
         }
 
         public async Task<Account> ModifyAccountActivity(int accountId, bool IsActive)
@@ -102,7 +104,7 @@ namespace QienHoursRegistration.Repositories
             };
         }
 
-        public async Task UpdateAccount(Account account)
+        public async Task<Account> UpdateAccount(Account account)
         {
             var entity = repositoryContext.Accounts.Single(p => p.AccountId == account.AccountId);
             entity.FirstName = account.FirstName;
@@ -123,6 +125,8 @@ namespace QienHoursRegistration.Repositories
             entity.IsTrainee = account.IsTrainee;
 
             await repositoryContext.SaveChangesAsync();
+
+            return entity;
         }
     }
 }

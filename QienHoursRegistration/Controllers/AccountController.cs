@@ -34,7 +34,7 @@ namespace QienHoursRegistration.Controllers
         }
 
 
-        [HttpPost("newAccount")]
+        [HttpPost("createAccount")]
         public async Task<ActionResult<Account>> AddAccount(Account account)
         {
             if (!ModelState.IsValid)
@@ -44,10 +44,11 @@ namespace QienHoursRegistration.Controllers
             //return RedirectToAction("Index", new Account { AccountId = account.AccountId });
         }
 
-        public async Task<ActionResult<Account>> Update(int id)
+        [HttpPost("updateAccount")]
+        public async Task<ActionResult<Account>> Update(Account account)
         {
             //var account = accountRepository.GetOneAccount(id);
-            return await accountRepository.GetOneAccount(id);
+            return await accountRepository.UpdateAccount(account);
         }
     }
 }
