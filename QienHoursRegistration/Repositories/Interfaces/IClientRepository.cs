@@ -9,9 +9,9 @@ namespace QienHoursRegistration.Repositories
     {
         Task<List<Client>> Get();
         Task<Client> GetById(int id);
-        void Post(Client clientModel);
-        void Delete(int id);
-        void Update(Client client);
+        Task Post(Client clientModel);
+        Task Delete(int id);
+        Task Update(Client client);
         Client VerifyEmail(string email);
     }
 }
