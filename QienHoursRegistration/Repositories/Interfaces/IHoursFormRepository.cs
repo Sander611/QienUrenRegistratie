@@ -12,7 +12,7 @@ namespace QienHoursRegistration.Repositories
 
         Task<List<HoursFormModel>> GetSingleAccountForms(int id);
 
-        Task<HoursFormModel> CreateNewForm();
+        Task<HoursFormModel> CreateNewForm(HoursFormModel hoursFormModel);
         Task<List<HoursFormModel>> GetAllClientAcceptedForms();
     }
 }
