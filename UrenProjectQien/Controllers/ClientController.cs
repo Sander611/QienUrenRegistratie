@@ -12,6 +12,8 @@ namespace UrenProjectQien.Controllers
 {
     public class ClientController : Controller
     {
+        public IEnumerable<Client> result { get; private set; }
+        public bool GetClientError { get; private set; }
         private IHttpClientFactory _httpClientFactory;
 
         public ClientController(IHttpClientFactory httpClientFactory)
@@ -43,23 +45,24 @@ namespace UrenProjectQien.Controllers
             var result = JsonConvert.DeserializeObject<List<Client>>(jsonString);
             return View(result);
         }
-        public async Task OnGet()
+        public async Task CreateClient()
         {
+            var request = new HttpRequestMessage(HttpMethod.Get, "Create");
             var client = _httpClientFactory.CreateClient("Api");
 
-            var response = await client.SendAsync("Create");
+            var response = await client.SendAsync(request);
 
             if (response.IsSuccessStatusCode)
             {
-                using var responseStream = await response.Content.ReadAsStreamAsync();
-                Branches = await JsonSerializer.DeserializeAsync
-                    <IEnumerable<GitHubBranch>>(responseStream);
+                using var jsonString = await response.Content.ReadAsStreamAsync();
+                result = await JsonConvert.DeserializeObject<IEnumerable<Client>>(jsonString);
             }
             else
             {
-                GetBranchesError = true;
-                Branches = Array.Empty<GitHubBranch>();
+                GetClientError = true;
+                result = Array.Empty<Client>;
             }
+            return (result);
         }
     }
 }
