@@ -25,6 +25,7 @@ namespace QienHoursRegistration.Repositories
         //returning all hoursforms, ordered by account Id
         public async Task<List<HoursFormModel>> GetAllHoursForms()
         {
+
             var models = context.HoursForms
                 .Select(p => new HoursFormModel
                 {
