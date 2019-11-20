@@ -19,30 +19,38 @@ namespace QienHoursRegistration.Controllers
         {
             this.clientRepo = clientRepo;
         }
-        [HttpGet]
+        [HttpGet("clients")]
         public async Task<IEnumerable<Client>> GetAll()
         {
-            return await clientRepo.Get();
+            var clients = await clientRepo.Get();
+            return clients;
         }
         [HttpGet("{id}")]
         public async Task<ActionResult<Client>> GetClientById(int id)
         {
             var client = await clientRepo.GetById(id);
-            if(client == null)
+            if (client == null)
             {
                 return NotFound();
             }
             return client;
         }
-        [HttpPost]
+        [HttpPost("{create}")]
         public async Task<ActionResult<Client>> Create(Client client)
         {
-            var existingClient =  await clientRepo.GetById(client.ClientId);
-            if (existingClient != null)
+            if (!ModelState.IsValid)
             {
-                return Conflict("Kan een nieuwe klant niet tovoegen. De klant bestaat al in de DB");
+                return BadRequest(ModelState);
             }
-            clientRepo.Post(client);
+            else
+            {
+                var existingClient = await clientRepo.GetById(client.ClientId);
+                if (existingClient != null)
+                {
+                    return Conflict("Kan een nieuwe klant niet tovoegen. De klant bestaat al in de DB");
+                }
+                clientRepo.Post(client);
+            }
             return CreatedAtAction(nameof(GetClientById), new { id = client.ClientId }, client);
         }
         [HttpDelete("{id}")]

@@ -27,14 +27,13 @@ namespace QienHoursRegistration.Repositories
         {
             return await context.Clients.FindAsync(id);
         }
-        public async void Post(Client clientModel)
+        public async Task Post(Client clientModel)
         {
             Client newClient = new Client()
             {
-                AccountId = clientModel.AccountId,
                 ClientEmail1 = clientModel.ClientEmail1,
                 ClientEmail2 = clientModel.ClientEmail2,
-                ClientId = clientModel.ClientId,
+                AccountId = clientModel.AccountId,
                 ClientName1 = clientModel.ClientName1,
                 ClientName2 = clientModel.ClientName2,
                 CompanyName = clientModel.CompanyName
@@ -42,13 +41,13 @@ namespace QienHoursRegistration.Repositories
                 context.Clients.Add(newClient);
                 await context.SaveChangesAsync();
         }
-        public async void Delete(int id)
+        public async Task Delete(int id)
         {
             var client = await context.Clients.FindAsync(id);
             context.Clients.Remove(client);
             await context.SaveChangesAsync();
         }
-        public async void Update(Client client)
+        public async Task Update(Client client)
         {
             context.Entry(client).State = EntityState.Modified;
             await context.SaveChangesAsync();
