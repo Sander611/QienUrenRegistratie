@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using QienHoursRegistration.DataContext;
 
 namespace QienHoursRegistration.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    partial class RepositoryContextModelSnapshot : ModelSnapshot
+    [Migration("20191120095851_hoursformLock")]
+    partial class hoursformLock
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -140,14 +142,13 @@ namespace QienHoursRegistration.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("ProjectMonth")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("TotalHours")
                         .HasColumnType("int");
 
-                    b.Property<int>("Year")
-                        .HasColumnType("int");
+                    b.Property<string>("Year")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("FormId");
 
@@ -161,7 +162,7 @@ namespace QienHoursRegistration.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("ClientId")
+                    b.Property<int>("ClientId")
                         .HasColumnType("int");
 
                     b.Property<int>("Day")
@@ -173,18 +174,18 @@ namespace QienHoursRegistration.Migrations
                     b.Property<int>("Hours")
                         .HasColumnType("int");
 
-                    b.Property<int>("IsLeave")
-                        .HasColumnType("int");
+                    b.Property<bool>("IsLeave")
+                        .HasColumnType("bit");
 
-                    b.Property<int>("IsSick")
-                        .HasColumnType("int");
+                    b.Property<bool>("IsSick")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Month")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Other")
-                        .HasColumnType("int");
+                    b.Property<string>("Other")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("OverTimeHours")
                         .HasColumnType("int");
@@ -196,6 +197,9 @@ namespace QienHoursRegistration.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Training")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Year")
                         .HasColumnType("int");
 
                     b.HasKey("HoursPerDayId");

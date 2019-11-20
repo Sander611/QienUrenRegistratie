@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Shared.Models;
 using QienHoursRegistration.DataContext;
 using QienHoursRegistration.Repositories;
+using Shared.Models;
 
 namespace QienHoursRegistration.Repositories
 {
@@ -17,15 +17,39 @@ namespace QienHoursRegistration.Repositories
             this.repositoryContext = context;
         }
 
-        public async Task<List<Account>> GetAllAccounts()
+        public async Task<List<AccountModel>> GetAllAccounts()
         {
+            var allAccounts = new List<AccountModel>();
+            foreach (var account in await repositoryContext.Accounts.ToListAsync())
 
-            return await repositoryContext.Accounts.ToListAsync();
+                allAccounts.Add(new AccountModel
+                {
+                    AccountId = account.AccountId,
+                    FirstName = account.FirstName,
+                    LastName = account.LastName,
+                    Email = account.Email,
+                    DateOfBirth = account.DateOfBirth,
+                    HashedPassword = account.HashedPassword,
+                    Address = account.Address,
+                    ZIP = account.ZIP,
+                    MobilePhone = account.MobilePhone,
+                    City = account.City,
+                    IBAN = account.IBAN,
+                    CreationDate = account.CreationDate,
+                    ProfileImage = account.ProfileImage,
+                    IsAdmin = account.IsAdmin,
+                    IsActive = account.IsActive,
+                    IsQienEmployee = account.IsQienEmployee,
+                    IsSeniorDeveloper = account.IsSeniorDeveloper,
+                    IsTrainee = account.IsTrainee
+                }) ;
+
+            return allAccounts;
         }
 
-        public async Task<Account> AddNewAccount(Account account)
+        public async Task<AccountModel> AddNewAccount(AccountModel account)
         {
-            var AccountModel = new Account
+            Account accountEntity = new Account
             {
                 AccountId = account.AccountId,
                 FirstName = account.FirstName,
@@ -47,41 +71,61 @@ namespace QienHoursRegistration.Repositories
                 IsTrainee = account.IsTrainee
             };
 
-            repositoryContext.Accounts.Add(AccountModel);
+            repositoryContext.Accounts.Add(accountEntity);
 
 
             await repositoryContext.SaveChangesAsync();
 
-            return AccountModel;
+            return account;
 
 
         }
 
-        public async Task<Account> RemoveAccount(int accountId)
+        public async void RemoveAccount(int accountId)
         {
             var account = repositoryContext.Accounts.SingleOrDefault(p => p.AccountId == accountId);
             repositoryContext.Accounts.Remove(account);
             await repositoryContext.SaveChangesAsync();
 
-            return account;
         }
 
-        public async Task<Account> ModifyAccountActivity(int accountId, bool IsActive)
+        public async Task<AccountModel> ModifyAccountActivity(int accountId, bool IsActive)
         {
             var account = await repositoryContext.Accounts.SingleOrDefaultAsync(p => p.AccountId == accountId);
 
             account.IsActive = IsActive;
 
-            return account;
+            await repositoryContext.SaveChangesAsync();
 
+            return new AccountModel
+            {
+                AccountId = account.AccountId,
+                FirstName = account.FirstName,
+                LastName = account.LastName,
+                Email = account.Email,
+                DateOfBirth = account.DateOfBirth,
+                HashedPassword = account.HashedPassword,
+                Address = account.Address,
+                ZIP = account.ZIP,
+                MobilePhone = account.MobilePhone,
+                City = account.City,
+                IBAN = account.IBAN,
+                CreationDate = account.CreationDate,
+                ProfileImage = account.ProfileImage,
+                IsAdmin = account.IsAdmin,
+                IsActive = account.IsActive,
+                IsQienEmployee = account.IsQienEmployee,
+                IsSeniorDeveloper = account.IsSeniorDeveloper,
+                IsTrainee = account.IsTrainee
+            };
 
         }
 
-        public async Task<Account> GetOneAccount(int accountId)
+        public async Task<AccountModel> GetOneAccount(int accountId)
         {
-            var account = await repositoryContext.Accounts.SingleAsync(p => p.AccountId == accountId);
+            Account account = await repositoryContext.Accounts.SingleAsync(p => p.AccountId == accountId);
 
-            return new Account
+            return new AccountModel
             {
                 AccountId = account.AccountId,
                 FirstName = account.FirstName,
@@ -104,9 +148,9 @@ namespace QienHoursRegistration.Repositories
             };
         }
 
-        public async Task<Account> UpdateAccount(Account account)
+        public async Task<AccountModel> UpdateAccount(AccountModel account)
         {
-            var entity = repositoryContext.Accounts.Single(p => p.AccountId == account.AccountId);
+            Account entity = repositoryContext.Accounts.Single(p => p.AccountId == account.AccountId);
             entity.FirstName = account.FirstName;
             entity.LastName = account.LastName;
             entity.Address = account.Address;
@@ -126,7 +170,7 @@ namespace QienHoursRegistration.Repositories
 
             await repositoryContext.SaveChangesAsync();
 
-            return entity;
+            return account;
         }
     }
 }

@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using QienHoursRegistration.Controllers;
-using QienHoursRegistration.Models;
+using Shared.Models;
 using QienHoursRegistration.Repositories;
 using System;
 using System.Collections.Generic;

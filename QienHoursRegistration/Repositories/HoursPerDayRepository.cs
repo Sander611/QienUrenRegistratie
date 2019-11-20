@@ -22,129 +22,119 @@ namespace QienHoursRegistration.Repositories
             this.hoursperday = hoursperday;
         }
 
-        public async Task<HoursForm> CreateOneMonth(HoursForm hoursform)
+
+        public async Task<List<HoursPerDayModel>> Update(List<HoursPerDayModel> daychangeList)
         {
-            var DaysinMonth = 0;
-
-            switch (hoursperday.Month)
+            foreach (var daychange in daychangeList)
             {
-                case "januari":
-                    DaysinMonth = 31;
-                    break;
-                case "februari":
-                    if (DateTime.IsLeapYear(hoursperday.Year) == true)
-                    {
-                        DaysinMonth = 29;
-                    }
-                    else
-                    {
-                        DaysinMonth = 28;
-                    }
-                    break;
-                case "maart":
-                    DaysinMonth = 31;
-                    break;
-                case "april":
-                    DaysinMonth = 30;
-                    break;
-                case "mei":
-                    DaysinMonth = 31;
-                    break;
-                case "juni":
-                    DaysinMonth = 30;
-                    break;
-                case "juli":
-                    DaysinMonth = 31;
-                    break;
-                case "augustus":
-                    DaysinMonth = 31;
-                    break;
-                case "september":
-                    DaysinMonth = 30;
-                    break;
-                case "oktober":
-                    DaysinMonth = 31;
-                    break;
-                case "november":
-                    DaysinMonth = 30;
-                    break;
-                case "december":
-                    DaysinMonth = 31;
-                    break; 
-            }
+                var entity = context.HoursPerDays.Single(p => p.HoursPerDayId == daychange.HoursPerDayId);
+                entity.FormId = daychange.FormId;
+                entity.Day = daychange.Day;
+                entity.Hours = daychange.Hours;
+                entity.Month = daychange.Month;
+                entity.Training = daychange.Training;
+                entity.IsLeave = daychange.IsLeave;
+                entity.IsSick = daychange.IsSick;
+                entity.Other = daychange.Other;
+                entity.OverTimeHours = daychange.OverTimeHours;
+                entity.Reasoning = daychange.Reasoning;
+                entity.ClientId = daychange.ClientId;
 
-            while (DaysinMonth > 0)
-            {
-
-                context.HoursPerDays.Add(new HoursPerDay
-                {
-                    FormId = hoursform.FormId,
-                    Day = DaysinMonth,
-                    Month = hoursperday.Month,
-                    Year = hoursperday.Year
-
-                });
-                DaysinMonth--;
                 await context.SaveChangesAsync();
             }
-            return hoursform;
+
+            return daychangeList;
         }
 
-        public async Task<List<HoursPerDay>> GetAllDaysFromOneForm(int formId)
+        public async Task<List<HoursPerDayModel>> GetAllDaysForForm(int formId)
         {
-            var form = await context.HoursPerDays.SingleAsync(p => p.FormId == formId);
-            return new List<HoursPerDay>
-            {
-               
-            };
+            var allDaysForFormId = new List<HoursPerDayModel>();
+
+            foreach (var day in await context.HoursPerDays.Where(p => p.FormId == formId).ToListAsync())
+                allDaysForFormId.Add(new HoursPerDayModel
+                {
+                    FormId = day.FormId,
+                    Day = day.Day,
+                    Hours = day.Hours,
+                    Month = day.Month,
+                    Training = day.Training,
+                    IsLeave = day.IsLeave,
+                    IsSick = day.IsSick,
+                    Other = day.Other,
+                    OverTimeHours = day.OverTimeHours,
+                    ClientId = day.ClientId
+                });
+
+            return allDaysForFormId;
         }
 
-       
 
-        public async Task<HoursPerDay> SaveADay(HoursPerDay dayedit)
-        {
-            HoursPerDay newHoursPerDay = new HoursPerDay()
-            {
-                HoursPerDayId = dayedit.HoursPerDayId,
 
-                ClientId = dayedit.ClientId,
-                Day = dayedit.Day,
-                Month = dayedit.Month,
-                Other = dayedit.Other,
-                Hours = dayedit.Hours,
-                FormId = dayedit.FormId,
-                Training = dayedit.Training,
-                Year = dayedit.Year,
-                IsLeave = dayedit.IsLeave,
-                IsSick = dayedit.IsSick,
-                ProjectDay = dayedit.ProjectDay,
-                OverTimeHours = dayedit.OverTimeHours,
-                Reasoning = dayedit.Reasoning
-            };
 
-            context.HoursPerDays.Add(newHoursPerDay);
-            await context.SaveChangesAsync();
-            return dayedit;
-        }
 
-        public async Task<HoursPerDay> Update(HoursPerDay daychange)
-        {
-            var entity = context.HoursPerDays.Single(p => p.HoursPerDayId == daychange.HoursPerDayId);
-            entity.Day = daychange.Day;
-            entity.Hours = daychange.Hours;
-            entity.Month = entity.Month;
-            entity.Year = entity.Year;
-            entity.IsLeave = daychange.IsLeave;
-            entity.IsSick = daychange.IsSick;
-            entity.Other = daychange.Other;
-            entity.OverTimeHours = daychange.OverTimeHours;
-            entity.ProjectDay = daychange.ProjectDay;
-            entity.Reasoning = daychange.Reasoning;
-            entity.ClientId = entity.ClientId;
 
-            await context.SaveChangesAsync();
 
-            return entity;
-        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //public async Task<List<HoursPerDay>> GetAllDaysFromOneForm(int formId)
+        //{
+        //    var form = await context.HoursPerDays.SingleAsync(p => p.FormId == formId);
+        //    return new List<HoursPerDay>
+        //    {
+
+        //    };
+        //}
+
+
+
+        //public async Task<HoursPerDay> SaveADay(HoursPerDay dayedit)
+        //{
+        //    HoursPerDay newHoursPerDay = new HoursPerDay()
+        //    {
+        //        HoursPerDayId = dayedit.HoursPerDayId,
+
+        //        ClientId = dayedit.ClientId,
+        //        Day = dayedit.Day,
+        //        Month = dayedit.Month,
+        //        Other = dayedit.Other,
+        //        Hours = dayedit.Hours,
+        //        FormId = dayedit.FormId,
+        //        Training = dayedit.Training,
+        //        Year = dayedit.Year,
+        //        IsLeave = dayedit.IsLeave,
+        //        IsSick = dayedit.IsSick,
+        //        ProjectDay = dayedit.ProjectDay,
+        //        OverTimeHours = dayedit.OverTimeHours,
+        //        Reasoning = dayedit.Reasoning
+        //    };
+
+        //    context.HoursPerDays.Add(newHoursPerDay);
+        //    await context.SaveChangesAsync();
+        //    return dayedit;
+        //}
     }
 }

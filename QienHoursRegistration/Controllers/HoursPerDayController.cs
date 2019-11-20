@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using QienHoursRegistration.DataContext;
 using Shared.Models;
 using QienHoursRegistration.Repositories;
 
@@ -20,30 +21,24 @@ namespace QienHoursRegistration.Controllers
             this.hoursPerDayRepository = hoursPerDayRepository;
         }
 
-        [HttpPost("SaveADay")]
-        public async Task<ActionResult<HoursPerDay>> FillInDay(HoursPerDay hoursPerDay)
+        //[HttpPost("SaveADay")]
+        //public async Task<ActionResult<HoursPerDay>> FillInDay(HoursPerDay hoursPerDay)
+        //{
+        //    if (!ModelState.IsValid)
+        //        return hoursPerDay;
+
+        //    return await hoursPerDayRepository.SaveADay(hoursPerDay);
+
+        //}
+
+        [HttpGet("getAllDaysForForm/{formId}")]
+        public async Task<IEnumerable<HoursPerDayModel>> GetAllDaysForForm(int formId)
         {
-            if (!ModelState.IsValid)
-                return hoursPerDay;
-
-            return await hoursPerDayRepository.SaveADay(hoursPerDay);
-
-        }
-
-
-
-        [HttpPost("CreateAMonth")]
-        public async Task<ActionResult<HoursForm>> CreateAMonth(HoursForm hoursForm)
-        {
-            if (!ModelState.IsValid)
-                return hoursForm;
-
-            return await hoursPerDayRepository.CreateOneMonth(hoursForm);
-
+            return await hoursPerDayRepository.GetAllDaysForForm(formId);
         }
 
         [HttpPost("updateHoursPerDay")]
-        public async Task<ActionResult<HoursPerDay>> Update(HoursPerDay hoursPerDay)
+        public async Task<IEnumerable<HoursPerDayModel>> Update(List<HoursPerDayModel> hoursPerDay)
         {
             
             return await hoursPerDayRepository.Update(hoursPerDay);
