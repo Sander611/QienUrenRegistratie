@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using QienHoursRegistration.DataContext;
+using Shared.Models;
 using QienHoursRegistration.Repositories;
 
 namespace QienHoursRegistration.Controllers
@@ -30,20 +31,14 @@ namespace QienHoursRegistration.Controllers
 
         //}
 
-
-
-        [HttpPost("CreateAMonth")]
-        public async Task<ActionResult<HoursForm>> CreateAMonth(HoursForm hoursForm)
+        [HttpGet("getAllDaysForForm/{formId}")]
+        public async Task<IEnumerable<HoursPerDayModel>> GetAllDaysForForm(int formId)
         {
-            if (!ModelState.IsValid)
-                return hoursForm;
-
-            return await hoursPerDayRepository.CreateOneMonth(hoursForm);
-
+            return await hoursPerDayRepository.GetAllDaysForForm(formId);
         }
 
         [HttpPost("updateHoursPerDay")]
-        public async Task<ActionResult<HoursPerDay>> Update(HoursPerDay hoursPerDay)
+        public async Task<IEnumerable<HoursPerDayModel>> Update(List<HoursPerDayModel> hoursPerDay)
         {
             
             return await hoursPerDayRepository.Update(hoursPerDay);

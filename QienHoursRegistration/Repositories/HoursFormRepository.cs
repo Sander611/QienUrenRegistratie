@@ -16,6 +16,7 @@ namespace QienHoursRegistration.Repositories
             this.context = context;
         }
         private readonly HoursForm hoursform;
+
         public HoursFormRepository(HoursForm hoursform)
         { 
             this.hoursform = hoursform; 
@@ -32,8 +33,10 @@ namespace QienHoursRegistration.Repositories
                     DateSend = p.DateSend,
                     DateDue = p.DateDue,
                     TotalHours = p.TotalHours,
+                    Year = p.Year,
                     ProjectMonth = p.ProjectMonth,
-                    IsAcceptedClient = p.IsAcceptedClient
+                    IsAcceptedClient = p.IsAcceptedClient,
+                    IsLocked = p.IsLocked
 
                 });
             return await models.OrderBy(m => m.AccountId).ToListAsync();
@@ -54,8 +57,10 @@ namespace QienHoursRegistration.Repositories
                     DateSend = form.DateSend,
                     DateDue = form.DateDue,
                     TotalHours = form.TotalHours,
+                    Year = form.Year,
                     ProjectMonth = form.ProjectMonth,
                     IsAcceptedClient = form.IsAcceptedClient,
+                    IsLocked =  form.IsLocked
                 });
 
 
@@ -86,8 +91,10 @@ namespace QienHoursRegistration.Repositories
                     DateSend = form.DateSend,
                     DateDue = form.DateDue,
                     TotalHours = form.TotalHours,
+                    Year = form.Year,
                     ProjectMonth = form.ProjectMonth,
                     IsAcceptedClient = form.IsAcceptedClient,
+                    IsLocked = form.IsLocked
                 });
 
 
@@ -96,10 +103,10 @@ namespace QienHoursRegistration.Repositories
         }
 
         //getting a single form
-        public async Task<HoursForm> GetSingleForm(int formId)
-        {
-            return await context.HoursForms.FindAsync(formId);
-        }
+        //public async Task<HoursForm> GetSingleForm(int formId)
+        //{
+        //    return await context.HoursForms.FindAsync(formId);
+        //}
 
         //edit the form
         public async Task<HoursFormModel> EditForm(HoursFormModel editform)
@@ -112,8 +119,10 @@ namespace QienHoursRegistration.Repositories
             entity.DateSend = editform.DateSend;
             entity.DateDue = editform.DateDue;
             entity.TotalHours = editform.TotalHours;
+            entity.Year = editform.Year;
             entity.ProjectMonth = editform.ProjectMonth;
             entity.IsAcceptedClient = editform.IsAcceptedClient;
+            entity.IsLocked = editform.IsLocked;
 
             await context.SaveChangesAsync();
 
@@ -123,9 +132,93 @@ namespace QienHoursRegistration.Repositories
         public async Task<HoursFormModel> CreateNewForm(HoursFormModel hoursFormModel)
         {
             // create form
-            
-            // get form id, maand, jaar
-            // generate days
+            HoursForm hoursForm = new HoursForm()
+            {
+                AccountId = hoursFormModel.AccountId,
+                DateSend = hoursFormModel.DateSend,
+                DateDue = hoursFormModel.DateDue,
+                TotalHours = hoursFormModel.TotalHours,
+                ProjectMonth = hoursFormModel.ProjectMonth,
+                Year = hoursFormModel.Year,
+                IsAcceptedClient = hoursFormModel.IsAcceptedClient,
+                IsLocked = hoursFormModel.IsLocked
+            };
+
+            context.HoursForms.Add(hoursForm);
+            await context.SaveChangesAsync();
+
+            var DaysinMonth = 0;
+
+            switch (hoursForm.ProjectMonth)
+            {
+                case "januari":
+                    DaysinMonth = 31;
+                    break;
+                case "februari":
+                    if (DateTime.IsLeapYear(Convert.ToInt32(hoursForm.Year)) == true)
+                    {
+                        DaysinMonth = 29;
+                    }
+                    else
+                    {
+                        DaysinMonth = 28;
+                    }
+                    break;
+                case "maart":
+                    DaysinMonth = 31;
+                    break;
+                case "april":
+                    DaysinMonth = 30;
+                    break;
+                case "mei":
+                    DaysinMonth = 31;
+                    break;
+                case "juni":
+                    DaysinMonth = 30;
+                    break;
+                case "juli":
+                    DaysinMonth = 31;
+                    break;
+                case "augustus":
+                    DaysinMonth = 31;
+                    break;
+                case "september":
+                    DaysinMonth = 30;
+                    break;
+                case "oktober":
+                    DaysinMonth = 31;
+                    break;
+                case "november":
+                    DaysinMonth = 30;
+                    break;
+                case "december":
+                    DaysinMonth = 31;
+                    break;
+            }
+
+            while (DaysinMonth > 0)
+            {
+
+                context.HoursPerDays.Add(new HoursPerDay
+                {
+                    FormId = hoursForm.FormId,
+                    Day = DaysinMonth,
+                    Month = hoursForm.ProjectMonth,
+                    Hours = 0,
+                    OverTimeHours = 0,
+                    Training = 0,
+                    IsLeave = 0,
+                    Other = 0,
+                    Reasoning = "",
+                    ClientId = null,
+                    IsSick = 0
+
+                });
+
+                DaysinMonth--;
+                await context.SaveChangesAsync();
+            }
+
             return hoursFormModel;
         }
     }
