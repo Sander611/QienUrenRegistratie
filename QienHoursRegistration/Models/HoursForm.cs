@@ -20,6 +20,6 @@ namespace QienHoursRegistration.Models
         public int TotalHours { get; set; }
         public string ProjectMonth { get; set; }
         [Required]
-        public bool IsAcceptedClient { get; set; }
+        public bool? IsAcceptedClient { get; set; }
     }
 }

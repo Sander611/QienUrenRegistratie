@@ -15,20 +15,27 @@ namespace QienHoursRegistration.Controllers
     public class HoursFormController : ControllerBase
     {
         private readonly DbContext context;
-        public HoursFormController(DbContext context)
-        {
-            this.context = context;
-        }
+        //public HoursFormController(DbContext context)
+        //{
+        //    this.context = context;
+        //}
+
         private readonly IHoursFormRepository hoursform;
         public HoursFormController(IHoursFormRepository hoursform)
         {
             this.hoursform = hoursform;
         }
 
-        [HttpGet]
+        [HttpGet("hourforms")]
         public async Task<IEnumerable<HoursForm>> GetAllHoursForms()
         {
             return await hoursform.GetAllHoursForms();
+        }
+
+        [HttpGet("clientacceptforms")]
+        public async Task<IEnumerable<HoursForm>> GetAllClientAcceptedForms()
+        {
+            return await hoursform.GetAllClientAcceptedForms();
         }
 
         [HttpGet("{hoursformmodel}")]
@@ -36,7 +43,7 @@ namespace QienHoursRegistration.Controllers
         {
             return hoursform.GetHoursForm(hoursformmodel);
         }
-        [HttpGet]
+        [HttpGet("singleaccountform")]
         public async Task<ActionResult<HoursForm>> GetSingleAccountForms(int accountId)
         {
             return await hoursform.GetSingleAccountForms(accountId);
