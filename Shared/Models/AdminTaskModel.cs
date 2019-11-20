@@ -8,6 +8,7 @@ namespace Shared.Models
 {
     public class AdminTaskModel
     {
+        public int formId { get; set; }
         public int accountId { get; set; }
 
         [DisplayName("Naam")]

@@ -43,7 +43,7 @@
                 @Html.DisplayFor(modelItem => item.stateClientCheck)
             </td>
             <td>
-                @Html.ActionLink("Controleren", "Controleren", new { id=item.accountId, month=item.Month, year=item.Year})
+                @Html.ActionLink("Controleren", "Controleren", new { formId= item.formId, userId=item.accountId, month=item.Month, year=item.Year})
             </td>
         </tr>
 }
