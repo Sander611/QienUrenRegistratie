@@ -39,11 +39,11 @@ namespace QienHoursRegistration.Controllers
             return await hoursform.GetAllClientAcceptedForms();
         }
 
-        //[HttpPost("createhourform")]
-        //public ActionResult<HoursFormModel> createHourForm(HoursFormModel hoursFormModel, int clientId)
-        //{
-        //    return hoursform.createHoursForm(hoursFormModel, clientId);
-        //}
+        [HttpPost("createhourform")]
+        public async Task<HoursFormModel> createHourForm(HoursFormModel hoursFormModel)
+        {
+            return await hoursform.CreateNewForm(hoursFormModel);
+        }
 
         [HttpGet("singleaccountform/{accountId}")]
         public async Task<IEnumerable<HoursFormModel>> GetSingleAccountForms(int accountId)
