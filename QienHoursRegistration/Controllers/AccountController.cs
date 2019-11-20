@@ -20,14 +20,14 @@ namespace QienHoursRegistration.Controllers
         }
 
         [HttpGet("accounts")]
-        public async Task<List<Account>> Index()
+        public async Task<List<Account>> GetAllAccounts()
         {
             var accounts = await accountRepository.GetAllAccounts();
             return accounts;
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Account>> Details(int id)
+        public async Task<ActionResult<Account>> GetOneAccount(int id)
         {
             var account = accountRepository.GetOneAccount(id);
             return await account;
@@ -45,7 +45,7 @@ namespace QienHoursRegistration.Controllers
         }
 
         [HttpPost("updateAccount")]
-        public async Task<ActionResult<Account>> Update(Account account)
+        public async Task<ActionResult<Account>> UpdateAccount(Account account)
         {
             //var account = accountRepository.GetOneAccount(id);
             return await accountRepository.UpdateAccount(account);

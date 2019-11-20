@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using QienHoursRegistration.DataContext;
 using QienHoursRegistration.Repositories;
+using Shared.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,12 +39,13 @@ namespace QienHoursRegistration.Controllers
             return await hoursform.GetAllClientAcceptedForms();
         }
 
-        [HttpGet("{hoursformmodel}")]
-        public ActionResult<HoursForm> GetHoursForms(HoursForm hoursformmodel)
+        [HttpPost("createhourform")]
+        public ActionResult<HoursForm> createHourForm(HoursFormModel hoursFormModel, int clientId)
         {
-            return hoursform.GetHoursForm(hoursformmodel);
+            return hoursform.createHoursForm(hoursFormModel, clientId);
         }
-        [HttpGet("singleaccountform")]
+
+        [HttpGet("singleaccountform/{accountId}")]
         public async Task<ActionResult<HoursForm>> GetSingleAccountForms(int accountId)
         {
             return await hoursform.GetSingleAccountForms(accountId);

@@ -19,8 +19,7 @@ namespace QienHoursRegistration.DataContext
         public int Day { get; set; }
         [Required]
         public string Month { get; set; }
-        [Required]
-        public int Year { get; set; }
+       
         public int Hours { get; set; }
         public int OverTimeHours { get; set; }
         public int Training { get; set; }

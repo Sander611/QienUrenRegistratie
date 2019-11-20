@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using QienHoursRegistration.DataContext;
+using Shared.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,13 +48,11 @@ namespace QienHoursRegistration.Repositories
         }
 
         //new hoursform
-        public HoursForm GetHoursForm(HoursForm hoursformmodel)
+        public async Task<HoursForm> createHoursForm(HoursForm hoursFormModel, int clientId)
         {
-            return new HoursForm
-            {
-                AccountId = hoursformmodel.AccountId,
-                IsAcceptedClient = hoursformmodel.IsAcceptedClient
-            };
+            context.HoursForms.Add(hoursFormModel);
+
+            await context.SaveChangesAsync();
         }
 
         //getting all forms for specific account
