@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using QienHoursRegistration.DataContext;
-using QienHoursRegistration.Models;
+using Shared.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

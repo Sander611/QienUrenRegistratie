@@ -4,7 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using QienHoursRegistration.Models;
+using Shared.Models;
 using QienHoursRegistration.Repositories;
 
 namespace QienHoursRegistration.Controllers
