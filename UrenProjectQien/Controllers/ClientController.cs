@@ -20,13 +20,13 @@ namespace UrenProjectQien.Controllers
         }
         [HttpGet]
         [Route("GetAllClients")]
-        public async Task<List<Client>> GetAllClients()
+        public async Task<List<ClientModel>> GetAllClients()
         {
             var client = _httpClientFactory.CreateClient("Api");
             var response = await client.GetAsync("GetAll");
 
             var jsonString = await response.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<List<Client>>(jsonString);
+            return JsonConvert.DeserializeObject<List<ClientModel>>(jsonString);
         }
     }
 }
