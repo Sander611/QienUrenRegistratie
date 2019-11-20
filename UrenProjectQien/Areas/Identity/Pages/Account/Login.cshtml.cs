@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using Shared.Models;
 
 namespace UrenProjectQien.Areas.Identity.Pages.Account
 {
@@ -85,6 +86,23 @@ namespace UrenProjectQien.Areas.Identity.Pages.Account
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: true);
                 if (result.Succeeded)
                 {
+                    IdentityModel identity = new IdentityModel();
+                    identity.Email = Input.Email;
+                    if (identity.Email = AccountModel.Email)
+                    {
+                        if (IsTrainee == true && IsActive == true)
+                        { }
+                        if (IsSeniorDeveloper == true && IsActive == true)
+                        { }
+                        if (IsAdmin == true && IsActive == true)
+                        { }
+                        if (IsQienEmployee == true && IsActive == true)
+                    }
+
+
+
+
+
                     _logger.LogInformation("User logged in.");
                     return LocalRedirect(returnUrl);
                 }
