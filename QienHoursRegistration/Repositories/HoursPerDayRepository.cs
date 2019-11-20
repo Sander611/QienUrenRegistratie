@@ -22,22 +22,16 @@ namespace QienHoursRegistration.Repositories
             this.hoursperday = hoursperday;
         }
 
-        public async void CreateOneMonth(HoursForm hoursform)
+        public async Task<HoursForm> CreateOneMonth(HoursForm hoursform)
         {
             var DaysinMonth = 0;
 
             switch (hoursperday.Month)
             {
-                case "Januari":
-                case "Maart":
-                case "Mei":
-                case "Juli":
-                case "Augustus":
-                case "Oktober":
-                case "December":
+                case "januari":
                     DaysinMonth = 31;
                     break;
-                case "Februari":
+                case "februari":
                     if (DateTime.IsLeapYear(hoursperday.Year) == true)
                     {
                         DaysinMonth = 29;
@@ -47,12 +41,36 @@ namespace QienHoursRegistration.Repositories
                         DaysinMonth = 28;
                     }
                     break;
-                case "April":
-                case "Juni":
-                case "September":
-                case "November":
+                case "maart":
+                    DaysinMonth = 31;
+                    break;
+                case "april":
                     DaysinMonth = 30;
                     break;
+                case "mei":
+                    DaysinMonth = 31;
+                    break;
+                case "juni":
+                    DaysinMonth = 30;
+                    break;
+                case "juli":
+                    DaysinMonth = 31;
+                    break;
+                case "augustus":
+                    DaysinMonth = 31;
+                    break;
+                case "september":
+                    DaysinMonth = 30;
+                    break;
+                case "oktober":
+                    DaysinMonth = 31;
+                    break;
+                case "november":
+                    DaysinMonth = 30;
+                    break;
+                case "december":
+                    DaysinMonth = 31;
+                    break; 
             }
 
             while (DaysinMonth > 0)
@@ -69,13 +87,26 @@ namespace QienHoursRegistration.Repositories
                 DaysinMonth--;
                 await context.SaveChangesAsync();
             }
+            return hoursform;
         }
 
-        public async void SaveADay(HoursPerDay dayedit)
+        public async Task<List<HoursPerDay>> GetAllDaysFromOneForm(int formId)
+        {
+            var form = await context.HoursPerDays.SingleAsync(p => p.FormId == formId);
+            return new List<HoursPerDay>
+            {
+               
+            };
+        }
+
+       
+
+        public async Task<HoursPerDay> SaveADay(HoursPerDay dayedit)
         {
             HoursPerDay newHoursPerDay = new HoursPerDay()
             {
                 HoursPerDayId = dayedit.HoursPerDayId,
+
                 ClientId = dayedit.ClientId,
                 Day = dayedit.Day,
                 Month = dayedit.Month,
@@ -93,12 +124,27 @@ namespace QienHoursRegistration.Repositories
 
             context.HoursPerDays.Add(newHoursPerDay);
             await context.SaveChangesAsync();
+            return dayedit;
         }
 
-        public async void Update(HoursPerDay daychange)
+        public async Task<HoursPerDay> Update(HoursPerDay daychange)
         {
-            context.Entry(daychange).State = EntityState.Modified;
+            var entity = context.HoursPerDays.Single(p => p.HoursPerDayId == daychange.HoursPerDayId);
+            entity.Day = daychange.Day;
+            entity.Hours = daychange.Hours;
+            entity.Month = entity.Month;
+            entity.Year = entity.Year;
+            entity.IsLeave = daychange.IsLeave;
+            entity.IsSick = daychange.IsSick;
+            entity.Other = daychange.Other;
+            entity.OverTimeHours = daychange.OverTimeHours;
+            entity.ProjectDay = daychange.ProjectDay;
+            entity.Reasoning = daychange.Reasoning;
+            entity.ClientId = entity.ClientId;
+
             await context.SaveChangesAsync();
+
+            return entity;
         }
     }
 }
