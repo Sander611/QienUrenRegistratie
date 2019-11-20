@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using QienHoursRegistration.DataContext;
 using QienHoursRegistration.Repositories;
+using Shared.Models;
 
 namespace QienHoursRegistration.Controllers
 {
@@ -19,14 +20,18 @@ namespace QienHoursRegistration.Controllers
         {
             this.clientRepo = clientRepo;
         }
+
+
         [HttpGet("clients")]
-        public async Task<IEnumerable<Client>> GetAll()
+        public async Task<IEnumerable<ClientModel>> GetAll()
         {
             var clients = await clientRepo.Get();
             return clients;
         }
+
+
         [HttpGet("{id}")]
-        public async Task<ActionResult<Client>> GetClientById(int id)
+        public async Task<ActionResult<ClientModel>> GetClientById(int id)
         {
             var client = await clientRepo.GetById(id);
             if (client == null)
@@ -35,24 +40,18 @@ namespace QienHoursRegistration.Controllers
             }
             return client;
         }
+
+
         [HttpPost("{create}")]
-        public async Task<ActionResult<Client>> Create(Client client)
+        public async Task<ActionResult<ClientModel>> Create(ClientModel client)
         {
             if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            else
-            {
-                var existingClient = await clientRepo.GetById(client.ClientId);
-                if (existingClient != null)
-                {
-                    return Conflict("Kan een nieuwe klant niet tovoegen. De klant bestaat al in de DB");
-                }
-                clientRepo.Post(client);
-            }
-            return CreatedAtAction(nameof(GetClientById), new { id = client.ClientId }, client);
+                return client;
+
+            return await clientRepo.CreateNewClient(client);
         }
+
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
@@ -61,32 +60,36 @@ namespace QienHoursRegistration.Controllers
             {
                 return NotFound();
             }
-            clientRepo.Delete(id);
+            await clientRepo.DeleteClient(id);
             return NoContent();
         }
+
+
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, Client client)
+        public async Task<ActionResult<ClientModel>> Update(int id, ClientModel client)
         {
             var existingClient = await clientRepo.GetById(id);
             if (existingClient == null)
             {
                 return BadRequest();
             }
-            clientRepo.Update(client);
-            return NoContent();
+            return await clientRepo.Update(client);
+
         }
-        [AcceptVerbs("Get", "Post")]
-        public bool VerifyEmail(string email)
-        {
-            var user = clientRepo.VerifyEmail(email);
-            if (user == null)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
+
+
+        //[AcceptVerbs("Get", "Post")]
+        //public bool VerifyEmail(string email)
+        //{
+        //    var user = clientRepo.VerifyEmail(email);
+        //    if (user == null)
+        //    {
+        //        return true;
+        //    }
+        //    else
+        //    {
+        //        return false;
+        //    }
+        //}
     }
 }

@@ -1,6 +1,6 @@
-﻿@model List<HoursPerDayModel>  
+﻿@model List<HoursPerDayModel>
 @{
-    
+
 }
 
 
@@ -20,9 +20,9 @@
         </tr>
     </thead>
 
-    
+
     <tbody>
-        @for (int i = 0; i < 5; i++) 
+        @for (int i = 0; i < 5; i++)
         {
             <tr>
                 <td>
@@ -33,5 +33,39 @@
                 </td>
             </tr>
         }
+    </tbody>
+</table>
+
+<h1>Peronalia</h1>
+<table width="100%">
+    <tbody>
+
+
+        @for (int i = 0; i < 5; i++)
+        {
+            <tr>
+                <td>Naam</td>
+                <td>Jason</td>
+            </tr>
+
+        }
+
+    </tbody>
+</table>
+
+<h1>Nieuws</h1>
+<table width="50%">
+    <tbody>
+
+
+        @for (int i = 0; i < 5; i++)
+        {
+            <tr>
+                <td>Urenregistratie is goed gekeurd door {rol} </td>
+                
+            </tr>
+
+        }
+
     </tbody>
 </table>

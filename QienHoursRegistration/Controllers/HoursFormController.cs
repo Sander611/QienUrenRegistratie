@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using QienHoursRegistration.DataContext;
 using QienHoursRegistration.Repositories;
+using Shared.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,31 +28,34 @@ namespace QienHoursRegistration.Controllers
         }
 
         [HttpGet("hourforms")]
-        public async Task<IEnumerable<HoursForm>> GetAllHoursForms()
+        public async Task<IEnumerable<HoursFormModel>> GetAllHoursForms()
         {
             return await hoursform.GetAllHoursForms();
         }
 
         [HttpGet("clientacceptforms")]
-        public async Task<IEnumerable<HoursForm>> GetAllClientAcceptedForms()
+        public async Task<IEnumerable<HoursFormModel>> GetAllClientAcceptedForms()
         {
             return await hoursform.GetAllClientAcceptedForms();
         }
 
-        [HttpGet("{hoursformmodel}")]
-        public ActionResult<HoursForm> GetHoursForms(HoursForm hoursformmodel)
-        {
-            return hoursform.GetHoursForm(hoursformmodel);
-        }
-        [HttpGet("singleaccountform")]
-        public async Task<ActionResult<HoursForm>> GetSingleAccountForms(int accountId)
+        //[HttpPost("createhourform")]
+        //public ActionResult<HoursFormModel> createHourForm(HoursFormModel hoursFormModel, int clientId)
+        //{
+        //    return hoursform.createHoursForm(hoursFormModel, clientId);
+        //}
+
+        [HttpGet("singleaccountform/{accountId}")]
+        public async Task<IEnumerable<HoursFormModel>> GetSingleAccountForms(int accountId)
         {
             return await hoursform.GetSingleAccountForms(accountId);
         }
-        [HttpPatch]
-        public void EditForm(HoursForm editform)
+
+
+        [HttpPost("updateHoursForm")]
+        public async Task<ActionResult<HoursFormModel>> EditForm(HoursFormModel editform) 
         {
-            hoursform.EditForm(editform);
+           return await hoursform.EditForm(editform);
         }
 
     }
