@@ -56,5 +56,10 @@ namespace UrenProjectQien.Controllers
             ViewBag.year = year;
             return View();
         }
+
+        public async Task<IActionResult> CreateEmployee()
+        {
+            return View();
+        }
     }
 }
