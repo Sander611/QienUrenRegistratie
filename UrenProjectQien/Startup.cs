@@ -34,6 +34,11 @@ namespace UrenProjectQien
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
+            services.AddHttpClient("Api", c =>
+            {
+                c.BaseAddress = new Uri("https://localhost:5001/api/");
+                c.DefaultRequestHeaders.Add("Accept", "application/json");
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

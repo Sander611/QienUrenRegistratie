@@ -19,7 +19,7 @@ namespace QienHoursRegistration.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("QienHoursRegistration.Models.Account", b =>
+            modelBuilder.Entity("QienHoursRegistration.DataContext.Account", b =>
                 {
                     b.Property<int>("AccountId")
                         .ValueGeneratedOnAdd()
@@ -84,7 +84,7 @@ namespace QienHoursRegistration.Migrations
                     b.ToTable("Account");
                 });
 
-            modelBuilder.Entity("QienHoursRegistration.Models.Client", b =>
+            modelBuilder.Entity("QienHoursRegistration.DataContext.Client", b =>
                 {
                     b.Property<int>("ClientId")
                         .ValueGeneratedOnAdd()
@@ -117,7 +117,7 @@ namespace QienHoursRegistration.Migrations
                     b.ToTable("Client");
                 });
 
-            modelBuilder.Entity("QienHoursRegistration.Models.HoursForm", b =>
+            modelBuilder.Entity("QienHoursRegistration.DataContext.HoursForm", b =>
                 {
                     b.Property<int>("FormId")
                         .ValueGeneratedOnAdd()
@@ -136,18 +136,24 @@ namespace QienHoursRegistration.Migrations
                     b.Property<bool>("IsAcceptedClient")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("bit");
+
                     b.Property<string>("ProjectMonth")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("TotalHours")
                         .HasColumnType("int");
 
+                    b.Property<string>("Year")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("FormId");
 
                     b.ToTable("HoursForm");
                 });
 
-            modelBuilder.Entity("QienHoursRegistration.Models.HoursPerDay", b =>
+            modelBuilder.Entity("QienHoursRegistration.DataContext.HoursPerDay", b =>
                 {
                     b.Property<int>("HoursPerDayId")
                         .ValueGeneratedOnAdd()
