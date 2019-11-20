@@ -11,5 +11,7 @@ namespace QienHoursRegistration.Repositories
         HoursForm GetHoursForm(HoursForm hoursformmodel);
         Task<HoursForm> GetSingleAccountForms(int id);
         Task<HoursForm> GetSingleForm(int id);
+
+        Task<List<HoursForm>> GetAllClientAcceptedForms();
     }
 }

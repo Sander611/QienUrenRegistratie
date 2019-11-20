@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿    using Microsoft.EntityFrameworkCore;
 using QienHoursRegistration.DataContext;
 using QienHoursRegistration.Models;
 using System;
@@ -37,6 +37,14 @@ namespace QienHoursRegistration.Repositories
 
                 });
             return await models.OrderBy(m => m.AccountId).ToListAsync();
+        }
+
+        //returning all hoursforms where IsAcceptedClient is NOT null
+        public async Task<List<HoursForm>> GetAllClientAcceptedForms()
+        {
+            var models = context.HoursForms.Where(p => p.IsAcceptedClient != null);
+            return await models.OrderBy(m => m.AccountId).ToListAsync();
+            
         }
 
         //new hoursform
