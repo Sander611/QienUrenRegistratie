@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using QienHoursRegistration.DataContext;
-using Shared.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,13 +25,13 @@ namespace QienHoursRegistration.Repositories
         {
             var DaysinMonth = 0;
 
-            switch (hoursperday.Month)
+            switch (hoursform.ProjectMonth)
             {
                 case "januari":
                     DaysinMonth = 31;
                     break;
                 case "februari":
-                    if (DateTime.IsLeapYear(hoursperday.Year) == true)
+                    if (DateTime.IsLeapYear(Convert.ToInt32(hoursform.Year)) == true)
                     {
                         DaysinMonth = 29;
                     }
@@ -101,31 +100,31 @@ namespace QienHoursRegistration.Repositories
 
        
 
-        public async Task<HoursPerDay> SaveADay(HoursPerDay dayedit)
-        {
-            HoursPerDay newHoursPerDay = new HoursPerDay()
-            {
-                HoursPerDayId = dayedit.HoursPerDayId,
+        //public async Task<HoursPerDay> SaveADay(HoursPerDay dayedit)
+        //{
+        //    HoursPerDay newHoursPerDay = new HoursPerDay()
+        //    {
+        //        HoursPerDayId = dayedit.HoursPerDayId,
 
-                ClientId = dayedit.ClientId,
-                Day = dayedit.Day,
-                Month = dayedit.Month,
-                Other = dayedit.Other,
-                Hours = dayedit.Hours,
-                FormId = dayedit.FormId,
-                Training = dayedit.Training,
-                Year = dayedit.Year,
-                IsLeave = dayedit.IsLeave,
-                IsSick = dayedit.IsSick,
-                ProjectDay = dayedit.ProjectDay,
-                OverTimeHours = dayedit.OverTimeHours,
-                Reasoning = dayedit.Reasoning
-            };
+        //        ClientId = dayedit.ClientId,
+        //        Day = dayedit.Day,
+        //        Month = dayedit.Month,
+        //        Other = dayedit.Other,
+        //        Hours = dayedit.Hours,
+        //        FormId = dayedit.FormId,
+        //        Training = dayedit.Training,
+        //        Year = dayedit.Year,
+        //        IsLeave = dayedit.IsLeave,
+        //        IsSick = dayedit.IsSick,
+        //        ProjectDay = dayedit.ProjectDay,
+        //        OverTimeHours = dayedit.OverTimeHours,
+        //        Reasoning = dayedit.Reasoning
+        //    };
 
-            context.HoursPerDays.Add(newHoursPerDay);
-            await context.SaveChangesAsync();
-            return dayedit;
-        }
+        //    context.HoursPerDays.Add(newHoursPerDay);
+        //    await context.SaveChangesAsync();
+        //    return dayedit;
+        //}
 
         public async Task<HoursPerDay> Update(HoursPerDay daychange)
         {

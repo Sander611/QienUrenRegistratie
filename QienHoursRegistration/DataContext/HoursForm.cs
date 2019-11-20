@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Shared.Models
+namespace QienHoursRegistration.DataContext
 {
     [Table("HoursForm")]
     public class HoursForm
@@ -19,7 +19,10 @@ namespace Shared.Models
         public DateTime? DateDue { get; set; }
         public int TotalHours { get; set; }
         public string ProjectMonth { get; set; }
+        public string Year { get; set; }
         [Required]
         public bool IsAcceptedClient { get; set; }
+
+        public bool IsLocked { get; set; }
     }
 }

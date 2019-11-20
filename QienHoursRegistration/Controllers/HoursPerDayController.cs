@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Shared.Models;
+using QienHoursRegistration.DataContext;
 using QienHoursRegistration.Repositories;
 
 namespace QienHoursRegistration.Controllers
@@ -20,15 +20,15 @@ namespace QienHoursRegistration.Controllers
             this.hoursPerDayRepository = hoursPerDayRepository;
         }
 
-        [HttpPost("SaveADay")]
-        public async Task<ActionResult<HoursPerDay>> FillInDay(HoursPerDay hoursPerDay)
-        {
-            if (!ModelState.IsValid)
-                return hoursPerDay;
+        //[HttpPost("SaveADay")]
+        //public async Task<ActionResult<HoursPerDay>> FillInDay(HoursPerDay hoursPerDay)
+        //{
+        //    if (!ModelState.IsValid)
+        //        return hoursPerDay;
 
-            return await hoursPerDayRepository.SaveADay(hoursPerDay);
+        //    return await hoursPerDayRepository.SaveADay(hoursPerDay);
 
-        }
+        //}
 
 
 
