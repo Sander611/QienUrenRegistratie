@@ -58,6 +58,7 @@ button:hover .hover {display:inline;}
     display: block;
     font-size: 18px;
     text-align: center;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 .dropdown-content a:hover {
     background-color: #6a24ab
@@ -75,7 +76,8 @@ button:hover .hover {display:inline;}
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  font-size: 14px;
+    font-size: 14px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 @media (min-width: 768px) {
   html {
