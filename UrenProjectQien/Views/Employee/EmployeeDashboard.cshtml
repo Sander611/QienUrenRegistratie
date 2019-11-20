@@ -9,63 +9,72 @@
     ViewData["Title"] = "EmployeeDashboard";
 }
 
-<h1>EmployeeDashboard</h1>
-
-<table width="100%">
-    <thead>
-        <tr>
-            <th>Taak</th>
-            <th>Deadline</th>
-
-        </tr>
-    </thead>
 
 
-    <tbody>
-        @for (int i = 0; i < 5; i++)
-        {
-            <tr>
-                <td>
-                    todo
-                </td>
-                <td>
-                    todo
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<div class="container">
+    <div class="takenlijst">
+        <h1>EmployeeDashboard</h1>
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th>Taak</th>
+                    <th>Deadline</th>
 
-<h1>Peronalia</h1>
-<table width="100%">
-    <tbody>
+                </tr>
+            </thead>
 
 
-        @for (int i = 0; i < 5; i++)
-        {
-            <tr>
-                <td>Naam</td>
-                <td>Jason</td>
-            </tr>
+            <tbody>
+                @for (int i = 0; i < 5; i++)
+                {
+                    <tr>
+                        <td>
+                            todo
+                        </td>
+                        <td>
+                            todo
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="personalia">
+        <h1>Peronalia</h1>
+        <table width="100%">
+            <tbody>
 
-        }
 
-    </tbody>
-</table>
+                @for (int i = 0; i < 5; i++)
+                {
+                    <tr>
+                        <td>Naam</td>
+                        <td>Jason</td>
+                    </tr>
 
-<h1>Nieuws</h1>
-<table width="50%">
-    <tbody>
+                }
+
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="nieuws">
+        <h1>Nieuws</h1>
+        <table width="50%">
+            <tbody>
 
 
-        @for (int i = 0; i < 5; i++)
-        {
-            <tr>
-                <td>Urenregistratie is goed gekeurd door {rol} </td>
-                
-            </tr>
+                @for (int i = 0; i < 5; i++)
+                {
+                    <tr>
+                        <td>Urenregistratie is goed gekeurd door {rol} </td>
 
-        }
+                    </tr>
 
-    </tbody>
-</table>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>
