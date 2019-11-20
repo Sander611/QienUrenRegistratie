@@ -7,7 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
-namespace Shared.Models
+namespace QienHoursRegistration.DataContext
 {
     [Table("Client")]
     public class Client

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Shared.Models
+namespace QienHoursRegistration.DataContext
 {
     [Table("Account")]
     public class Account

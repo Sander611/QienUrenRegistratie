@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Shared.Models;
+using QienHoursRegistration.DataContext;
 using QienHoursRegistration.Repositories;
 using Microsoft.AspNetCore.Mvc;
 

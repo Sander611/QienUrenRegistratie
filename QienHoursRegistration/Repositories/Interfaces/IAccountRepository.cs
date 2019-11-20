@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Shared.Models;
+using QienHoursRegistration.DataContext;
 using System.Threading.Tasks;
 
 namespace QienHoursRegistration.Repositories
