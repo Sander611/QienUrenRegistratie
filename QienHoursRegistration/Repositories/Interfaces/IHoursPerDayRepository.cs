@@ -1,13 +1,15 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using QienHoursRegistration.Models;
 
 namespace QienHoursRegistration.Repositories
 {
     public interface IHoursPerDayRepository
     {
-        void CreateOneMonth(HoursForm hoursform);
-        void SaveADay(HoursPerDay dayedit);
+        Task<HoursForm> CreateOneMonth(HoursForm hoursform);
+        Task<HoursPerDay> SaveADay(HoursPerDay dayedit);
 
-        void Update(HoursPerDay daychange);
+        Task<HoursPerDay> Update(HoursPerDay daychange);
+      
     }
 }
