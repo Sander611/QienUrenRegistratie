@@ -19,15 +19,39 @@ namespace QienHoursRegistration.Repositories
         {
             context = _context;
         }
-        public async Task<List<Client>> Get()
+        public async Task<List<ClientModel>> Get()
         {
-            return await context.Clients.ToListAsync();
+            var allClients = new List<ClientModel>();
+            foreach (var client in await context.Clients.ToListAsync())
+
+                allClients.Add(new ClientModel
+                {
+                    ClientEmail1 = client.ClientEmail1,
+                    ClientEmail2 = client.ClientEmail2,
+                    AccountId = client.AccountId,
+                    ClientName1 = client.ClientName1,
+                    ClientName2 = client.ClientName2,
+                    CompanyName = client.CompanyName
+                });
+
+            return allClients;
         }
-        public async Task<Client> GetById(int id)
+        public async Task<ClientModel> GetById(int id)
         {
-            return await context.Clients.FindAsync(id);
+            
+            var oneClient = await context.Clients.FindAsync(id);
+            return new ClientModel
+            {
+                ClientEmail1 = oneClient.ClientEmail1,
+                ClientEmail2 = oneClient.ClientEmail2,
+                AccountId = oneClient.AccountId,
+                ClientName1 = oneClient.ClientName1,
+                ClientName2 = oneClient.ClientName2,
+                CompanyName = oneClient.CompanyName
+            };
         }
-        public async Task Post(Client clientModel)
+
+        public async Task<ClientModel> CreateNewClient(ClientModel clientModel)
         {
             Client newClient = new Client()
             {
@@ -40,21 +64,30 @@ namespace QienHoursRegistration.Repositories
             };
                 context.Clients.Add(newClient);
                 await context.SaveChangesAsync();
+
+            return clientModel;
         }
-        public async Task Delete(int id)
+        public async Task DeleteClient(int id)
         {
             var client = await context.Clients.FindAsync(id);
             context.Clients.Remove(client);
             await context.SaveChangesAsync();
         }
-        public async Task Update(Client client)
+        public async Task<ClientModel> Update(ClientModel client)
         {
-            context.Entry(client).State = EntityState.Modified;
+            Client clientEntity = context.Clients.Single(p => p.ClientId == client.ClientId);
+            clientEntity.ClientEmail1 = client.ClientEmail1;
+            clientEntity.ClientEmail2 = client.ClientEmail2;
+            clientEntity.AccountId = client.AccountId;
+            clientEntity.ClientName1 = client.ClientName1;
+            clientEntity.ClientName2 = client.ClientName2;
+            clientEntity.CompanyName = client.CompanyName;
             await context.SaveChangesAsync();
+            return client;
         }
-        public Client VerifyEmail(string email)
-        {
-            return context.Clients.Find(email);
-        }
+        //public async Task<Client> VerifyEmail(string email)
+        //{
+        //    return await context.Clients.Find(email);
+        //}
     }
 }

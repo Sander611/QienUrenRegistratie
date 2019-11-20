@@ -22,10 +22,10 @@ namespace QienHoursRegistration.Repositories
         }
 
         //returning all hoursforms, ordered by account Id
-        public async Task<List<HoursForm>> GetAllHoursForms()
+        public async Task<List<HoursFormModel>> GetAllHoursForms()
         {
             var models = context.HoursForms
-                .Select(p => new HoursForm
+                .Select(p => new HoursFormModel
                 {
                     FormId = p.FormId,
                     AccountId = p.AccountId,
@@ -40,25 +40,58 @@ namespace QienHoursRegistration.Repositories
         }
 
         //returning all hoursforms where IsAcceptedClient is NOT null
-        public async Task<List<HoursForm>> GetAllClientAcceptedForms()
+        public async Task<List<HoursFormModel>> GetAllClientAcceptedForms()
         {
-            var models = context.HoursForms.Where(p => p.IsAcceptedClient != null);
-            return await models.OrderBy(m => m.AccountId).ToListAsync();
+            var formsEntities = await context.HoursForms.Where(p => p.IsAcceptedClient != null).ToListAsync();
+
+            List<HoursFormModel> allForms = new List<HoursFormModel>();
+
+            foreach (var form in formsEntities)
+                allForms.Add(new HoursFormModel
+                {
+                    FormId = form.FormId,
+                    AccountId = form.AccountId,
+                    DateSend = form.DateSend,
+                    DateDue = form.DateDue,
+                    TotalHours = form.TotalHours,
+                    ProjectMonth = form.ProjectMonth,
+                    IsAcceptedClient = form.IsAcceptedClient,
+                });
+
+
+            return allForms;
             
         }
 
         //new hoursform
-        public async Task<HoursForm> createHoursForm(HoursForm hoursFormModel, int clientId)
-        {
-            context.HoursForms.Add(hoursFormModel);
+        //public async Task<HoursForm> createHoursForm(HoursFormModel hoursFormModel, int clientId)
+        //{
+        //    context.HoursForms.Add(hoursFormModel);
 
-            await context.SaveChangesAsync();
-        }
+        //    await context.SaveChangesAsync();
+        //}
 
         //getting all forms for specific account
-        public async Task<HoursForm> GetSingleAccountForms(int accountId)
+        public async Task<List<HoursFormModel>> GetSingleAccountForms(int accountId)
         {
-            return await context.HoursForms.FindAsync(accountId);
+            var formsEntities = await context.HoursForms.Where(p => p.AccountId == accountId).ToListAsync();
+
+            List<HoursFormModel> allFormsForUser = new List<HoursFormModel>();
+
+            foreach (var form in formsEntities)
+                allFormsForUser.Add(new HoursFormModel
+                {
+                    FormId = form.FormId,
+                    AccountId = form.AccountId,
+                    DateSend = form.DateSend,
+                    DateDue = form.DateDue,
+                    TotalHours = form.TotalHours,
+                    ProjectMonth = form.ProjectMonth,
+                    IsAcceptedClient = form.IsAcceptedClient,
+                });
+
+
+            return allFormsForUser;
 
         }
 
@@ -69,20 +102,31 @@ namespace QienHoursRegistration.Repositories
         }
 
         //edit the form
-        public async void EditForm(HoursForm editform)
+        public async Task<HoursFormModel> EditForm(HoursFormModel editform)
         {
-            context.HoursForms.Add(new HoursForm
-            {
-                FormId = editform.FormId,
-                AccountId = editform.AccountId,
-                DateSend = editform.DateSend,
-                DateDue = editform.DateDue,
-                TotalHours = editform.TotalHours,
-                ProjectMonth = editform.ProjectMonth,
-                IsAcceptedClient = editform.IsAcceptedClient
 
-            });
+
+            HoursForm entity = context.HoursForms.Single(p => p.FormId == editform.FormId);
+            entity.FormId = editform.FormId;
+            entity.AccountId = editform.AccountId;
+            entity.DateSend = editform.DateSend;
+            entity.DateDue = editform.DateDue;
+            entity.TotalHours = editform.TotalHours;
+            entity.ProjectMonth = editform.ProjectMonth;
+            entity.IsAcceptedClient = editform.IsAcceptedClient;
+
             await context.SaveChangesAsync();
+
+            return editform;
+        }
+
+        public async Task<HoursFormModel> CreateNewForm(HoursFormModel hoursFormModel)
+        {
+            // create form
+            
+            // get form id, maand, jaar
+            // generate days
+            return hoursFormModel;
         }
     }
 }

@@ -28,32 +28,34 @@ namespace QienHoursRegistration.Controllers
         }
 
         [HttpGet("hourforms")]
-        public async Task<IEnumerable<HoursForm>> GetAllHoursForms()
+        public async Task<IEnumerable<HoursFormModel>> GetAllHoursForms()
         {
             return await hoursform.GetAllHoursForms();
         }
 
         [HttpGet("clientacceptforms")]
-        public async Task<IEnumerable<HoursForm>> GetAllClientAcceptedForms()
+        public async Task<IEnumerable<HoursFormModel>> GetAllClientAcceptedForms()
         {
             return await hoursform.GetAllClientAcceptedForms();
         }
 
-        [HttpPost("createhourform")]
-        public ActionResult<HoursForm> createHourForm(HoursFormModel hoursFormModel, int clientId)
-        {
-            return hoursform.createHoursForm(hoursFormModel, clientId);
-        }
+        //[HttpPost("createhourform")]
+        //public ActionResult<HoursFormModel> createHourForm(HoursFormModel hoursFormModel, int clientId)
+        //{
+        //    return hoursform.createHoursForm(hoursFormModel, clientId);
+        //}
 
         [HttpGet("singleaccountform/{accountId}")]
-        public async Task<ActionResult<HoursForm>> GetSingleAccountForms(int accountId)
+        public async Task<IEnumerable<HoursFormModel>> GetSingleAccountForms(int accountId)
         {
             return await hoursform.GetSingleAccountForms(accountId);
         }
-        [HttpPatch]
-        public void EditForm(HoursForm editform)
+
+
+        [HttpPost("updateHoursForm")]
+        public async Task<ActionResult<HoursFormModel>> EditForm(HoursFormModel editform) 
         {
-            hoursform.EditForm(editform);
+           return await hoursform.EditForm(editform);
         }
 
     }

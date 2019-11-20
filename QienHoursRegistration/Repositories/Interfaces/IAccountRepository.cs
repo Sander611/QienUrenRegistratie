@@ -1,16 +1,16 @@
 ﻿using System.Collections.Generic;
 using QienHoursRegistration.DataContext;
 using System.Threading.Tasks;
-
+using Shared.Models;
 namespace QienHoursRegistration.Repositories
 {
     public interface IAccountRepository
     {
-        Task<Account> AddNewAccount(Account account);
-        Task<List<Account>> GetAllAccounts();
-        Task<Account> GetOneAccount(int accountId);
-        Task<Account> ModifyAccountActivity(int accountId, bool IsActive);
-        Task<Account> RemoveAccount(int accountId);
-        Task<Account> UpdateAccount(Account account);
+        Task<AccountModel> AddNewAccount(AccountModel account);
+        Task<List<AccountModel>> GetAllAccounts();
+        Task<AccountModel> GetOneAccount(int accountId);
+        Task<AccountModel> ModifyAccountActivity(int accountId, bool IsActive);
+        void RemoveAccount(int accountId);
+        Task<AccountModel> UpdateAccount(AccountModel account);
     }
 }
