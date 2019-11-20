@@ -19,14 +19,47 @@ namespace UrenProjectQien.Controllers
             _httpClientFactory = httpClientFactory;
         }
         [HttpGet]
-        [Route("GetAllClients")]
-        public async Task<List<Client>> GetAllClients()
+        public async Task<ActionResult> GetAllClients()
         {
             var client = _httpClientFactory.CreateClient("Api");
             var response = await client.GetAsync("GetAll");
-
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception("Cannont retrieve clients");
+            }
             var jsonString = await response.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<List<Client>>(jsonString);
+            var result = JsonConvert.DeserializeObject<List<Client>>(jsonString);
+            return View(result);
+        }
+        public async Task<ActionResult> ClientDetails(int clientId)
+        {
+            var client = _httpClientFactory.CreateClient("Api");
+            var response = await client.GetAsync("GetClientById");
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception("Cannont retrieve tasks");
+            }
+            var jsonString = await response.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<List<Client>>(jsonString);
+            return View(result);
+        }
+        public async Task OnGet()
+        {
+            var client = _httpClientFactory.CreateClient("Api");
+
+            var response = await client.SendAsync("Create");
+
+            if (response.IsSuccessStatusCode)
+            {
+                using var responseStream = await response.Content.ReadAsStreamAsync();
+                Branches = await JsonSerializer.DeserializeAsync
+                    <IEnumerable<GitHubBranch>>(responseStream);
+            }
+            else
+            {
+                GetBranchesError = true;
+                Branches = Array.Empty<GitHubBranch>();
+            }
         }
     }
 }
