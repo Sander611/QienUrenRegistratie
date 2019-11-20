@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using QienHoursRegistration.Models;
+using Shared.Models;
 using QienHoursRegistration.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,8 +22,8 @@ namespace QienHoursRegistration.Controllers
         [HttpGet("accounts")]
         public async Task<List<Account>> Index()
         {
-            var accounts = accountRepository.GetAllAccounts();
-            return await accounts;
+            var accounts = await accountRepository.GetAllAccounts();
+            return accounts;
         }
 
         [HttpGet("{id}")]
