@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using QienHoursRegistration.DataContext;
-using Shared.Models
+using Shared.Models;
 
 namespace QienHoursRegistration.Repositories
 {
