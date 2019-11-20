@@ -18,6 +18,12 @@ namespace UrenProjectQien.Controllers
             _logger = logger;
         }
 
+        //test
+        public IActionResult EmployeeDashboard()
+        {
+            return View();
+        }
+
         public IActionResult Index()
         {
             return View();

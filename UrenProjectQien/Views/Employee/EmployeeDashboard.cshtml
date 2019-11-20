@@ -1,7 +1,37 @@
-﻿
+﻿@model List<HoursPerDayModel>  
+@{
+    
+}
+
+
+
 @{
     ViewData["Title"] = "EmployeeDashboard";
 }
 
 <h1>EmployeeDashboard</h1>
 
+<table width="100%">
+    <thead>
+        <tr>
+            <th>Taak</th>
+            <th>Deadline</th>
+
+        </tr>
+    </thead>
+
+    
+    <tbody>
+        @for (int i = 0; i < 5; i++) 
+        {
+            <tr>
+                <td>
+                    todo
+                </td>
+                <td>
+                    todo
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
