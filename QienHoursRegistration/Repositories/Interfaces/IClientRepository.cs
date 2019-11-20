@@ -8,11 +8,11 @@ namespace QienHoursRegistration.Repositories
 {
     public interface IClientRepository
     {
-        Task<List<Client>> Get();
-        Task<Client> GetById(int id);
-        Task Post(Client clientModel);
-        Task Delete(int id);
-        Task Update(Client client);
-        Client VerifyEmail(string email);
+        Task<List<ClientModel>> Get();
+        Task<ClientModel> GetById(int id);
+        Task<ClientModel> CreateNewClient(ClientModel clientModel);
+        Task DeleteClient(int id);
+        Task<ClientModel> Update(ClientModel client);
+        //Client VerifyEmail(string email);
     }
 }

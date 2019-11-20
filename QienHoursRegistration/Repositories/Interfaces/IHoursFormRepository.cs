@@ -1,17 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using QienHoursRegistration.DataContext;
+using Shared.Models;
 
 namespace QienHoursRegistration.Repositories
 {
     public interface IHoursFormRepository
     {
-        void EditForm(HoursForm editform);
-        Task<List<HoursForm>> GetAllHoursForms();
-        HoursForm GetHoursForm(HoursForm hoursformmodel);
-        Task<HoursForm> GetSingleAccountForms(int id);
-        Task<HoursForm> GetSingleForm(int id);
+        Task<HoursFormModel> EditForm(HoursFormModel editform);
+        Task<List<HoursFormModel>> GetAllHoursForms();
 
-        Task<List<HoursForm>> GetAllClientAcceptedForms();
+        Task<List<HoursFormModel>> GetSingleAccountForms(int id);
+
+        Task<HoursFormModel> CreateNewForm();
+        Task<List<HoursFormModel>> GetAllClientAcceptedForms();
     }
 }

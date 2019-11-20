@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using QienHoursRegistration.DataContext;
 using QienHoursRegistration.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using Shared.Models;
 
 namespace QienHoursRegistration.Controllers
 {
@@ -20,34 +21,37 @@ namespace QienHoursRegistration.Controllers
         }
 
         [HttpGet("accounts")]
-        public async Task<List<Account>> Index()
+        public async Task<List<AccountModel>> GetAllAccounts()
         {
-            var accounts = await accountRepository.GetAllAccounts();
+            List<AccountModel> accounts = await accountRepository.GetAllAccounts();
             return accounts;
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Account>> Details(int id)
+        public async Task<ActionResult<AccountModel>> GetOneAccount(int id)
         {
-            var account = accountRepository.GetOneAccount(id);
-            return await account;
+            AccountModel account = await accountRepository.GetOneAccount(id);
+            return account;
         }
 
 
         [HttpPost("createAccount")]
-        public async Task<ActionResult<Account>> AddAccount(Account account)
+        public async Task<ActionResult<AccountModel>> AddAccount(AccountModel account)
         {
             if (!ModelState.IsValid)
                 return account;
 
             return await accountRepository.AddNewAccount(account);
-            //return RedirectToAction("Index", new Account { AccountId = account.AccountId });
         }
 
         [HttpPost("updateAccount")]
-        public async Task<ActionResult<Account>> Update(Account account)
+        public async Task<ActionResult<AccountModel>> UpdateAccount(int id, AccountModel account)
         {
-            //var account = accountRepository.GetOneAccount(id);
+            var existingAccount = await accountRepository.GetOneAccount(id);
+            if (existingAccount == null)
+            {
+                return BadRequest();
+            }
             return await accountRepository.UpdateAccount(account);
         }
     }
