@@ -22,7 +22,7 @@ namespace UrenProjectQien.Controllers
         {
             _httpClientFactory = httpClientFactory;
         }
-        [HttpGet]
+
         public async Task<IActionResult> GetAllClients()
         {
             var client = _httpClientFactory.CreateClient("Api");
@@ -32,8 +32,10 @@ namespace UrenProjectQien.Controllers
                 throw new Exception("Cannont retrieve clients");
             }
             var jsonString = await response.Content.ReadAsStringAsync();
+
             var result = JsonConvert.DeserializeObject<List<ClientModel>>(jsonString);
             return View(result);
+
         }
         //public async Task<ActionResult> ClientDetails(int clientId)
         //{

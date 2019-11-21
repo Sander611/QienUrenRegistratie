@@ -25,6 +25,7 @@ namespace QienHoursRegistration.Repositories
         //returning all hoursforms, ordered by account Id
         public async Task<List<HoursFormModel>> GetAllHoursForms()
         {
+
             var models = context.HoursForms
                 .Select(p => new HoursFormModel
                 {
@@ -43,28 +44,33 @@ namespace QienHoursRegistration.Repositories
         }
 
         //returning all hoursforms where IsAcceptedClient is NOT null
-        public async Task<List<HoursFormModel>> GetAllClientAcceptedForms()
+        public async Task<List<AdminTaskModel>> GetAllClientAcceptedForms()
         {
             var formsEntities = await context.HoursForms.Where(p => p.IsAcceptedClient != null).ToListAsync();
 
-            List<HoursFormModel> allForms = new List<HoursFormModel>();
+            List<AdminTaskModel> allAdminTasks = new List<AdminTaskModel>();
 
-            foreach (var form in formsEntities)
-                allForms.Add(new HoursFormModel
+            foreach (var form in formsEntities) {
+                var user = from currentUser in context.Accounts.Where(c => c.AccountId == form.AccountId) select new { Name = currentUser.FirstName + " " + currentUser.LastName };
+                
+                allAdminTasks.Add(new AdminTaskModel
                 {
-                    FormId = form.FormId,
-                    AccountId = form.AccountId,
-                    DateSend = form.DateSend,
-                    DateDue = form.DateDue,
-                    TotalHours = form.TotalHours,
+                    formId = form.FormId,
+                    accountId = form.AccountId,
+                    FullName = user.First().Name,
+                    Info = "Uren registratie " + form.ProjectMonth + " " + form.Year.ToString(),
+                    Month = form.ProjectMonth,
                     Year = form.Year,
-                    ProjectMonth = form.ProjectMonth,
-                    IsAcceptedClient = form.IsAcceptedClient,
-                    IsLocked =  form.IsLocked
+                    HandInTime = form.DateSend,
+                    stateClientCheck = form.IsAcceptedClient
+
+
                 });
+            }
 
 
-            return allForms;
+
+            return allAdminTasks;
             
         }
 

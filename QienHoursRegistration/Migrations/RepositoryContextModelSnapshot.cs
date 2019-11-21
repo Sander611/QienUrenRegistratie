@@ -133,7 +133,8 @@ namespace QienHoursRegistration.Migrations
                     b.Property<DateTime?>("DateSend")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsAcceptedClient")
+                    b.Property<bool?>("IsAcceptedClient")
+                        .IsRequired()
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsLocked")

@@ -1,7 +1,20 @@
-﻿
+﻿@model Shared.Models.AccountModel
 @{
     ViewData["Title"] = "Create Employee";
 }
 
-<h1>Medewerker aanmaken</h1>
+@using (Html.BeginForm("CreateEmployee"))
+        { 
+            <div class="FormCreateEmployee">
+                <div>
+                    <label asp-for="FirstName"></label>
+                    <input asp-for="FirstName"/>
+                </div>
+                <div>
+                    <label asp-for="LastName"></label>
+                    <input asp-for="LastName" />
+                </div>
 
+            </div>
+            
+        }

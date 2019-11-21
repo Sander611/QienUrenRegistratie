@@ -26,7 +26,7 @@ namespace QienHoursRegistration.DataContext
         public int Year { get; set; }
 
         [Required]
-        public bool IsAcceptedClient { get; set; }
+        public bool? IsAcceptedClient { get; set; }
 
         public bool IsLocked { get; set; }
     }

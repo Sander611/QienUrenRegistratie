@@ -19,7 +19,7 @@ namespace Shared.Models
         [DisplayName("Maand")]
         public string Month { get; set; }
         [DisplayName("Year")]
-        public string Year { get; set; }
+        public int Year { get; set; }
 
         [DisplayName("Ingeleverd op")]
         public DateTime? HandInTime { get; set; }

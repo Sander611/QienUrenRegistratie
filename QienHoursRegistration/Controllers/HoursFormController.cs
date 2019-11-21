@@ -34,7 +34,7 @@ namespace QienHoursRegistration.Controllers
         }
 
         [HttpGet("clientacceptforms")]
-        public async Task<IEnumerable<HoursFormModel>> GetAllClientAcceptedForms()
+        public async Task<IEnumerable<AdminTaskModel>> GetAllClientAcceptedForms()
         {
             return await hoursform.GetAllClientAcceptedForms();
         }

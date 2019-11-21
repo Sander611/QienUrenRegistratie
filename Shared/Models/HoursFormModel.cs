@@ -15,7 +15,7 @@ namespace Shared.Models
         public string ProjectMonth { get; set; }
         public int Year { get; set; }
 
-        public bool IsAcceptedClient { get; set; }
+        public bool? IsAcceptedClient { get; set; }
 
         public bool IsLocked { get; set; }
     }
