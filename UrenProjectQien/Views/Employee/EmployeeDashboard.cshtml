@@ -7,50 +7,51 @@
 
 
 
-<div class="container">
-    <div class="takenlijst">
-        <h1>EmployeeDashboard</h1>
-        <table width="100%">
-            <thead>
-                <tr>
-                    <th>Taak</th>
-                    <th>Deadline</th>
+    <div class="Emp-container">
+        <div class="takenlijst">
+            <h1 id="takenheader">Takenlijst</h1>
+            <table width="100%">
+                <thead>
 
-                </tr>
-            </thead>
+                    <tr id="headerrow">
+                        <th>Taak</th>
+                        <th>Deadline</th>
 
-
-            <tbody>
-                @for (int i = 0; i < 5; i++)
-                {
-                    <tr>
-                        <td>
-                            todo
-                        </td>
-                        <td>
-                            todo
-                        </td>
                     </tr>
-                }
-            </tbody>
-        </table>
-    </div>
+                </thead>
 
-    <div class="personalia">
-        <h1>Peronalia</h1>
-        <table width="100%" border="1">
-            <tbody>
-                
+
+                <tbody>
+                    @for (int i = 0; i < 5; i++)
+                    {
+                        <tr>
+                            <td>
+                                todo
+                            </td>
+                            <td>
+                                todo
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="personalia">
+            <h1 id="takenheader">Peronalia</h1>
+            <table width="100%" border="1">
+                <tbody>
+
                     <tr>
                         <td>Naam</td>
                         <td>@Model.FirstName</td>
-                        
+
                     </tr>
                     <tr>
                         <td>Achternaam</td>
                         <td>@Model.LastName</td>
                     </tr>
-                        
+
                     <tr>
                         <td>Stad</td>
                         <td>@Model.City</td>
@@ -65,23 +66,42 @@
                         <td>Verjaardag</td>
                         <td>@Model.DateOfBirth</td>
                     </tr>
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="nieuws">
+            <h1 id="takenheader">Nieuws</h1>
+            <table width="50%">
+                <tbody>
+                    @for (int i = 0; i < 5; i++)
+                    {
+                        <tr>
+                            <td>Urenregistratie is goed gekeurd door {rol} </td>
+
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+        </div>
+
     </div>
 
-    <div class="nieuws">
-        <h1>Nieuws</h1>
-        <table width="50%">
-            <tbody>
-                @for (int i = 0; i < 5; i++)
-                {
-                    <tr>
-                        <td>Urenregistratie is goed gekeurd door {rol} </td>
+    <table width="50%" id="profiel">
+        <tbody>
+            <tr>
+                <td><img src="~/Images/QienLogo.png" height="50" width="50" /></td>
+            </tr>
+            <tr>
+                <td>Trainee</td>
+            </tr>
+            <tr>
+                <td>Romy van der Sar</td>
+            </tr>
+            <tr>
+                <td>Werkgever</td>
+            </tr>
 
-                    </tr>
-
-                }
-            </tbody>
-        </table>
-    </div>
-</div>
+        </tbody>
+    </table>
