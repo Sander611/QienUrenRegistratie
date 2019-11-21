@@ -9,8 +9,9 @@ using Shared.Models;
 
 namespace QienHoursRegistration.Controllers
 {
-    [Route("api/[controller]")]
+    
     [ApiController]
+    [Route("[controller]")]
     public class AccountController : Controller
     {
         private readonly IAccountRepository accountRepository;

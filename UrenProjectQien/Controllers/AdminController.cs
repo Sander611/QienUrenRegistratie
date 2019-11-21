@@ -12,31 +12,30 @@ namespace UrenProjectQien.Controllers
 {
     public class AdminController : Controller
     {
-        ApiHelper _api = new ApiHelper();
+        private IHttpClientFactory _httpClientFactory;
+
+        public AdminController(IHttpClientFactory httpClientFactory)
+        {
+            _httpClientFactory = httpClientFactory;
+        }
+
         public async Task<IActionResult> Dashboard()
         {
-            //Taskoverzicht
-
-            //api call op methode
-            //list view returnen 
-            // [naam] - Urenregistratie [Maand] [Jaar] bij [Companyname] | [Datum][tijd] | [statusClientcheck] | Controleren
-            //List<HoursForm> uncheckedForms = new List<HoursForm>();
-
-            //HttpClient client = _api.Connect();
-            //HttpResponseMessage res = await client.GetAsync("api/uncheckedForms");
-            //if (res.IsSuccessStatusCode)
-            //{
-            //    var result = res.Content.ReadAsStringAsync().Result;
-            //    uncheckedForms = JsonConvert.DeserializeObject<List<HoursForm>>(result);
-            //}
-
+            
             List<AdminTaskModel> uncheckedForms = new List<AdminTaskModel>();
 
-            for (int i = 0; i < 6; i++)
+            
+
+            var request = new HttpRequestMessage(HttpMethod.Get,
+                "https://localhost:5001/HoursForm/clientacceptforms");
+            var client = _httpClientFactory.CreateClient();
+
+            var response = await client.SendAsync(request);
+
+            if (response.IsSuccessStatusCode)
             {
-                // formid meegeven
-                AdminTaskModel atm = new AdminTaskModel() { formId = 1, accountId = 1, FullName = "Test", HandInTime = DateTime.Now, stateClientCheck = null, Info = "Uren Registratie Januari 2019 bij Macaw", Month="Januari", Year="2019"};
-                uncheckedForms.Add(atm);
+                var responseStream = await response.Content.ReadAsStringAsync();
+                uncheckedForms = JsonConvert.DeserializeObject<List<AdminTaskModel>>(responseStream);
             }
 
 
@@ -44,17 +43,32 @@ namespace UrenProjectQien.Controllers
             return View(uncheckedForms);
         }
 
-        public async Task<IActionResult> Controleren(int formId, int userId, string month, string year)
+        public async Task<IActionResult> Controleren(int formId, int accountId, string fullName, string month, string year)
         {
-            // get data using arguments
-            // naam
-            // dagen 
-            // make table with headers
+
             ViewBag.formId = formId;
-            ViewBag.userid = userId;
+            ViewBag.accountId = accountId;
+            ViewBag.fullName = fullName;
             ViewBag.month = month;
             ViewBag.year = year;
-            return View();
+
+            List<HoursPerDayModel> formsForId = new List<HoursPerDayModel>();
+
+            var request = new HttpRequestMessage(HttpMethod.Get,
+                "https://localhost:5001/HoursPerDay/getAllDaysForForm/" + formId);
+            var client = _httpClientFactory.CreateClient();
+
+            var response = await client.SendAsync(request);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responseStream = await response.Content.ReadAsStringAsync();
+                formsForId = JsonConvert.DeserializeObject<List<HoursPerDayModel>>(responseStream);
+            }
+
+
+
+            return View(formsForId);
         }
 
         public async Task<IActionResult> CreateEmployee()
