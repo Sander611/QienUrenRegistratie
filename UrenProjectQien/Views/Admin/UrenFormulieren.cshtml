@@ -70,11 +70,20 @@
             <td>
                 @Html.DisplayFor(modelItem => item.IsAcceptedClient)
             </td>
+            @if (item.IsLocked == true)
+            {
+                <td align=center>
+                    <img style="width: 15px; height:auto;" src="~/Images/check-circle-solid.svg" />
+                </td>
+            }
+            else if (item.IsLocked == false)
+            {
+                <td align=center>
+                    <img style="width: 15px; height:auto;" src="~/Images/times-circle-solid.svg" />
+                </td>
+            }
             <td>
-                @Html.DisplayFor(modelItem => item.IsLocked)
-            </td>
-            <td>
-                @Html.ActionLink("Inzien", "Controleren", new { formId= item.FormId, accountId= item.AccountId, fullName=@ViewBag.currUser, month=item.ProjectMonth, year=item.Year})
+                @Html.ActionLink("Inzien", "Controleren", new { formId = item.FormId, accountId = item.AccountId, fullName = @ViewBag.currUser, month = item.ProjectMonth, year = item.Year })
             </td>
         </tr>
 }

@@ -46,9 +46,9 @@ namespace QienHoursRegistration.Controllers
         }
 
         [HttpPost("updateAccount")]
-        public async Task<ActionResult<AccountModel>> UpdateAccount(int id, AccountModel account)
+        public async Task<ActionResult<AccountModel>> UpdateAccount(AccountModel account)
         {
-            var existingAccount = await accountRepository.GetOneAccount(id);
+            var existingAccount = await accountRepository.GetOneAccount(account.AccountId);
             if (existingAccount == null)
             {
                 return BadRequest();

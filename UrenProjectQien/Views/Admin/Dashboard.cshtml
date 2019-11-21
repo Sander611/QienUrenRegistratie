@@ -42,22 +42,20 @@
             @if (item.stateClientCheck == true)
             {
                 <td align=center>
-                    <i style="color: #9A33F8;" class="fas fa-check-circle"></i>
-                    @*<img style="color: #9A33F8; text-align:center; width: 15px; height:auto;" src="~/Images/check-circle-solid.svg" />*@
+                    <img style="width: 15px; height:auto;" src="~/Images/check-circle-solid.svg" />
                 </td>
             }
             else if (item.stateClientCheck == false)
             {
-        <td align=center>
-            <i style="color: red;" class="fas fa-times-circle"></i>
-            @*<img style="color: red; text-align:center; width: 15px; height:auto;" src="~/Images/times-circle-solid.svg" />*@
-        </td>
+                <td align=center>
+                    <img style="width: 15px; height:auto;" src="~/Images/times-circle-solid.svg" />
+                 </td>
             }
             else
             {
-        <td>
-            In afwachting..
-        </td>
+                <td>
+                    In afwachting..
+                </td>
                
 
             }
