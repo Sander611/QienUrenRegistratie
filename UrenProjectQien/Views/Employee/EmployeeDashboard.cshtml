@@ -1,7 +1,87 @@
-﻿
+﻿@model Shared.Models.AccountModel;
+
+
 @{
     ViewData["Title"] = "EmployeeDashboard";
 }
 
-<h1>EmployeeDashboard</h1>
 
+
+<div class="container">
+    <div class="takenlijst">
+        <h1>EmployeeDashboard</h1>
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th>Taak</th>
+                    <th>Deadline</th>
+
+                </tr>
+            </thead>
+
+
+            <tbody>
+                @for (int i = 0; i < 5; i++)
+                {
+                    <tr>
+                        <td>
+                            todo
+                        </td>
+                        <td>
+                            todo
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="personalia">
+        <h1>Peronalia</h1>
+        <table width="100%" border="1">
+            <tbody>
+                
+                    <tr>
+                        <td>Naam</td>
+                        <td>@Model.FirstName</td>
+                        
+                    </tr>
+                    <tr>
+                        <td>Achternaam</td>
+                        <td>@Model.LastName</td>
+                    </tr>
+                        
+                    <tr>
+                        <td>Stad</td>
+                        <td>@Model.City</td>
+                    </tr>
+
+                    <tr>
+                        <td>Adress</td>
+                        <td>@Model.Address</td>
+                    </tr>
+
+                    <tr>
+                        <td>Verjaardag</td>
+                        <td>@Model.DateOfBirth</td>
+                    </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="nieuws">
+        <h1>Nieuws</h1>
+        <table width="50%">
+            <tbody>
+                @for (int i = 0; i < 5; i++)
+                {
+                    <tr>
+                        <td>Urenregistratie is goed gekeurd door {rol} </td>
+
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
