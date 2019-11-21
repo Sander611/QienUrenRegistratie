@@ -6,6 +6,7 @@ using Shared.Models;
 using Microsoft.AspNetCore.Mvc;
 using UrenProjectQien.Helper;
 using System.Net.Http;
+using Newtonsoft.Json;
 
 namespace UrenProjectQien.Controllers
 {
@@ -15,19 +16,29 @@ namespace UrenProjectQien.Controllers
         
         public async Task<IActionResult> EmployeeDashboard()
         {
-            //HttpClient httpClient = _api.initial(); 
-            AccountModel account = new AccountModel()
+            List<HoursFormModel> hoursforms = new List<HoursFormModel>();
+
+            //HttpClient client = _api.Connect();
+            //HttpResponseMessage res = await client.GetAsync("HoursForm/hoursform");
+
+            //if(res.IsSuccessStatusCode)
+            //{
+            //    var result = res.Content.ReadAsStringAsync().Result;
+            //    hoursforms = JsonConvert.DeserializeObject<List<HoursFormModel>>(result);
+            //}
+
+            for (int i = 0; i < 5; i++)
             {
-                FirstName = "Romy",
-                LastName = "van der Sar",
-                City = "Utrecht",
-                Address = "Langelaan 45",
-                DateOfBirth = new DateTime(1995, 8, 6)
-                
+                HoursFormModel hoursform = new HoursFormModel()
+                {
+                    ProjectMonth = "November",
+                    DateDue = new DateTime(2019,02,12)
 
+                };
 
-            };
-            return View(account);
+                hoursforms.Add(hoursform);
+            }
+            return View(hoursforms);
         }
     }
 }

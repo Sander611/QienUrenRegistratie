@@ -1,4 +1,4 @@
-﻿@model Shared.Models.AccountModel;
+﻿@model List<Shared.Models.HoursFormModel>;
 
 
 @{
@@ -7,29 +7,31 @@
 }
 
     <div class="wrapper">
-        <table id="profiel">
+        <table id="profile">
             <tbody>
                 <tr>
-                    <td><img src="~/Images/QienLogo.png" height="50" width="50" /></td>
+                    <img src="~/Images/QienLogo.png" height="150" width="150" />
                 </tr>
                 <tr>
-                    <td>Trainee</td>
+                    <h2>[Trainee]</h2>
                 </tr>
                 <tr>
-                    <td>Romy van der Sar</td>
+                    <h2>Romy van der Sar</h2>
                 </tr>
                 <tr>
-                    <td>Werkgever</td>
+                    <h2>[Werkgever]</h2>
                 </tr>
-
-            </tbody>
+                <tr>
+                    
+                </tr>
+            </tbody>    
         </table>
     </div>
 
         <div class="Emp-container">
             <div id="takenlijst">
                 <h1 id="takenheader">Takenlijst</h1>
-                <table width="100%">
+                <table width="60%">
                     <thead>
 
                         <tr id="headerrow">
@@ -41,49 +43,49 @@
 
 
                     <tbody>
-                        @for (int i = 0; i < 5; i++)
+                        @foreach (var hourform in Model)
                         {
                             <tr>
                                 <td>
-                                    todo
+                                    @hourform.ProjectMonth;
                                 </td>
                                 <td>
-                                    todo
+                                    @hourform.DateDue;
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Invoeren", "createHoursForm", "HoursForm");
                                 </td>
                             </tr>
                         }
+
                     </tbody>
                 </table>
             </div>
 
-            <div class="personalia">
+            <div id="personalia">
                 <h1 id="takenheader">Peronalia</h1>
-                <table width="100%" border="1">
+                <table border="1">
                     <tbody>
 
                         <tr>
                             <td>Naam</td>
-                            <td>@Model.FirstName</td>
+                            <td>Romy van der Sar</td>
 
-                        </tr>
-                        <tr>
-                            <td>Achternaam</td>
-                            <td>@Model.LastName</td>
                         </tr>
 
                         <tr>
                             <td>Stad</td>
-                            <td>@Model.City</td>
+                            <td>Utrecht</td>
                         </tr>
 
                         <tr>
                             <td>Adress</td>
-                            <td>@Model.Address</td>
+                            <td>Langelaan 45</td>
                         </tr>
 
                         <tr>
                             <td>Verjaardag</td>
-                            <td>@Model.DateOfBirth</td>
+                            <td>08-06-1995</td>
                         </tr>
                     </tbody>
                 </table>
@@ -91,12 +93,12 @@
 
             <div class="nieuws">
                 <h1 id="takenheader">Nieuws</h1>
-                <table width="50%">
+                <table>
                     <tbody>
                         @for (int i = 0; i < 5; i++)
                         {
                             <tr>
-                                <td>Urenregistratie is goed gekeurd door {rol} </td>
+                                <td>Urenregistratie is goed gekeurd door Admin </td>
 
                             </tr>
 

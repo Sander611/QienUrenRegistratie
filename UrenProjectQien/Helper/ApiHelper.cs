@@ -14,6 +14,8 @@ namespace UrenProjectQien.Helper
 
             var client = new HttpClient();
             client.BaseAddress = new Uri("https://localhost:44319/");
+            //client.BaseAddress = new Uri("https://localhost:44319/");
+
             return client;
         }
     }
