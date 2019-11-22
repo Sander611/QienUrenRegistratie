@@ -12,6 +12,7 @@ namespace UrenProjectQien.Controllers
 {
     public class AdminController : Controller
     {
+
         private IHttpClientFactory _httpClientFactory;
 
         public AdminController(IHttpClientFactory httpClientFactory)
@@ -20,6 +21,7 @@ namespace UrenProjectQien.Controllers
         }
 
         // method om als admin op een gebruiker te klikken en alle forms als overzicht te krijgen (doormiddel van dropdownmenus voor maand, jaar )
+
 
         public async Task<IActionResult> Dashboard()
         {
@@ -36,8 +38,10 @@ namespace UrenProjectQien.Controllers
 
             if (response.IsSuccessStatusCode)
             {
+
                 var responseStream = await response.Content.ReadAsStringAsync();
                 uncheckedForms = JsonConvert.DeserializeObject<List<AdminTaskModel>>(responseStream);
+
             }
 
 
