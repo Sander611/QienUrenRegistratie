@@ -5,7 +5,7 @@
 
 <h1>UrenRegistratie</h1>
 
-<form asp-controller="Hoursregistration" asp-action="Edit" method="post">
+<form asp-controller="Employee" asp-action="HoursRegistration" method="post">
     <table width="600px">
         <thead>
             <tr>
@@ -21,5 +21,5 @@
         </thead>
         @Html.EditorForModel()
     </table>
+    <button type="submit">Bewaren</button>
 </form>
-<button type="submit">Bewaren</button>
