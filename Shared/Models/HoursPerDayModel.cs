@@ -17,8 +17,6 @@ namespace Shared.Models
 
         [DisplayName("Maand")]
         public string Month { get; set; }
-        [DisplayName("Jaar")]
-        public int Year { get; set; }
 
         [DisplayName("Opdracht")]
         public int Hours { get; set; }
