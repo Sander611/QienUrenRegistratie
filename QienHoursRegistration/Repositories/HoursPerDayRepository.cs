@@ -50,7 +50,7 @@ namespace QienHoursRegistration.Repositories
         {
             var allDaysForFormId = new List<HoursPerDayModel>();
 
-            foreach (var day in await context.HoursPerDays.Where(p => p.FormId == formId).ToListAsync())
+            foreach (var day in await context.HoursPerDays.Where(p => p.FormId == formId).OrderBy(x => x.Day).ToListAsync())
                 allDaysForFormId.Add(new HoursPerDayModel
                 {
                     FormId = day.FormId,

@@ -11,7 +11,7 @@ using Shared.Models;
 namespace QienHoursRegistration.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class ClientController : ControllerBase
     {
         private readonly IClientRepository clientRepo;

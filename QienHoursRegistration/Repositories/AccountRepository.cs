@@ -17,10 +17,12 @@ namespace QienHoursRegistration.Repositories
             this.repositoryContext = context;
         }
 
-        public async Task<List<AccountModel>> GetAllAccounts()
+        public async Task<List<AccountModel>> GetAllAccounts(string searchString)
         {
             var allAccounts = new List<AccountModel>();
-            foreach (var account in await repositoryContext.Accounts.ToListAsync())
+            foreach (var account in await repositoryContext.Accounts.Where(
+                                                                            x=>x.FirstName.Contains(searchString) || x.LastName.Contains(searchString) || searchString == null
+                                                                          ).ToListAsync())
 
                 allAccounts.Add(new AccountModel
                 {
@@ -81,11 +83,12 @@ namespace QienHoursRegistration.Repositories
 
         }
 
-        public async void RemoveAccount(int accountId)
+        public string RemoveAccount(int accountId)
         {
             var account = repositoryContext.Accounts.SingleOrDefault(p => p.AccountId == accountId);
             repositoryContext.Accounts.Remove(account);
-            await repositoryContext.SaveChangesAsync();
+            repositoryContext.SaveChanges();
+            return "Record has succesfully Deleted";
 
         }
 
