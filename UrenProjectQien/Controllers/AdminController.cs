@@ -12,31 +12,36 @@ namespace UrenProjectQien.Controllers
 {
     public class AdminController : Controller
     {
-        ApiHelper _api = new ApiHelper();
+
+        private IHttpClientFactory _httpClientFactory;
+
+        public AdminController(IHttpClientFactory httpClientFactory)
+        {
+            _httpClientFactory = httpClientFactory;
+        }
+
+        // method om als admin op een gebruiker te klikken en alle forms als overzicht te krijgen (doormiddel van dropdownmenus voor maand, jaar )
+
+
         public async Task<IActionResult> Dashboard()
         {
-            //Taskoverzicht
-
-            //api call op methode
-            //list view returnen 
-            // [naam] - Urenregistratie [Maand] [Jaar] bij [Companyname] | [Datum][tijd] | [statusClientcheck] | Controleren
-            //List<HoursForm> uncheckedForms = new List<HoursForm>();
-
-            //HttpClient client = _api.Connect();
-            //HttpResponseMessage res = await client.GetAsync("api/uncheckedForms");
-            //if (res.IsSuccessStatusCode)
-            //{
-            //    var result = res.Content.ReadAsStringAsync().Result;
-            //    uncheckedForms = JsonConvert.DeserializeObject<List<HoursForm>>(result);
-            //}
-
+            
             List<AdminTaskModel> uncheckedForms = new List<AdminTaskModel>();
 
-            for (int i = 0; i < 6; i++)
+            
+
+            var request = new HttpRequestMessage(HttpMethod.Get,
+                "https://localhost:5001/HoursForm/clientacceptforms");
+            var client = _httpClientFactory.CreateClient();
+
+            var response = await client.SendAsync(request);
+
+            if (response.IsSuccessStatusCode)
             {
-                // formid meegeven
-                AdminTaskModel atm = new AdminTaskModel() { formId = 1, accountId = 1, FullName = "Test", HandInTime = DateTime.Now, stateClientCheck = null, Info = "Uren Registratie Januari 2019 bij Macaw", Month="Januari", Year="2019"};
-                uncheckedForms.Add(atm);
+
+                var responseStream = await response.Content.ReadAsStringAsync();
+                uncheckedForms = JsonConvert.DeserializeObject<List<AdminTaskModel>>(responseStream);
+
             }
 
 
@@ -44,22 +49,142 @@ namespace UrenProjectQien.Controllers
             return View(uncheckedForms);
         }
 
-        public async Task<IActionResult> Controleren(int formId, int userId, string month, string year)
+        public async Task<IActionResult> Controleren(int formId, int accountId, string fullName, string month, string year)
         {
-            // get data using arguments
-            // naam
-            // dagen 
-            // make table with headers
+
             ViewBag.formId = formId;
-            ViewBag.userid = userId;
+            ViewBag.accountId = accountId;
+            ViewBag.fullName = fullName;
             ViewBag.month = month;
             ViewBag.year = year;
-            return View();
+
+            List<HoursPerDayModel> formsForId = new List<HoursPerDayModel>();
+
+            var request = new HttpRequestMessage(HttpMethod.Get,
+                "https://localhost:5001/HoursPerDay/getAllDaysForForm/" + formId);
+            var client = _httpClientFactory.CreateClient();
+
+            var response = await client.SendAsync(request);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responseStream = await response.Content.ReadAsStringAsync();
+                formsForId = JsonConvert.DeserializeObject<List<HoursPerDayModel>>(responseStream);
+            }
+
+
+
+            return View(formsForId);
+        }
+
+        public async Task<IActionResult> AccountOverzicht(string searchString)
+        {
+
+            List<AccountModel> listAccounts = new List<AccountModel>();
+
+            var request = new HttpRequestMessage(HttpMethod.Get,
+                "https://localhost:5001/Account/accounts/?searchString=" + searchString);
+            var client = _httpClientFactory.CreateClient();
+
+            var response = await client.SendAsync(request);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responseStream = await response.Content.ReadAsStringAsync();
+                listAccounts = JsonConvert.DeserializeObject<List<AccountModel>>(responseStream);
+            }
+            return View(listAccounts);
+        }
+
+        public async Task<IActionResult> UrenFormulieren(int id, string name)
+        {
+            ViewBag.currUser = name;
+
+            List<HoursFormModel> allFormsForAccount = new List<HoursFormModel>();
+
+            var request = new HttpRequestMessage(HttpMethod.Get,
+                "https://localhost:5001/HoursForm/singleaccountform/" + id);
+            var client = _httpClientFactory.CreateClient();
+
+            var response = await client.SendAsync(request);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responseStream = await response.Content.ReadAsStringAsync();
+                allFormsForAccount = JsonConvert.DeserializeObject<List<HoursFormModel>>(responseStream);
+            }
+
+
+            return View(allFormsForAccount);
+        }
+
+        public async Task<RedirectToRouteResult> DeleteAccount(int accountID)
+        {
+
+
+            var request = new HttpRequestMessage(HttpMethod.Delete,
+                "https://localhost:5001/Account/deleteAccount/" + accountID);
+            var client = _httpClientFactory.CreateClient();
+
+            var response = await client.SendAsync(request);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responseStream = await response.Content.ReadAsStringAsync();
+            }
+
+            return RedirectToRoute(new { controller = "Admin", action = "AccountOverzicht" });
+        }
+
+        public async Task<IActionResult> EditAccount (int accountID)
+        {
+            AccountModel userInfo = new AccountModel();
+
+            var request = new HttpRequestMessage(HttpMethod.Get,
+                "https://localhost:5001/Account/" + accountID);
+            var client = _httpClientFactory.CreateClient();
+
+            var response = await client.SendAsync(request);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responseStream = await response.Content.ReadAsStringAsync();
+
+                userInfo = JsonConvert.DeserializeObject < AccountModel > (responseStream);
+            }
+
+            return View(userInfo);
+        }
+
+        public async Task<RedirectToRouteResult> Edit(AccountModel updatedAccount)
+        {
+            //var request = new HttpRequestMessage(HttpMethod.Post,
+            //    "https://localhost:5001/Account/updateAccount/");
+
+
+            //var client = _httpClientFactory.CreateClient();
+
+            //var url = "https://localhost:5001/Account/updateAccount/";
+
+
+            //var encodedContent = new FormUrlEncodedContent(updatedAccount);
+
+            //var response = await client.PostAsync(url, encodedContent);
+
+            //if (response.IsSuccessStatusCode)
+            //{
+            //    var responseStream = await response.Content.ReadAsStringAsync();
+            //}
+
+            return RedirectToRoute(new { controller = "Admin", action = "AccountOverzicht" });
         }
 
         public async Task<IActionResult> CreateEmployee()
         {
             return View();
         }
+
+
+
     }
 }

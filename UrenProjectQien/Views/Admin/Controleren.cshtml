@@ -1,16 +1,17 @@
-﻿@*@model IEnumerable<Shared.Models.HoursPerDay>
+﻿@model IEnumerable<Shared.Models.HoursPerDayModel>
 
 @{
     ViewData["Title"] = "Controleren";
 }
 
-    <div class="row" style="margin-top:25px">
+    <div class="row">
   
             <div class="col-sm" style="text-align:center">
                 <img style="display: inline-block; padding-right: 10px; width: 35px; height:auto;" src="~/Images/arrow-circle-left-solid.svg" />
             </div>
             <div class="col-sm" style="text-align:center">
                 <h1>@ViewBag.month (@ViewBag.year)</h1>
+                <h2 style="text-align:center">@ViewBag.fullName</h2>
             </div>
             
             <div class="col-sm" style="text-align:center">
@@ -23,7 +24,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Day) - @Html.DisplayNameFor(model => model.Month)
+                @Html.DisplayNameFor(model => model.Day) 
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Hours)
@@ -38,7 +39,7 @@
                 @Html.DisplayNameFor(model => model.IsSick)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IsLeave)
+                @Html.DisplayNameFor(model => model.Training)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Other)
@@ -48,9 +49,36 @@
             </th>
         </tr>
     </thead>
-</table>*@
-   
-                
-    @*@ViewBag.userId
-    @ViewBag.formId*@
+    <tbody>
+@foreach(var item in Model)
+{
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Day) - @Html.DisplayFor(modelItem => item.Month)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Hours)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OverTimeHours)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsLeave)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsSick)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Training)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Other)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Reasoning)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
 

@@ -88,16 +88,16 @@ namespace UrenProjectQien.Areas.Identity.Pages.Account
                 {
                     IdentityModel identity = new IdentityModel();
                     identity.Email = Input.Email;
-                    if (identity.Email = AccountModel.Email)
-                    {
-                        if (IsTrainee == true && IsActive == true)
-                        { }
-                        if (IsSeniorDeveloper == true && IsActive == true)
-                        { }
-                        if (IsAdmin == true && IsActive == true)
-                        { }
-                        if (IsQienEmployee == true && IsActive == true)
-                    }
+                    //if (identity.Email = AccountModel.Email)
+                    //{
+                    //    if (IsTrainee == true && IsActive == true)
+                    //    { }
+                    //    if (IsSeniorDeveloper == true && IsActive == true)
+                    //    { }
+                    //    if (IsAdmin == true && IsActive == true)
+                    //    { }
+                    //    if (IsQienEmployee == true && IsActive == true)
+                    //}
 
 
 
