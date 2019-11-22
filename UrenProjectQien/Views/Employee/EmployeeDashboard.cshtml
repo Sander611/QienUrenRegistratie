@@ -1,7 +1,112 @@
-﻿
+﻿@model List<Shared.Models.HoursFormModel>;
+
+
 @{
     ViewData["Title"] = "EmployeeDashboard";
+    Layout = "_LayoutEmployee";
 }
 
-<h1>EmployeeDashboard</h1>
+    <div class="wrapper">
+        <table id="profile">
+            <tbody>
+                <tr>
+                    <img src="~/Images/QienLogo.png" height="150" width="150" />
+                </tr>
+                <tr>
+                    <h2>[Trainee]</h2>
+                </tr>
+                <tr>
+                    <h2>Romy van der Sar</h2>
+                </tr>
+                <tr>
+                    <h2>[Werkgever]</h2>
+                </tr>
+                <tr>
+                    
+                </tr>
+            </tbody>    
+        </table>
+    </div>
 
+        <div class="Emp-container">
+            <div id="takenlijst">
+                <h1 id="takenheader">Takenlijst</h1>
+                <table width="60%">
+                    <thead>
+
+                        <tr id="headerrow">
+                            <th>Taak</th>
+                            <th>Deadline</th>
+
+                        </tr>
+                    </thead>
+
+
+                    <tbody>
+                        @foreach (var hourform in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @hourform.ProjectMonth;
+                                </td>
+                                <td>
+                                    @hourform.DateDue;
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Uren Invoeren", "HoursRegistration",new { formId = 9});
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="personalia">
+                <h1 id="takenheader">Peronalia</h1>
+                <table border="1">
+                    <tbody>
+
+                        <tr>
+                            <td>Naam</td>
+                            <td>Romy van der Sar</td>
+
+                        </tr>
+
+                        <tr>
+                            <td>Stad</td>
+                            <td>Utrecht</td>
+                        </tr>
+
+                        <tr>
+                            <td>Adress</td>
+                            <td>Langelaan 45</td>
+                        </tr>
+
+                        <tr>
+                            <td>Verjaardag</td>
+                            <td>08-06-1995</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="nieuws">
+                <h1 id="takenheader">Nieuws</h1>
+                <table>
+                    <tbody>
+                        @for (int i = 0; i < 5; i++)
+                        {
+                            <tr>
+                                <td>Urenregistratie is goed gekeurd door Admin </td>
+
+                            </tr>
+
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    
+    

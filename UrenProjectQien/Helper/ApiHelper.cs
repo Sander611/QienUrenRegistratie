@@ -39,8 +39,11 @@ namespace UrenProjectQien.Helper
             var response = await client.GetAsync("");
             response.EnsureSuccessStatusCode();
 
-            var json = await response.Content.ReadAsStringAsync();
-            return JsonSerializer.Deserialize<IEnumerable<HoursPerDayModel>>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            var client = new HttpClient();
+            client.BaseAddress = new Uri("https://localhost:44319/");
+            //client.BaseAddress = new Uri("https://localhost:44319/");
+
+            return client;
         }
 
     }
