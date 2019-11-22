@@ -3,15 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Shared.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Shared.Models;
+using UrenProjectQien.Helper;
 
 namespace UrenProjectQien.Controllers
 {
     public class EmployeeController : Controller
     {
-        //ApiHelper _api = new ApiHelper();
-        
+        //private readonly ApiHelper helper;
+        //public EmployeeController(ApiHelper helper)
+        //{
+        //    this.helper = helper;
+        //}
+
+        private IHttpClientFactory _httpClientFactory;
+
+        public EmployeeController(IHttpClientFactory httpClientFactory)
+        {
+            _httpClientFactory = httpClientFactory;
+        }
         public async Task<IActionResult> EmployeeDashboard()
         {
             List<HoursFormModel> hoursforms = new List<HoursFormModel>();
