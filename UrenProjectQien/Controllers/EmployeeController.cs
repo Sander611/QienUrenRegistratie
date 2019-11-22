@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using Shared.Models;
 using UrenProjectQien.Helper;
 
@@ -10,17 +12,25 @@ namespace UrenProjectQien.Controllers
 {
     public class EmployeeController : Controller
     {
-        private readonly ApiHelper helper;
-        public EmployeeController(ApiHelper helper)
+        //private readonly ApiHelper helper;
+        //public EmployeeController(ApiHelper helper)
+        //{
+        //    this.helper = helper;
+        //}
+
+        private IHttpClientFactory _httpClientFactory;
+
+        public EmployeeController(IHttpClientFactory httpClientFactory)
         {
-            this.helper = helper;
+            _httpClientFactory = httpClientFactory;
         }
+
         public IActionResult EmployeeDashboard()
         {
             return View();
         }
 
-     
+
 
         //public IActionResult UrenRegistratie()
         //{
@@ -30,19 +40,32 @@ namespace UrenProjectQien.Controllers
         //    urenMaand.Add(hfm);
         //    return View(urenMaand);
         //}
-        int formid = 1;
 
-        public IActionResult HoursRegistration(int formid)
+
+        public async Task<IActionResult> HoursRegistration(int formid)
         {
-            return View(helper.GetHours(formid));
+            List<HoursPerDayModel> formsForId = new List<HoursPerDayModel>();
+            var request = new HttpRequestMessage(HttpMethod.Get,
+                "https://localhost:5001/HoursPerDay/getAllDaysForForm/" + formid);
+            var client = _httpClientFactory.CreateClient();
+
+            var response = await client.SendAsync(request);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responseStream = await response.Content.ReadAsStringAsync();
+                formsForId = JsonConvert.DeserializeObject<List<HoursPerDayModel>>(responseStream);
+            }
+
+            return View(formsForId);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> UrenRegistratie(List<HoursPerDayModel> model)
-        {
-            await helper.AddHours(model);
-            return RedirectToAction("EmployeeDashboard");
+        //[HttpPost]
+        //public async Task<IActionResult> UrenRegistratie(List<HoursPerDayModel> model)
+        //{
+        //    await helper.AddHours(model);
+        //    return RedirectToAction("EmployeeDashboard");
 
-        }
+        //}
     }
 }
