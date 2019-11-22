@@ -116,7 +116,7 @@
         </div>*@
                     <div class="form-group form-check">
                         <label class="form-check-label">
-                            <input class="form-check-input" asp-for="IsTrainee" /> @Html.DisplayNameFor(model => model.IsTrainee)
+                            <input id="checkTrainee" onclick="onlySelectOne(this.id)" class="form-check-input" asp-for="IsTrainee" /> @Html.DisplayNameFor(model => model.IsTrainee)
                         </label>
                     </div>
                 </div>
@@ -129,7 +129,7 @@
         </div>*@
                     <div class="form-group form-check">
                         <label class="form-check-label">
-                            <input class="form-check-input" asp-for="IsQienEmployee" /> @Html.DisplayNameFor(model => model.IsQienEmployee)
+                            <input id="checkQienEmployee" onclick="onlySelectOne(this.id)" class="form-check-input" asp-for="IsQienEmployee" /> @Html.DisplayNameFor(model => model.IsQienEmployee)
                         </label>
                     </div>
                 </div>
@@ -142,7 +142,7 @@
         </div>*@
                     <div class="form-group form-check">
                         <label class="form-check-label">
-                            <input class="form-check-input" asp-for="IsSeniorDeveloper" /> @Html.DisplayNameFor(model => model.IsSeniorDeveloper)
+                            <input id="checkSeniorDeveloper" onclick="onlySelectOne(this.id)" class="form-check-input" asp-for="IsSeniorDeveloper" /> @Html.DisplayNameFor(model => model.IsSeniorDeveloper)
                         </label>
                     </div>
                 </div>

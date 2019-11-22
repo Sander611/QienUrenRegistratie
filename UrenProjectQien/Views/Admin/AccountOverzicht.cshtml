@@ -14,6 +14,7 @@
 {
     @Html.TextBox("searchString")<input type="submit" value="Search" />
 }
+
 <table class="table">
     <thead>
         <tr>
@@ -82,7 +83,7 @@
         <td>
             @Html.ActionLink("Edit", "EditAccount", new { accountID = item.AccountId }) |
             @Html.ActionLink("Uren Formulieren", "UrenFormulieren", new { id = item.AccountId, name = item.FirstName + " " + item.LastName }) |
-            @Html.ActionLink("Delete", "DeleteAccount", new { accountID = item.AccountId })
+            @Html.ActionLink("Delete", "DeleteAccount", new { accountID = item.AccountId }, new {onclick =  "return confirm('Weet u zeker dat u dit account wilt verwijderen?');"})
         </td>
     </tr>
             }
