@@ -7,10 +7,10 @@ namespace QienHoursRegistration.Repositories
     public interface IAccountRepository
     {
         Task<AccountModel> AddNewAccount(AccountModel account);
-        Task<List<AccountModel>> GetAllAccounts();
+        Task<List<AccountModel>> GetAllAccounts(string searchString);
         Task<AccountModel> GetOneAccount(int accountId);
         Task<AccountModel> ModifyAccountActivity(int accountId, bool IsActive);
-        void RemoveAccount(int accountId);
+        string RemoveAccount(int accountId);
         Task<AccountModel> UpdateAccount(AccountModel account);
     }
 }

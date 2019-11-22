@@ -39,11 +39,28 @@
             <td>
                 @Html.DisplayFor(modelItem => item.HandInTime)
             </td>
+            @if (item.stateClientCheck == true)
+            {
+                <td align=center>
+                    <img style="width: 15px; height:auto;" src="~/Images/check-circle-solid.svg" />
+                </td>
+            }
+            else if (item.stateClientCheck == false)
+            {
+                <td align=center>
+                    <img style="width: 15px; height:auto;" src="~/Images/times-circle-solid.svg" />
+                 </td>
+            }
+            else
+            {
+                <td>
+                    In afwachting..
+                </td>
+               
+
+            }
             <td>
-                @Html.DisplayFor(modelItem => item.stateClientCheck)
-            </td>
-            <td>
-                @Html.ActionLink("Controleren", "Controleren", new { formId= item.formId, userId=item.accountId, month=item.Month, year=item.Year})
+                @Html.ActionLink("Controleren", "Controleren", new { formId = item.formId, accountId = item.accountId, fullName = item.FullName, month = item.Month, year = item.Year })
             </td>
         </tr>
 }

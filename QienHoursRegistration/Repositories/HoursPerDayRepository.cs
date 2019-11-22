@@ -28,6 +28,7 @@ namespace QienHoursRegistration.Repositories
             foreach (var daychange in daychangeList)
             {
                 var entity = context.HoursPerDays.Single(p => p.HoursPerDayId == daychange.HoursPerDayId);
+                entity.HoursPerDayId = daychange.HoursPerDayId;
                 entity.FormId = daychange.FormId;
                 entity.Day = daychange.Day;
                 entity.Hours = daychange.Hours;
@@ -50,7 +51,7 @@ namespace QienHoursRegistration.Repositories
         {
             var allDaysForFormId = new List<HoursPerDayModel>();
 
-            foreach (var day in await context.HoursPerDays.Where(p => p.FormId == formId).ToListAsync())
+            foreach (var day in await context.HoursPerDays.Where(p => p.FormId == formId).OrderBy(x => x.Day).ToListAsync())
                 allDaysForFormId.Add(new HoursPerDayModel
                 {
                     FormId = day.FormId,
@@ -62,7 +63,8 @@ namespace QienHoursRegistration.Repositories
                     IsSick = day.IsSick,
                     Other = day.Other,
                     OverTimeHours = day.OverTimeHours,
-                    ClientId = day.ClientId
+                    ClientId = day.ClientId,
+                    HoursPerDayId = day.HoursPerDayId
                 });
 
             return allDaysForFormId;

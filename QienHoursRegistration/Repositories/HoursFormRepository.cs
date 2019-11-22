@@ -46,7 +46,7 @@ namespace QienHoursRegistration.Repositories
         //returning all hoursforms where IsAcceptedClient is NOT null
         public async Task<List<AdminTaskModel>> GetAllClientAcceptedForms()
         {
-            var formsEntities = await context.HoursForms.Where(p => p.IsAcceptedClient != null).ToListAsync();
+            var formsEntities = await context.HoursForms.Where(p => p.IsAcceptedClient != null ).ToListAsync();
 
             List<AdminTaskModel> allAdminTasks = new List<AdminTaskModel>();
 
