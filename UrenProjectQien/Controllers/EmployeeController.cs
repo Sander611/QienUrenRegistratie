@@ -3,31 +3,40 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using Shared.Models;
-using UrenProjectQien.Helper;
+using Microsoft.AspNetCore.Mvc;
 
 namespace UrenProjectQien.Controllers
 {
     public class EmployeeController : Controller
     {
-        //private readonly ApiHelper helper;
-        //public EmployeeController(ApiHelper helper)
-        //{
-        //    this.helper = helper;
-        //}
-
-        private IHttpClientFactory _httpClientFactory;
-
-        public EmployeeController(IHttpClientFactory httpClientFactory)
+        //ApiHelper _api = new ApiHelper();
+        
+        public async Task<IActionResult> EmployeeDashboard()
         {
-            _httpClientFactory = httpClientFactory;
-        }
+            List<HoursFormModel> hoursforms = new List<HoursFormModel>();
 
-        public IActionResult EmployeeDashboard()
-        {
-            return View();
+            //HttpClient client = _api.Connect();
+            //HttpResponseMessage res = await client.GetAsync("HoursForm/hoursform");
+
+            //if(res.IsSuccessStatusCode)
+            //{
+            //    var result = res.Content.ReadAsStringAsync().Result;
+            //    hoursforms = JsonConvert.DeserializeObject<List<HoursFormModel>>(result);
+            //}
+
+            for (int i = 0; i < 5; i++)
+            {
+                HoursFormModel hoursform = new HoursFormModel()
+                {
+                    ProjectMonth = "November",
+                    DateDue = new DateTime(2019,02,12)
+
+                };
+
+                hoursforms.Add(hoursform);
+            }
+            return View(hoursforms);
         }
 
 
