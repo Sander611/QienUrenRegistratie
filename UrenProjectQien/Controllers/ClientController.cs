@@ -17,8 +17,6 @@ namespace UrenProjectQien.Controllers
     //[Authorize(Policy = "IsAdmicClaimAccess")]
     public class ClientController : Controller
     {
-        public IEnumerable<Client> result { get; private set; }
-        public bool GetClientError { get; private set; }
         private IHttpClientFactory _httpClientFactory;
 
         public ClientController(IHttpClientFactory httpClientFactory)
