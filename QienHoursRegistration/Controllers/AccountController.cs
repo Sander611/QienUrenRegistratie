@@ -9,8 +9,9 @@ using Shared.Models;
 
 namespace QienHoursRegistration.Controllers
 {
-    [Route("api/[controller]")]
+
     [ApiController]
+    [Route("[controller]")]
     public class AccountController : Controller
     {
         private readonly IAccountRepository accountRepository;
@@ -21,9 +22,9 @@ namespace QienHoursRegistration.Controllers
         }
 
         [HttpGet("accounts")]
-        public async Task<List<AccountModel>> GetAllAccounts()
+        public async Task<List<AccountModel>> GetAllAccounts(string searchString)
         {
-            List<AccountModel> accounts = await accountRepository.GetAllAccounts();
+            List<AccountModel> accounts = await accountRepository.GetAllAccounts(searchString);
             return accounts;
         }
 
@@ -53,6 +54,13 @@ namespace QienHoursRegistration.Controllers
                 return BadRequest();
             }
             return await accountRepository.UpdateAccount(account);
+        }
+
+        [HttpDelete("deleteAccount/{id}")]
+        public void DeleteAccount(int id)
+        {
+            string succesfull = accountRepository.RemoveAccount(id);
+            Console.WriteLine(succesfull);
         }
     }
 }

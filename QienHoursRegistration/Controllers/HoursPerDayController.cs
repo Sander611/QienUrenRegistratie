@@ -10,8 +10,9 @@ using QienHoursRegistration.Repositories;
 namespace QienHoursRegistration.Controllers
 {
 
-    [Route("api/[controller]")]
+    
     [ApiController]
+    [Route("[controller]")]
     public class HoursPerDayController : ControllerBase
     {
         private readonly IHoursPerDayRepository hoursPerDayRepository;
