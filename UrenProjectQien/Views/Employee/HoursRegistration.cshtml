@@ -1,0 +1,25 @@
+﻿@model Shared.Models.HoursPerDayModel
+@{
+    ViewData["Title"] = "HoursRegistration";
+}
+
+<h1>UrenRegistratie</h1>
+
+<form asp-controller="Hoursregistration" asp-action="Edit" method="post">
+    <table width="600px">
+        <thead>
+            <tr>
+                <th>Dag</th>
+                <th>Uren</th>
+                <th>Opdrachtgever</th>
+                <th>Ziek</th>
+                <th>Overtime</th>
+                <th>Leave</th>
+                <th>Other</th>
+                <th>Reasoning</th>
+            </tr>
+        </thead>
+        @Html.EditorForModel()
+    </table>
+</form>
+<button type="submit">Bewaren</button>

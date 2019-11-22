@@ -12,7 +12,7 @@ namespace UrenProjectQien.Controllers
 {
     public class AdminController : Controller
     {
-        ApiHelper _api = new ApiHelper();
+        //ApiHelper _api = new ApiHelper();
         public async Task<IActionResult> Dashboard()
         {
             //Taskoverzicht
@@ -35,7 +35,7 @@ namespace UrenProjectQien.Controllers
             for (int i = 0; i < 6; i++)
             {
                 // formid meegeven
-                AdminTaskModel atm = new AdminTaskModel() { formId = 1, accountId = 1, FullName = "Test", HandInTime = DateTime.Now, stateClientCheck = null, Info = "Uren Registratie Januari 2019 bij Macaw", Month="Januari", Year="2019"};
+                AdminTaskModel atm = new AdminTaskModel() { formId = 1, accountId = 1, FullName = "Test", HandInTime = DateTime.Now, stateClientCheck = null, Info = "Uren Registratie Januari 2019 bij Macaw", Month="Januari", Year=2019};
                 uncheckedForms.Add(atm);
             }
 
