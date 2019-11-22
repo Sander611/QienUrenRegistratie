@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using QienHoursRegistration.DataContext;
+using Shared;
 using Shared.Models;
 using System;
 using System.Collections.Generic;
@@ -8,14 +8,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Helpers;
 using System.Web.Http;
+using UrenProjectQien.Models;
 
 namespace QienHoursRegistration.Repositories
 {
     public class ClientRepository : IClientRepository
     {
-        private readonly RepositoryContext context;
+        private readonly UrenProjectQienContext context;
 
-        public ClientRepository(RepositoryContext _context)
+        public ClientRepository(UrenProjectQienContext _context)
         {
             context = _context;
         }

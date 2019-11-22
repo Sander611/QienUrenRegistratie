@@ -5,11 +5,12 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using QienHoursRegistration.DataContext;
+using Shared;
+using UrenProjectQien.Models;
 
 namespace QienHoursRegistration.Migrations
 {
-    [DbContext(typeof(RepositoryContext))]
+    [DbContext(typeof(UrenProjectQienContext))]
     [Migration("20191115150921_initial")]
     partial class initial
     {

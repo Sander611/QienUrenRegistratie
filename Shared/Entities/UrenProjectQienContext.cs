@@ -5,8 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Shared;
 
-namespace UrenProjectQien.Models
+namespace Shared
 {
     public class UrenProjectQienContext : IdentityDbContext<IdentityUser>
     {

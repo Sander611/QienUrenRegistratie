@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace QienHoursRegistration.DataContext
+namespace Shared
 {
     [Table("HoursPerDay")]
     public class HoursPerDay

@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using QienHoursRegistration.DataContext;
 using UrenProjectQien.Areas.Identity;
+using Shared;
 
 namespace UrenProjectQien.Models
 {
