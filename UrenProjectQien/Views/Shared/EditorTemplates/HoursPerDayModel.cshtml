@@ -1,11 +1,14 @@
 ﻿@model Shared.Models.HoursPerDayModel
-@*@foreach (var item in Model)*@
 
+@Html.HiddenFor(p => p.HoursPerDayId)
+@Html.HiddenFor(p => p.Month)
+@Html.HiddenFor(p => p.FormId)
+@Html.HiddenFor(p => p.Day)
 <tr>
-    <input type="hidden" value="@Model.FormId" name="FormId" />
-    <td>@Html.TextBoxFor(model => model.Day)</td>
+    <td>@Model.Day - @Model.Month</td>
     <td>@Html.TextBoxFor(model => model.Hours)</td>
-    <td>@Html.TextBoxFor(model => model.ClientId)</td>
+    <td><input asp-for="ClientId" /></td>
+    @*<td>@Html.TextBoxFor(model => model.ClientId)</td>*@
     <td>@Html.TextBoxFor(model => model.IsSick)</td>
     <td>@Html.TextBoxFor(model => model.OverTimeHours)</td>
     <td>@Html.TextBoxFor(model => model.IsLeave)</td>
