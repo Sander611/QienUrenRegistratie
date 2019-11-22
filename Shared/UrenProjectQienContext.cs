@@ -5,17 +5,14 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using QienHoursRegistration.DataContext;
-using UrenProjectQien.Areas.Identity;
 
 namespace UrenProjectQien.Models
 {
-    public class UrenProjectQienContext : IdentityDbContext<AccountIdentity>
+    public class UrenProjectQienContext : IdentityDbContext<IdentityUser>
     {
         public UrenProjectQienContext(DbContextOptions<UrenProjectQienContext> options)
             : base(options)
         {
-
         }
 
         public DbSet<Account> Accounts { get; set; }
@@ -25,6 +22,8 @@ namespace UrenProjectQien.Models
         public DbSet<HoursPerDay> HoursPerDays { get; set; }
 
         public DbSet<HoursForm> HoursForms { get; set; }
+
+        public DbSet<AccountIdentity> AccountIdentity { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
