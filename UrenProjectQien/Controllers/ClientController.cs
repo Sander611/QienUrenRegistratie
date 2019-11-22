@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using QienHoursRegistration.DataContext;
@@ -12,6 +14,7 @@ using UrenProjectQien.Helper;
 
 namespace UrenProjectQien.Controllers
 {
+    //[Authorize(Policy = "IsAdmicClaimAccess")]
     public class ClientController : Controller
     {
         public IEnumerable<Client> result { get; private set; }
@@ -37,36 +40,36 @@ namespace UrenProjectQien.Controllers
             return View(result);
 
         }
-        //public async Task<ActionResult> ClientDetails(int clientId)
-        //{
-        //    var client = _httpClientFactory.CreateClient("Api");
-        //    var response = await client.GetAsync("GetClientById");
-        //    if (!response.IsSuccessStatusCode)
-        //    {
-        //        throw new Exception("Cannont retrieve tasks");
-        //    }
-        //    var jsonString = await response.Content.ReadAsStringAsync();
-        //    var result = JsonConvert.DeserializeObject<List<Client>>(jsonString);
-        //    return View(result);
-        //}
-        //public async Task CreateClient()
-        //{
-        //    var request = new HttpRequestMessage(HttpMethod.Get, "Create");
-        //    var client = _httpClientFactory.CreateClient("Api");
+        public async Task<IActionResult> ClientDetails(int id)
+        {
+            var client = _httpClientFactory.CreateClient("Api");
+            var response = await client.GetAsync($"Client/{id}");
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception("Cannont retrieve client");
+            }
+            var jsonString = await response.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<ClientModel>(jsonString);
+            return View(result);
+        }
+        [HttpGet]
+        public IActionResult CreateClient()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<ClientModel> CreateClient(ClientModel newClient)
+        {
+            var client = _httpClientFactory.CreateClient("Api");
+            var content = JsonConvert.SerializeObject(newClient);
 
-        //    var response = await client.SendAsync(request);
-
-        //    if (response.IsSuccessStatusCode)
-        //    {
-        //        using var jsonString = await response.Content.ReadAsStreamAsync();
-        //        result = await JsonConvert.DeserializeObject<IEnumerable<Client>>(jsonString);
-        //    }
-        //    else
-        //    {
-        //        GetClientError = true;
-        //        result = Array.Empty<Client>;
-        //    }
-        //    return (result);
-        //}
+            var response = await client.PostAsync("Client/create", new StringContent(content, Encoding.Default, "application/json"));
+            if (response.IsSuccessStatusCode)
+            {
+                throw new Exception("Cannot add a new client");
+            }
+            var createdClient = JsonConvert.DeserializeObject<ClientModel>(await response.Content.ReadAsStringAsync());
+            return createdClient;
+        }
     }
 }
