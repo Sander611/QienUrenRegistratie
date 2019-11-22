@@ -2,8 +2,8 @@
 @*@foreach (var item in Model)*@
 
 <tr>
-    @Html.HiddenFor(m => @Model.HoursPerDayId)
-    <td>@Html.DisplayNameFor(model => model.Day)</td>
+    <input type="hidden" value="@Model.FormId" name="FormId" />
+    <td>@Html.TextBoxFor(model => model.Day)</td>
     <td>@Html.TextBoxFor(model => model.Hours)</td>
     <td>@Html.TextBoxFor(model => model.ClientId)</td>
     <td>@Html.TextBoxFor(model => model.IsSick)</td>

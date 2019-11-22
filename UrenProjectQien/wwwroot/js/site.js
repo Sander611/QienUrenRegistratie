@@ -22,3 +22,18 @@ window.onclick = function (event) {
         }
     }
 }
+
+function onlySelectOne(clickedId) {
+    if (clickedId == "checkTrainee") {
+        document.getElementById("checkSeniorDeveloper").checked = false;
+        document.getElementById("checkQienEmployee").checked = false;
+    }
+    else if (clickedId == "checkSeniorDeveloper") {
+        document.getElementById("checkQienEmployee").checked = false;
+        document.getElementById("checkTrainee").checked = false;
+    }
+    else if (clickedId == "checkQienEmployee") {
+        document.getElementById("checkSeniorDeveloper").checked = false;
+        document.getElementById("checkTrainee").checked = false;
+    }
+}

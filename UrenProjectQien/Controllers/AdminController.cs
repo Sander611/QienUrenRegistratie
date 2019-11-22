@@ -151,32 +151,35 @@ namespace UrenProjectQien.Controllers
                 var responseStream = await response.Content.ReadAsStringAsync();
 
                 userInfo = JsonConvert.DeserializeObject < AccountModel > (responseStream);
+                ViewBag.currUser = userInfo.FirstName +" "+ userInfo.LastName;
             }
 
             return View(userInfo);
         }
 
-        public async Task<RedirectToRouteResult> Edit(AccountModel updatedAccount)
+        [HttpPost]
+        public async Task<IActionResult> EditAccount(AccountModel updatedAccount)
         {
-            //var request = new HttpRequestMessage(HttpMethod.Post,
-            //    "https://localhost:5001/Account/updateAccount/");
+            if (ModelState.IsValid)
+            {
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "https://localhost:5001/Account/updateAccount/");
 
+                string json = JsonConvert.SerializeObject(updatedAccount);
 
-            //var client = _httpClientFactory.CreateClient();
+                request.Content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
 
-            //var url = "https://localhost:5001/Account/updateAccount/";
+                HttpClient http = new HttpClient();
+                HttpResponseMessage response = await http.SendAsync(request);
 
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseStream = await response.Content.ReadAsStringAsync();
+                    return RedirectToRoute(new { controller = "Admin", action = "AccountOverzicht" });
+               
+                }
+            }
 
-            //var encodedContent = new FormUrlEncodedContent(updatedAccount);
-
-            //var response = await client.PostAsync(url, encodedContent);
-
-            //if (response.IsSuccessStatusCode)
-            //{
-            //    var responseStream = await response.Content.ReadAsStringAsync();
-            //}
-
-            return RedirectToRoute(new { controller = "Admin", action = "AccountOverzicht" });
+            return View(updatedAccount);
         }
 
         public async Task<IActionResult> CreateEmployee()

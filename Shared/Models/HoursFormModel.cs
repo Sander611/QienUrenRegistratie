@@ -29,7 +29,7 @@ namespace Shared.Models
         [DisplayName("Keuring opdrachtgever")]
         public bool? IsAcceptedClient { get; set; }
 
-        [DisplayName("Vastgesteld")]
+        [DisplayName("Gesloten")]
         public bool IsLocked { get; set; }
     }
 }
