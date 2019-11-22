@@ -179,7 +179,6 @@ namespace UrenProjectQien.Controllers
                 }
             }
 
-            Console.WriteLine("stoppunt");
             return View(updatedAccount);
         }
 

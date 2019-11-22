@@ -52,17 +52,6 @@ namespace UrenProjectQien.Controllers
         }
 
 
-
-        //public IActionResult UrenRegistratie()
-        //{
-        //    var formid = 1;
-        //    List<HoursPerDayModel> urenMaand = new List<HoursPerDayModel>();
-        //    HoursPerDayModel hfm = new HoursPerDayModel() { FormId = formid };
-        //    urenMaand.Add(hfm);
-        //    return View(urenMaand);
-        //}
-
-
         public async Task<IActionResult> HoursRegistration(int formid)
         {
             List<HoursPerDayModel> formsForId = new List<HoursPerDayModel>();
@@ -81,12 +70,29 @@ namespace UrenProjectQien.Controllers
             return View(formsForId);
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> UrenRegistratie(List<HoursPerDayModel> model)
-        //{
-        //    await helper.AddHours(model);
-        //    return RedirectToAction("EmployeeDashboard");
+        [HttpPost]
+        public async Task<IActionResult> HoursRegistration(List<HoursPerDayModel> model)
+        {
+            if (ModelState.IsValid)
+            {
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "https://localhost:5001/HoursPerDay/updateHoursPerDay/");
 
-        //}
+                string json = JsonConvert.SerializeObject(model);
+
+                request.Content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+
+                HttpClient http = new HttpClient();
+                HttpResponseMessage response = await http.SendAsync(request);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseStream = await response.Content.ReadAsStringAsync();
+                    return View(model);
+
+                }
+            }
+            return View(model);
+
+        }
     }
 }
