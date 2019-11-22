@@ -25,6 +25,8 @@ namespace UrenProjectQien.Controllers
             //    hoursforms = JsonConvert.DeserializeObject<List<HoursFormModel>>(result);
             //}
 
+
+
             for (int i = 0; i < 5; i++)
             {
                 HoursFormModel hoursform = new HoursFormModel()
