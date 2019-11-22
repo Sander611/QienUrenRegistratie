@@ -26,6 +26,7 @@ namespace QienHoursRegistration.Repositories
 
                 allClients.Add(new ClientModel
                 {
+                    ClientId = client.ClientId,
                     ClientEmail1 = client.ClientEmail1,
                     ClientEmail2 = client.ClientEmail2,
                     AccountId = client.AccountId,
@@ -42,6 +43,7 @@ namespace QienHoursRegistration.Repositories
             var oneClient = await context.Clients.FindAsync(id);
             return new ClientModel
             {
+                ClientId = oneClient.ClientId,
                 ClientEmail1 = oneClient.ClientEmail1,
                 ClientEmail2 = oneClient.ClientEmail2,
                 AccountId = oneClient.AccountId,
