@@ -23,7 +23,6 @@ namespace UrenProjectQien.Controllers
         {
             _httpClientFactory = httpClientFactory;
         }
-
         public async Task<IActionResult> GetAllClients()
         {
             var client = _httpClientFactory.CreateClient("Api");
@@ -36,7 +35,6 @@ namespace UrenProjectQien.Controllers
 
             var result = JsonConvert.DeserializeObject<List<ClientModel>>(jsonString);
             return View(result);
-
         }
         public async Task<IActionResult> ClientDetails(int id)
         {
@@ -50,11 +48,11 @@ namespace UrenProjectQien.Controllers
             var result = JsonConvert.DeserializeObject<ClientModel>(jsonString);
             return View(result);
         }
-        [HttpGet]
-        public IActionResult CreateClient()
-        {
-            return View();
-        }
+        //[HttpGet]
+        ////public IActionResult CreateClient()
+        ////{
+        ////    return View();
+        ////}
         [HttpPost]
         public async Task<ClientModel> CreateClient(ClientModel newClient)
         {
