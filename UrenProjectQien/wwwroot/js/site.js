@@ -37,3 +37,14 @@ function onlySelectOne(clickedId) {
         document.getElementById("checkTrainee").checked = false;
     }
 }
+
+function showMessageActiveStatus(){
+    if (document.getElementById("createAccountActiveCheck").checked == true) {
+        document.getElementById("ExtraInfoActiveStatus").style.display = "block";
+        document.getElementById("WarningSign").style.display = "block";
+    }
+    else {
+        document.getElementById("ExtraInfoActiveStatus").style.display = "none";
+        document.getElementById("WarningSign").style.display = "none";
+    }
+}
