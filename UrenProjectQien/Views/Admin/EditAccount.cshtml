@@ -3,7 +3,6 @@
 @{
     ViewData["Title"] = "EditAccount";
 }
-
 <h1 style="text-align:center">Accountgegevens aanpassen</h1>
 
 <h4 style="text-align:center">@ViewBag.currUser</h4>
@@ -22,7 +21,7 @@
 
                 <div class="col-md-4">
                     <div>
-                        <img style="border: 3px solid #9A33F8;" class="img-fluid" src="~/Images/PersonExample.jpg" alt="Profielfoto" />
+                        <img style="border: 3px solid #9A33F8; width:360px; height:360px;" class="img-fluid" src="~/Images/ProfileImages/@Model.ProfileImage" alt="Profielfoto" />
                     </div>
                 </div>
                 <div style="margin-top:10px;" class="col-md-8">
