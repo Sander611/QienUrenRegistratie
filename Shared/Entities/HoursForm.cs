@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace QienHoursRegistration.DataContext
+namespace Shared
 {
     [Table("HoursForm")]
     public class HoursForm

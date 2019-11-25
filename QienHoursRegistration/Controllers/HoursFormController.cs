@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using QienHoursRegistration.DataContext;
 using QienHoursRegistration.Repositories;
 using Shared.Models;
 using System;

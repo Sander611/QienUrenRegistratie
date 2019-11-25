@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using QienHoursRegistration.DataContext;
+using Shared;
 using Shared.Models;
 using System;
 using System.Collections.Generic;
@@ -10,8 +10,8 @@ namespace QienHoursRegistration.Repositories
 {
     public class HoursPerDayRepository : IHoursPerDayRepository
     {
-        private readonly RepositoryContext context;
-        public HoursPerDayRepository(RepositoryContext _context)
+        private readonly UrenProjectQienContext context;
+        public HoursPerDayRepository(UrenProjectQienContext _context)
         {
             context = _context;
         }

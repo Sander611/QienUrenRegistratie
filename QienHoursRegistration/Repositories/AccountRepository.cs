@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using QienHoursRegistration.DataContext;
 using QienHoursRegistration.Repositories;
-using Shared.Models;
+using Shared;
+using UrenProjectQien.Models;
 
 namespace QienHoursRegistration.Repositories
 {
     public class AccountRepository : IAccountRepository
     {
-        private readonly RepositoryContext repositoryContext;
-        public AccountRepository(RepositoryContext context)
+        private readonly UrenProjectQienContext repositoryContext;
+        public AccountRepository(UrenProjectQienContext context)
         {
             this.repositoryContext = context;
         }
