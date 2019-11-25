@@ -1,4 +1,4 @@
-﻿@model List<Shared.Models.HoursFormModel>;
+﻿@model List<Shared.Models.EmployeeDashboardModel>;
 
 
 @{
@@ -47,10 +47,10 @@
                         {
                             <tr>
                                 <td>
-                                    @hourform.ProjectMonth;
+                                    @hourform.Info;
                                 </td>
                                 <td>
-                                    @hourform.DateDue;
+                                    @hourform.Deadline;
                                 </td>
                                 <td>
                                     @Html.ActionLink("Uren Invoeren", "HoursRegistration",new { formId = 9});
@@ -66,27 +66,34 @@
                 <h1 id="takenheader">Peronalia</h1>
                 <table border="1">
                     <tbody>
+                        @foreach (var personalia in Model)
+                        {
+                            <tr>
+                                <td>Voornaam</td>
+                                <td>@personalia.FirstName</td>
 
-                        <tr>
-                            <td>Naam</td>
-                            <td>Romy van der Sar</td>
+                            </tr>
+                            <tr>
+                                <td>Achternaam</td>
+                                <td>@personalia.LastName</td>
 
-                        </tr>
+                            </tr>
 
-                        <tr>
-                            <td>Stad</td>
-                            <td>Utrecht</td>
-                        </tr>
+                            <tr>
+                                <td>Adres</td>
+                                <td>@personalia.Address</td>
+                            </tr>
 
-                        <tr>
-                            <td>Adress</td>
-                            <td>Langelaan 45</td>
-                        </tr>
+                            <tr>
+                                <td>Postcode</td>
+                                <td>@personalia.ZIP</td>
+                            </tr>
 
-                        <tr>
-                            <td>Verjaardag</td>
-                            <td>08-06-1995</td>
-                        </tr>
+                            <tr>
+                                <td>Stad</td>
+                                <td>@personalia.</td>
+                            </tr>
+                        }
                     </tbody>
                 </table>
             </div>

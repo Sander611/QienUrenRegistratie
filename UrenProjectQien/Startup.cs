@@ -39,7 +39,7 @@ namespace UrenProjectQien
             services.AddRazorPages();
             services.AddHttpClient("Api", c =>
             {
-                c.BaseAddress = new Uri("https://localhost:5001/api/");
+                c.BaseAddress = new Uri("https://localhost:5001/");
                 c.DefaultRequestHeaders.Add("Accept", "application/json");
             });
             services.AddAuthorization(options =>
