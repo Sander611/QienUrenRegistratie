@@ -65,31 +65,19 @@ namespace QienHoursRegistration.Controllers
         }
 
 
-        [HttpPut("{id}")]
-        public async Task<ActionResult<ClientModel>> Update(int id, ClientModel client)
+        [HttpPatch("{id}")]
+        public async Task<ActionResult<ClientModel>> Update( ClientModel client)
         {
-            var existingClient = await clientRepo.GetById(id);
+            if(!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var existingClient = await clientRepo.GetById(client.ClientId);
             if (existingClient == null)
             {
-                return BadRequest();
+                return NotFound();
             }
             return await clientRepo.Update(client);
-
         }
-
-
-        //[AcceptVerbs("Get", "Post")]
-        //public bool VerifyEmail(string email)
-        //{
-        //    var user = clientRepo.VerifyEmail(email);
-        //    if (user == null)
-        //    {
-        //        return true;
-        //    }
-        //    else
-        //    {
-        //        return false;
-        //    }
-        //}
     }
 }
