@@ -4,65 +4,88 @@
     ViewData["Title"] = "Dashboard";
 }
 
-    <div style="text-align:center;">
-        <h1>Takenlijst</h1>
+
+    <div class="row">
+
+        <div style="border: 3px solid #9A33F8" class="col-md-2">
+            <div class="row">
+                <img style="text-align:center; width:180px; height:180px;" class="img-fluid" src="~/Images/ProfileImages/admin-icon.svg" />
+            </div>
+            <div class="row">
+                <p >Ingelogd als:</p>
+            </div>
+            <div class="row">
+                <p><i>Admin</i></p>
+            </div>
+            <hr />
+
+        </div>
+
+
+        <div class="col-md-10">
+
+            <div style="text-align:center;">
+                <h1>Takenlijst</h1>
+            </div>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.FullName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Info)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.HandInTime)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.stateClientCheck)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FullName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Info)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.HandInTime)
+                            </td>
+                            @if (item.stateClientCheck == true)
+                            {
+                                <td align=center>
+                                    <img style="width: 15px; height:auto;" src="~/Images/check-circle-solid.svg" />
+                                </td>
+                            }
+                            else if (item.stateClientCheck == false)
+                            {
+                                <td align=center>
+                                    <img style="width: 15px; height:auto;" src="~/Images/times-circle-solid.svg" />
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    In afwachting..
+                                </td>
+
+
+                            }
+                            <td>
+                                @Html.ActionLink("Controleren", "Controleren", new { formId = item.formId, accountId = item.accountId, fullName = item.FullName, month = item.Month, year = item.Year })
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
     </div>
-
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.FullName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Info)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.HandInTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.stateClientCheck)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FullName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Info)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HandInTime)
-            </td>
-            @if (item.stateClientCheck == true)
-            {
-                <td align=center>
-                    <img style="width: 15px; height:auto;" src="~/Images/check-circle-solid.svg" />
-                </td>
-            }
-            else if (item.stateClientCheck == false)
-            {
-                <td align=center>
-                    <img style="width: 15px; height:auto;" src="~/Images/times-circle-solid.svg" />
-                 </td>
-            }
-            else
-            {
-                <td>
-                    In afwachting..
-                </td>
-               
-
-            }
-            <td>
-                @Html.ActionLink("Controleren", "Controleren", new { formId = item.formId, accountId = item.accountId, fullName = item.FullName, month = item.Month, year = item.Year })
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
