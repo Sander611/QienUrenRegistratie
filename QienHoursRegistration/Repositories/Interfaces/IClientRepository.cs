@@ -13,6 +13,5 @@ namespace QienHoursRegistration.Repositories
         Task<ClientModel> CreateNewClient(ClientModel clientModel);
         Task DeleteClient(int id);
         Task<ClientModel> Update(ClientModel client);
-        //Client VerifyEmail(string email);
     }
 }
