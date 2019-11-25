@@ -7,85 +7,221 @@
 
     <div class="row">
 
-        <div style="border: 3px solid #9A33F8" class="col-md-2">
-            <div class="row">
+        <div style="border: 3px solid #9A33F8;" class="col-md-2 rounded">
+            <div style="margin-bottom:10px;" class="row">
                 <img style="text-align:center; width:180px; height:180px;" class="img-fluid" src="~/Images/ProfileImages/admin-icon.svg" />
             </div>
-            <div class="row">
-                <p >Ingelogd als:</p>
-            </div>
-            <div class="row">
-                <p><i>Admin</i></p>
-            </div>
+            <p style="text-align:center;">Ingelogd als:</p>
+
+            <p style="text-align:center;"><i>Admin</i></p>
             <hr />
+            <a style="text-align:center;" asp-controller="Admin" asp-action="AccountOverzicht">Accountbeheer</a>
+            <a style="text-align:center;" asp-controller="Admin" asp-action="UrenFormulieren">Uren Formulieren</a>
+            <a style="text-align:center;" asp-controller="Client" asp-action="GetAllClients">Werkgevers</a>
+        </div>
+
+        <div class="col-md-1">
 
         </div>
 
 
-        <div class="col-md-10">
+        <div class="col-md-9">
+            <div style="margin-top:10px;" class="row">
+                <div class="col">
+                    <h1 style="text-align:center; margin-bottom:20px; background-color: #9A33F8; color: white;">Takenlijst</h1>
 
-            <div style="text-align:center;">
-                <h1>Takenlijst</h1>
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.FullName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Info)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.HandInTime)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.stateClientCheck)
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.FullName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Info)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.HandInTime)
+                                    </td>
+                                    @if (item.stateClientCheck == true)
+                                    {
+                                        <td align=center>
+                                            <img style="width: 15px; height:auto;" src="~/Images/check-circle-solid.svg" />
+                                        </td>
+                                    }
+                                    else if (item.stateClientCheck == false)
+                                    {
+                                        <td align=center>
+                                            <img style="width: 15px; height:auto;" src="~/Images/times-circle-solid.svg" />
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            In afwachting..
+                                        </td>
+
+
+                                    }
+                                    <td>
+                                        @Html.ActionLink("Controleren", "Controleren", new { formId = item.formId, accountId = item.accountId, fullName = item.FullName, month = item.Month, year = item.Year })
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                    <hr />
+                </div>
             </div>
 
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>
-                            @Html.DisplayNameFor(model => model.FullName)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Info)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.HandInTime)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.stateClientCheck)
-                        </th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.FullName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Info)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.HandInTime)
-                            </td>
-                            @if (item.stateClientCheck == true)
-                            {
-                                <td align=center>
-                                    <img style="width: 15px; height:auto;" src="~/Images/check-circle-solid.svg" />
-                                </td>
-                            }
-                            else if (item.stateClientCheck == false)
-                            {
-                                <td align=center>
-                                    <img style="width: 15px; height:auto;" src="~/Images/times-circle-solid.svg" />
-                                </td>
-                            }
-                            else
-                            {
-                                <td>
-                                    In afwachting..
-                                </td>
+            <div class="row">
+                <div class="col-sm-8">
+                    <h1 style="text-align:center; background-color: #9A33F8; color: white;">Totaal uren 2019</h1>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Maand
+                                </th>
+                                <th>
+                                    Tot. uur Trainees
+                                </th>
+                                <th>
+                                    Tot. uur Medewerkers
+                                </th>
+                                <th>
+                                    Tot. uur Senior Developers
+                                </th>
+                                <th>
+                                    Totaal
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Januari</td>
+                                <td>345</td>
+                                <td>548</td>
+                                <td>245</td>
+                                <td>1138</td>
+                            </tr>
+                            <tr>
+                                <td>Februari</td>
+                                <td>345</td>
+                                <td>548</td>
+                                <td>245</td>
+                                <td>1138</td>
 
+                            </tr>
+                            <tr>
+                                <td>Maart</td>
+                                <td>345</td>
+                                <td>548</td>
+                                <td>245</td>
+                                <td>1138</td>
 
-                            }
-                            <td>
-                                @Html.ActionLink("Controleren", "Controleren", new { formId = item.formId, accountId = item.accountId, fullName = item.FullName, month = item.Month, year = item.Year })
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+                            </tr>
+                            <tr>
+                                <td>April</td>
+                                <td>345</td>
+                                <td>548</td>
+                                <td>245</td>
+                                <td>1138</td>
+
+                            </tr>
+                            <tr>
+                                <td>Mei</td>
+                                <td>345</td>
+                                <td>548</td>
+                                <td>245</td>
+                                <td>1138</td>
+
+                            </tr>
+                            <tr>
+                                <td>Juni</td>
+                                <td>345</td>
+                                <td>548</td>
+                                <td>245</td>
+                                <td>1138</td>
+
+                            </tr>
+                            <tr>
+                                <td>Juli</td>
+                                <td>345</td>
+                                <td>548</td>
+                                <td>245</td>
+                                <td>1138</td>
+
+                            </tr>
+                            <tr>
+                                <td>Augustus</td>
+                                <td>345</td>
+                                <td>548</td>
+                                <td>245</td>
+                                <td>1138</td>
+
+                            </tr>
+                            <tr>
+                                <td>September</td>
+                                <td>345</td>
+                                <td>548</td>
+                                <td>245</td>
+                                <td>1138</td>
+
+                            </tr>
+                            <tr>
+                                <td>Oktober</td>
+                                <td>345</td>
+                                <td>548</td>
+                                <td>245</td>
+                                <td>1138</td>
+
+                            </tr>
+                            <tr>
+                                <td>November</td>
+                                <td>345</td>
+                                <td>548</td>
+                                <td>245</td>
+                                <td>1138</td>
+
+                            </tr>
+                            <tr>
+                                <td>December</td>
+                                <td>345</td>
+                                <td>548</td>
+                                <td>245</td>
+                                <td>1138</td>
+
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="col-sm-4">
+                    <h1 style="text-align:center; background-color: #9A33F8; color: white;">Info2</h1>
+                </div>
+            </div>
 
         </div>
     </div>
