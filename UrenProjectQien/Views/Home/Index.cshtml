@@ -1,1 +1,12 @@
 ﻿hier moet iemand kunnen inloggen.
+    <div>
+        
+        @if (User.Identity.IsAuthenticated)
+        {
+            <a asp-controller="Identity" asp-action="Logout">Log-out</a>
+        }
+        else
+        {
+            <a asp-controller="Identity" asp-action="Login">login</a>
+        }
+    </div>
