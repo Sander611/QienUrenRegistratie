@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using QienHoursRegistration.DataContext;
+using Shared;
 
 namespace QienHoursRegistration.Migrations
 {
-    [DbContext(typeof(RepositoryContext))]
+    [DbContext(typeof(UrenProjectQienContext))]
     partial class RepositoryContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

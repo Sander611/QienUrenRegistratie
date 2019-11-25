@@ -15,6 +15,7 @@ using Microsoft.Extensions.Hosting;
 using Umbraco.Core;
 using Microsoft.AspNetCore.Mvc;
 using UrenProjectQien.Areas.Identity;
+using Shared;
 
 namespace UrenProjectQien
 {
@@ -33,7 +34,7 @@ namespace UrenProjectQien
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<AccountIdentity>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddDefaultIdentity<UrenProjectQienContext>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddControllersWithViews();

@@ -7,8 +7,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using QienHoursRegistration.DataContext;
-using Shared.Models;
 using Shared.Models;
 using UrenProjectQien.Helper;
 
