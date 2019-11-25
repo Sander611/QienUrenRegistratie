@@ -62,5 +62,11 @@ namespace QienHoursRegistration.Controllers
             string succesfull = accountRepository.RemoveAccount(id);
             Console.WriteLine(succesfull);
         }
+
+        [HttpGet("PersonaliaFromUser")]
+        public async Task<IEnumerable<EmployeeDashboardModel>> getPersonaliaFromAccount(int accountId)
+        {
+            return await accountRepository.getPersonaliaFromAccount(accountId);
+        }
     }
 }

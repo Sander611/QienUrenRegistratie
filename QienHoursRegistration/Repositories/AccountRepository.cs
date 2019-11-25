@@ -175,5 +175,27 @@ namespace QienHoursRegistration.Repositories
 
             return account;
         }
+
+
+        public async Task<List<EmployeeDashboardModel>> getPersonaliaFromAccount(int accountId)
+        {
+            var personaliaEnitities = await repositoryContext.Accounts.Where(p => p.AccountId == accountId).ToListAsync();
+            List<EmployeeDashboardModel> PersonaliaPerUser = new List<EmployeeDashboardModel>();
+
+            foreach (var personalia in personaliaEnitities)
+            {
+                PersonaliaPerUser.Add(new EmployeeDashboardModel
+                {
+                    accountId = personalia.AccountId,
+                    FirstName = personalia.FirstName,
+                    LastName = personalia.LastName,
+                    Address = personalia.Address,
+                    ZIP = personalia.ZIP,
+                    City = personalia.City
+
+                });
+            }
+            return PersonaliaPerUser;
+        }
     }
 }

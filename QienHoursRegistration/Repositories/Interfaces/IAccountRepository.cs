@@ -12,5 +12,6 @@ namespace QienHoursRegistration.Repositories
         Task<AccountModel> ModifyAccountActivity(int accountId, bool IsActive);
         string RemoveAccount(int accountId);
         Task<AccountModel> UpdateAccount(AccountModel account);
+        Task<List<EmployeeDashboardModel>> getPersonaliaFromAccount(int accountId);
     }
 }
