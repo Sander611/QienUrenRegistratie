@@ -8,16 +8,29 @@
     <div class="row">
 
         <div style="border: 3px solid #9A33F8;" class="col-md-2 rounded">
-            <div style="margin-bottom:10px;" class="row">
-                <img style="text-align:center; width:180px; height:180px;" class="img-fluid" src="~/Images/ProfileImages/admin-icon.svg" />
-            </div>
+
+            <img style="margin-bottom:10px; text-align:center; width:180px; height:180px;" class="img-fluid" src="~/Images/ProfileImages/admin-icon.svg" />
+
             <p style="text-align:center;">Ingelogd als:</p>
 
             <p style="text-align:center;"><i>Admin</i></p>
             <hr />
-            <a style="text-align:center;" asp-controller="Admin" asp-action="AccountOverzicht">Accountbeheer</a>
-            <a style="text-align:center;" asp-controller="Admin" asp-action="UrenFormulieren">Uren Formulieren</a>
-            <a style="text-align:center;" asp-controller="Client" asp-action="GetAllClients">Werkgevers</a>
+            <ul style="padding-left:20px;">
+                <li>
+                    <a style="text-align:center;" asp-controller="Admin" asp-action="AccountOverzicht">Accountbeheer</a>
+                </li>
+                <li>
+                    <a style="text-align:center;" asp-controller="Client" asp-action="GetAllClients">Werkgevers</a>
+                </li>
+                <li>
+                    <a style="text-align:center;" asp-controller="Admin" asp-action="">Overzicht uren</a>
+                </li>
+                <li>
+                    <a style="text-align:center;" asp-controller="Admin" asp-action="">Mutatieformulier</a>
+                </li>
+            </ul>
+            
+         
         </div>
 
         <div class="col-md-1">
@@ -25,7 +38,7 @@
         </div>
 
 
-        <div class="col-md-9">
+        <div class="col-md-8">
             <div style="margin-top:10px;" class="row">
                 <div class="col">
                     <h1 style="text-align:center; margin-bottom:20px; background-color: #9A33F8; color: white;">Takenlijst</h1>
@@ -95,22 +108,22 @@
             </div>
 
             <div class="row">
-                <div class="col-sm-8">
-                    <h1 style="text-align:center; background-color: #9A33F8; color: white;">Totaal uren 2019</h1>
-                    <table class="table">
+                <div class="col-sm-7">
+                    <h3 style="text-align:center; background-color: #9A33F8; color: white;">Totaal uren 2019</h3>
+                    <table style="font-size:10px;" class="table">
                         <thead>
                             <tr>
                                 <th>
                                     Maand
                                 </th>
                                 <th>
-                                    Tot. uur Trainees
+                                    Trainees
                                 </th>
                                 <th>
-                                    Tot. uur Medewerkers
+                                    Medewerkers
                                 </th>
                                 <th>
-                                    Tot. uur Senior Developers
+                                    Sr. Developers
                                 </th>
                                 <th>
                                     Totaal
@@ -218,8 +231,28 @@
                     </table>
                 </div>
 
+                <div class="col-sm-1">
+
+                </div>
+
                 <div class="col-sm-4">
-                    <h1 style="text-align:center; background-color: #9A33F8; color: white;">Info2</h1>
+                    <h3 style="text-align:center; background-color: #9A33F8; color: white;">Mail Service</h3>
+
+                    <div class="form-group">
+                        <label for="sel1">Mail naar:</label>
+                        <select class="form-control" id="sel1">
+                            <option>Iedereen</option>
+                            <option>Trainees</option>
+                            <option>Werknemers</option>
+                            <option>Senior Developers</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <textarea value="" rows="16" cols="21" style="resize: none;"></textarea>
+                    </div>
+
+                    <input type="submit" value="Verstuur" class="btn btn-primary" />
                 </div>
             </div>
 
