@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Shared.Models
 {
-    public class AccountModel
+    public class AccountModelCreateView
     {
         public int AccountId { get; set; }
 
@@ -55,7 +55,8 @@ namespace Shared.Models
         public string IBAN { get; set; }
 
         public DateTime? CreationDate { get; set; }
-        public string ProfileImage { get; set; }
+
+        public IFormFile ProfileImage { get; set; }
 
 
         public bool IsAdmin { get; set; }
