@@ -6,10 +6,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Shared;
+using Shared.Entities;
 
 namespace Shared
 {
-    public class UrenProjectQienContext : IdentityDbContext<IdentityUser>
+    public class UrenProjectQienContext : IdentityDbContext<AccountIdentity,AccountRole,int>
     {
         public UrenProjectQienContext(DbContextOptions<UrenProjectQienContext> options)
             : base(options)

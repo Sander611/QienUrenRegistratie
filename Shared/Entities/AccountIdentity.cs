@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Shared
 {
-    public class AccountIdentity : IdentityUser
+    public class AccountIdentity : IdentityUser<int>
     {
         public int AccountId { get; set; }
         public string FirstName { get; set; }

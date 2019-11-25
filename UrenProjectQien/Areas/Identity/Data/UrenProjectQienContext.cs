@@ -7,10 +7,12 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using UrenProjectQien.Areas.Identity;
 using Shared;
+using Shared.Entities;
+
 
 namespace UrenProjectQien.Models
 {
-    public class UrenProjectQienContext : IdentityDbContext<AccountIdentity>
+    public class UrenProjectQienContext : IdentityDbContext<AccountIdentity,AccountRole,int>
     {
         public UrenProjectQienContext(DbContextOptions<UrenProjectQienContext> options)
             : base(options)

@@ -16,6 +16,7 @@ using Umbraco.Core;
 using Microsoft.AspNetCore.Mvc;
 using UrenProjectQien.Areas.Identity;
 using Shared;
+using Shared.Entities;
 
 namespace UrenProjectQien
 {
@@ -31,11 +32,11 @@ namespace UrenProjectQien
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
+            services.AddDbContext<UrenProjectQienContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<UrenProjectQienContext>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddIdentity<AccountIdentity,AccountRole>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<UrenProjectQienContext>();
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddControllersWithViews();
             services.AddRazorPages();
