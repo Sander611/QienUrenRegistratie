@@ -1,4 +1,4 @@
-﻿@model Shared.Models.AccountModel
+﻿@model Shared.Models.AccountModelCreateView
 
 @{
     ViewData["Title"] = "CreateEmployee";
@@ -6,10 +6,10 @@
 
 <h1 style="text-align:center">Nieuw account aanmaken</h1>
 
-<hr style="margin-top:30px; margin-bottom:30px;"/>
-<div> 
+<hr style="margin-top:30px; margin-bottom:30px;" />
+<div>
     <div>
-        <form asp-action="CreateEmployee">
+        <form method="post" enctype="multipart/form-data" asp-action="CreateEmployee">
             <div asp-validation-summary="All" class="text-danger"></div>
 
             <div style="color:#9A33F8">
@@ -21,8 +21,15 @@
                         <img style="width:180px; height:auto" class="img-fluid" src="~/Images/user-circle-solid.svg" alt="Profielfoto" />
                     </div>
                 </div>
-                <div style="text-align:center; color:blue; font-size:12px;">
-                    <a>Profielfoto wijzigen</a>
+
+                <div class="form-group row">
+                    <div class="col-md-4 offset-md-4">
+                        <div class="custom-file">
+                            <input asp-for="ProfileImage" class="form-control custom-file-input" />
+
+                            <label class="custom-file-label">Upload Profielfoto</label>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="row" style="margin-top:50px;">
@@ -198,11 +205,6 @@
             </div>
 
 
-
-            <div style="margin-top:30px;" class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-
             @*<div class="form-group">
             <label asp-for="AccountId" class="control-label"></label>
             <input asp-for="AccountId" class="form-control" />
@@ -214,14 +216,24 @@
             <label asp-for="CreationDate" class="control-label"></label>
             <input asp-for="CreationDate" class="form-control" />
             <span asp-validation-for="CreationDate" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="ProfileImage" class="control-label"></label>
-            <input asp-for="ProfileImage" class="form-control" />
-            <span asp-validation-for="ProfileImage" class="text-danger"></span>
         </div>*@
 
 
+            @section Scripts{
+                <script>
+                    $(document).ready(function () {
+                        $('.custom-file-input').on("change", function () {
+                            //console.log($(this).val());
+                            var filename = $(this).val().split("\\").pop();
+                            $(this).next('.custom-file-label').html(filename);
+                        });
+                    });
+                </script>
+            }
+
+            <div style="margin-top:30px;" class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
         </form>
     </div>
 </div>

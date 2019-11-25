@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Hosting;
 using Newtonsoft.Json;
 using Shared.Models;
 using UrenProjectQien.Helper;
+using Microsoft.AspNetCore.Http;
 
 namespace UrenProjectQien.Controllers
 {
@@ -14,10 +17,13 @@ namespace UrenProjectQien.Controllers
     {
 
         private IHttpClientFactory _httpClientFactory;
+        private readonly IWebHostEnvironment hostingEnvironment;
 
-        public AdminController(IHttpClientFactory httpClientFactory)
+        public AdminController(IHttpClientFactory httpClientFactory,
+                                IWebHostEnvironment hostingEnvironment)
         {
             _httpClientFactory = httpClientFactory;
+            this.hostingEnvironment = hostingEnvironment;
         }
 
         // method om als admin op een gebruiker te klikken en alle forms als overzicht te krijgen (doormiddel van dropdownmenus voor maand, jaar )
@@ -185,6 +191,65 @@ namespace UrenProjectQien.Controllers
         public async Task<IActionResult> CreateEmployee()
         {
             return View();
+        }        
+        
+        
+        [HttpPost]
+        public async Task<IActionResult> CreateEmployee(AccountModelCreateView model)
+        {
+            if(ModelState.IsValid)
+            {
+
+                //var formFile = HttpContext.Request.Form.Files[0];
+                string uniqueFilename = "user-circle-solid.svg";
+                if(model.ProfileImage != null)
+                {
+                    string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "Images/ProfileImages");
+                    uniqueFilename = Guid.NewGuid().ToString() + "_" + model.ProfileImage.FileName;
+                    string filePath = Path.Combine(uploadsFolder, uniqueFilename);
+                    model.ProfileImage.CopyTo(new FileStream(filePath, FileMode.Create));
+                }
+
+                AccountModel newAccount = new AccountModel()
+                {
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    Email = model.Email,
+                    DateOfBirth = model.DateOfBirth,
+                    HashedPassword = model.HashedPassword,
+                    Address = model.Address,
+                    ZIP = model.ZIP,
+                    MobilePhone = model.MobilePhone,
+                    City = model.City,
+                    IBAN = model.IBAN,
+                    CreationDate = model.CreationDate,
+                    ProfileImage = uniqueFilename,
+                    IsAdmin = model.IsAdmin,
+                    IsActive = model.IsActive,
+                    IsQienEmployee = model.IsQienEmployee,
+                    IsSeniorDeveloper = model.IsSeniorDeveloper,
+                    IsTrainee = model.IsTrainee
+                };
+
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "https://localhost:5001/Account/createAccount");
+
+                string json = JsonConvert.SerializeObject(newAccount);
+
+                request.Content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+
+                HttpClient http = new HttpClient();
+                HttpResponseMessage response = await http.SendAsync(request);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseStream = await response.Content.ReadAsStringAsync();
+                    return RedirectToRoute(new { controller = "Admin", action = "AccountOverzicht" });
+
+                }
+
+
+            }
+            return View(model);
         }
 
 
