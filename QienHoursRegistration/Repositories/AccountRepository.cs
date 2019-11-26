@@ -176,16 +176,16 @@ namespace QienHoursRegistration.Repositories
         }
 
 
-        public async Task<List<EmployeeDashboardModel>> getPersonaliaFromAccount(int accountId)
+        public async Task<List<AccountModel>> getPersonaliaFromAccount(int accountId)
         {
             var personaliaEnitities = await repositoryContext.Accounts.Where(p => p.AccountId == accountId).ToListAsync();
-            List<EmployeeDashboardModel> PersonaliaPerUser = new List<EmployeeDashboardModel>();
+            List<AccountModel> PersonaliaPerUser = new List<AccountModel>();
 
             foreach (var personalia in personaliaEnitities)
             {
-                PersonaliaPerUser.Add(new EmployeeDashboardModel
+                PersonaliaPerUser.Add(new AccountModel
                 {
-                    accountId = personalia.AccountId,
+                    AccountId = personalia.AccountId,
                     FirstName = personalia.FirstName,
                     LastName = personalia.LastName,
                     Address = personalia.Address,

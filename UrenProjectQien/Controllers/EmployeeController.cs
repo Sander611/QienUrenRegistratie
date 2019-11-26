@@ -26,6 +26,47 @@ namespace UrenProjectQien.Controllers
         }
         public async Task<IActionResult> EmployeeDashboard()
         {
+            var client = _httpClientFactory.CreateClient("Api");
+            var response = await client.GetAsync($"Account/{2}");
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception("Cannont retrieve account");
+            }
+            var jsonString = await response.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<AccountModel>(jsonString);
+
+            var response1 = await client.GetAsync($"HoursForm/formsperuser/{2}");
+            if (!response1.IsSuccessStatusCode)
+            {
+                throw new Exception("Cannont retrieve form");
+            }
+            var jsonString1 = await response1.Content.ReadAsStringAsync();
+            var result1 = JsonConvert.DeserializeObject<List<HoursFormModel>>(jsonString1);
+
+            AccountModel accountInfo = new AccountModel()
+            {
+                FirstName = result.FirstName,
+                LastName = result.LastName,
+                Address = result.Address,
+                ZIP = result.ZIP,
+                AccountId = result.AccountId,
+                City = result.City
+            };
+            List<HoursFormModel> formsOverview = new List<HoursFormModel>();
+            foreach (var form in result1)
+            {
+                formsOverview.Add(new HoursFormModel
+                {
+                    AccountId = form.AccountId,
+                    FormId = form.FormId,
+                    DateDue = form.DateDue,
+                    Year = form.Year,
+                    ProjectMonth = form.ProjectMonth
+                });
+            }
+            EmployeeDashboardModel EDM = new EmployeeDashboardModel();
+            EDM.Account = accountInfo;
+            EDM.Forms = formsOverview;
             List<HoursFormModel> hoursforms = new List<HoursFormModel>();
 
             //HttpClient client = _api.Connect();
@@ -48,7 +89,7 @@ namespace UrenProjectQien.Controllers
 
                 hoursforms.Add(hoursform);
             }
-            return View(hoursforms);
+            return View(EDM);
         }
 
 

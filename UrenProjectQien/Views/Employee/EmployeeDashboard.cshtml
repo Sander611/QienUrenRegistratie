@@ -1,4 +1,4 @@
-﻿@model List<Shared.Models.EmployeeDashboardModel>;
+﻿@model Shared.Models.EmployeeDashboardModel;
 
 
 @{
@@ -13,10 +13,21 @@
                     <img src="~/Images/QienLogo.png" height="150" width="150" />
                 </tr>
                 <tr>
-                    <h2>[Trainee]</h2>
+                        @if(Model.Account.IsTrainee == true)
+                        {
+                            <h2>Trainee</h2>
+                        }
+                        else if(Model.Account.IsQienEmployee == true)
+                        {
+                            <h2>Medewerker</h2>
+                        }
+                        else
+                        {
+                            <h2>Senior Ontwikkelaar</h2>
+                        }
                 </tr>
                 <tr>
-                    <h2>Romy van der Sar</h2>
+                    <h2>@Model.Account.FirstName @Model.Account.LastName</h2>
                 </tr>
                 <tr>
                     <h2>[Werkgever]</h2>
@@ -43,17 +54,17 @@
 
 
                     <tbody>
-                        @foreach (var hourform in Model)
+                        @foreach (var hourform in Model.Forms)
                         {
                             <tr>
                                 <td>
-                                    @hourform.Info;
+                                    Uren registratie @hourform.ProjectMonth @hourform.Year.ToString()
                                 </td>
                                 <td>
-                                    @hourform.Deadline;
+                                    @hourform.DateDue
                                 </td>
                                 <td>
-                                    @Html.ActionLink("Uren Invoeren", "HoursRegistration",new { formId = 9});
+                                    @Html.ActionLink("Uren Invoeren", "HoursRegistration",new { formId = hourform.FormId});
                                 </td>
                             </tr>
                         }
@@ -66,32 +77,30 @@
                 <h1 id="takenheader">Peronalia</h1>
                 <table border="1">
                     <tbody>
-                        @foreach (var personalia in Model)
-                        {
                             <tr>
                                 <td>Voornaam</td>
-                                <td>@personalia.FirstName</td>
+                                <td>@Model.Account.FirstName</td>
 
                             </tr>
                             <tr>
                                 <td>Achternaam</td>
-                                <td>@personalia.LastName</td>
+                                <td>@Model.Account.LastName</td>
 
                             </tr>
 
                             <tr>
                                 <td>Adres</td>
-                                <td>@personalia.Address</td>
+                                <td>@Model.Account.Address</td>
                             </tr>
 
                             <tr>
                                 <td>Postcode</td>
-                                <td>@personalia.ZIP</td>
+                                <td>@Model.Account.ZIP</td>
                             </tr>
 
                             <tr>
                                 <td>Stad</td>
-                                <td>@personalia.</td>
+                                <td>@Model.Account.City</td>
                             </tr>
                         }
                     </tbody>
