@@ -10,6 +10,7 @@ using UrenProjectQien.Models;
 
 namespace UrenProjectQien.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -19,7 +20,7 @@ namespace UrenProjectQien.Controllers
             _logger = logger;
         }
 
-        [Authorize]
+        
         public IActionResult Index()
         {
             return View();
