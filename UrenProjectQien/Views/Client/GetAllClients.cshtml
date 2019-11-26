@@ -8,8 +8,13 @@
 
 <p>
     <a href="createClient" class="button">Nieuwe opdrachtgever</a>
-
 </p>
+
+@using (Html.BeginForm("GetAllClients", "Client", FormMethod.Get))
+{
+    @Html.TextBox("searchString")
+    <input type="submit" value="Search" />
+}
 <table style="width:100%;">
     <thead>
         <tr>
@@ -38,7 +43,7 @@
                     @Html.ActionLink("Wijzigingen", "UpdateClient", new { id = item.ClientId })
                 </td>
                 <td>
-                    @Html.ActionLink("Verwijderen", "DeleteClient", new { id = item.ClientId }, new {onclick =  "return confirm('Weet u zeker dat u dit account wilt verwijderen?');"})
+                    @Html.ActionLink("Verwijderen", "DeleteClient", new { id = item.ClientId }, new { onclick = "return confirm('Weet u zeker dat u dit account wilt verwijderen?');" })
                 </td>
             </tr>
         }

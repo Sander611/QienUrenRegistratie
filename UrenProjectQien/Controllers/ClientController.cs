@@ -19,7 +19,7 @@ namespace UrenProjectQien.Controllers
         {
             _httpClientFactory = httpClientFactory;
         }
-        public async Task<IActionResult> GetAllClients()
+        public async Task<IActionResult> GetAllClients(string searchString)
         {
             var client = _httpClientFactory.CreateClient("Api");
             var response = await client.GetAsync("Client/clients");
@@ -30,6 +30,11 @@ namespace UrenProjectQien.Controllers
             var jsonString = await response.Content.ReadAsStringAsync();
 
             var result = JsonConvert.DeserializeObject<List<ClientModel>>(jsonString);
+            
+            if(!String.IsNullOrEmpty(searchString))
+            {
+                result = result.Where(s => s.CompanyName.ToLower().Contains(searchString.ToLower())).ToList();
+            }
             return View(result);
         }
         public async Task<IActionResult> ClientDetails(int id)
