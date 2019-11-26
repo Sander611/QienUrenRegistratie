@@ -13,6 +13,6 @@ namespace QienHoursRegistration.Repositories
 
         Task<HoursFormModel> CreateNewForm(HoursFormModel hoursFormModel);
         Task<List<AdminTaskModel>> GetAllClientAcceptedForms();
-        Task<List<EmployeeDashboardModel>> getAllFormPerAccount(int accountId);
+        Task<List<HoursFormModel>> getAllFormPerAccount(int accountId);
     }
 }

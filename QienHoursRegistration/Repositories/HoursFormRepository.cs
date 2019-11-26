@@ -73,20 +73,22 @@ namespace QienHoursRegistration.Repositories
             
         }
 
-        public async Task<List<EmployeeDashboardModel>> getAllFormPerAccount(int accountId)
+        public async Task<List<HoursFormModel>> getAllFormPerAccount(int accountId)
         {
             var formsEntities = await context.HoursForms.Where(p => p.AccountId == accountId).ToListAsync();
-            List<EmployeeDashboardModel> formPerUser = new List<EmployeeDashboardModel>();
+            List<HoursFormModel> formPerUser = new List<HoursFormModel>();
 
 
             foreach (var form in formsEntities)
             {
-                formPerUser.Add(new EmployeeDashboardModel
+                formPerUser.Add(new HoursFormModel
                 {
-                    formId = form.FormId,
-                    accountId = form.AccountId,
-                    Deadline = form.DateDue,
-                    Info = "Uren registratie " + form.ProjectMonth + " " + form.Year.ToString(),
+                    FormId = form.FormId,
+                    AccountId = form.AccountId,
+                    DateDue = form.DateDue,
+                    ProjectMonth = form.ProjectMonth,
+                    Year = form.Year
+                    //Info = "Uren registratie " + form.ProjectMonth + " " + form.Year.ToString(),
                 });
             }
             return formPerUser;
