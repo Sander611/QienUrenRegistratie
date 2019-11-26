@@ -63,7 +63,7 @@ namespace QienHoursRegistration.Controllers
         }
 
         [HttpGet("PersonaliaFromUser")]
-        public async Task<IEnumerable<EmployeeDashboardModel>> getPersonaliaFromAccount(int accountId)
+        public async Task<IEnumerable<AccountModel>> getPersonaliaFromAccount(int accountId)
         {
             return await accountRepository.getPersonaliaFromAccount(accountId);
         }
