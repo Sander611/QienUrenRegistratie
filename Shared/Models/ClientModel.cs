@@ -11,7 +11,7 @@ namespace Shared.Models
 {
     public class ClientModel
     {
-
+        [Required]
         public int ClientId { get; set; }
 
         public int AccountId { get; set; }

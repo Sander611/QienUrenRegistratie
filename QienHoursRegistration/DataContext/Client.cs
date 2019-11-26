@@ -23,10 +23,8 @@ namespace QienHoursRegistration.DataContext
         public string ClientName2 { get; set; }
         [Required]
         [Email]
-       // [Remote(action: "VerifyEmail", controller: "ClientController")]
         public string ClientEmail1 { get; set; }
         [Email]
-       // [Remote(action: "VerifyEmail", controller: "ClientController")]
         public string ClientEmail2 { get; set; }
     }
 }
