@@ -53,7 +53,6 @@ namespace QienHoursRegistration.Repositories
         {
             Account accountEntity = new Account
             {
-                AccountId = account.AccountId,
                 FirstName = account.FirstName,
                 LastName = account.LastName,
                 Email = account.Email,
@@ -64,7 +63,7 @@ namespace QienHoursRegistration.Repositories
                 MobilePhone = account.MobilePhone,
                 City = account.City,
                 IBAN = account.IBAN,
-                CreationDate = account.CreationDate,
+                CreationDate = DateTime.Now,
                 ProfileImage = account.ProfileImage,
                 IsAdmin = account.IsAdmin,
                 IsActive = account.IsActive,
@@ -174,6 +173,28 @@ namespace QienHoursRegistration.Repositories
             await repositoryContext.SaveChangesAsync();
 
             return account;
+        }
+
+
+        public async Task<List<EmployeeDashboardModel>> getPersonaliaFromAccount(int accountId)
+        {
+            var personaliaEnitities = await repositoryContext.Accounts.Where(p => p.AccountId == accountId).ToListAsync();
+            List<EmployeeDashboardModel> PersonaliaPerUser = new List<EmployeeDashboardModel>();
+
+            foreach (var personalia in personaliaEnitities)
+            {
+                PersonaliaPerUser.Add(new EmployeeDashboardModel
+                {
+                    accountId = personalia.AccountId,
+                    FirstName = personalia.FirstName,
+                    LastName = personalia.LastName,
+                    Address = personalia.Address,
+                    ZIP = personalia.ZIP,
+                    City = personalia.City
+
+                });
+            }
+            return PersonaliaPerUser;
         }
     }
 }

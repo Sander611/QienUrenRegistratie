@@ -38,6 +38,12 @@ namespace QienHoursRegistration.Controllers
             return await hoursform.GetAllClientAcceptedForms();
         }
 
+        [HttpGet("formsperuser")]
+        public async Task<IEnumerable<EmployeeDashboardModel>> getAllFormPerAccount(int accountId)
+        {
+            return await hoursform.getAllFormPerAccount(accountId);
+        }
+
         [HttpPost("createhourform")]
         public async Task<HoursFormModel> createHourForm(HoursFormModel hoursFormModel)
         {
