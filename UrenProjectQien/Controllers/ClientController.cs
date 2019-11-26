@@ -8,11 +8,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Shared.Models;
-using UrenProjectQien.Helper;
 
 namespace UrenProjectQien.Controllers
 {
-    //[Authorize(Policy = "IsAdmicClaimAccess")]
     public class ClientController : Controller
     {
         private IHttpClientFactory _httpClientFactory;
@@ -46,11 +44,11 @@ namespace UrenProjectQien.Controllers
             var result = JsonConvert.DeserializeObject<ClientModel>(jsonString);
             return View(result);
         }
-        //[HttpGet]
-        ////public IActionResult CreateClient()
-        ////{
-        ////    return View();
-        ////}
+        [HttpGet]
+        public IActionResult CreateClient()
+        {
+            return View();
+        }
         [HttpPost]
         public async Task<ClientModel> CreateClient(ClientModel newClient)
         {
@@ -58,12 +56,53 @@ namespace UrenProjectQien.Controllers
             var content = JsonConvert.SerializeObject(newClient);
 
             var response = await client.PostAsync("Client/create", new StringContent(content, Encoding.Default, "application/json"));
-            if (response.IsSuccessStatusCode)
+            if (!response.IsSuccessStatusCode)
             {
                 throw new Exception("Cannot add a new client");
             }
             var createdClient = JsonConvert.DeserializeObject<ClientModel>(await response.Content.ReadAsStringAsync());
             return createdClient;
+        }
+        public async Task<IActionResult> UpdateClient(int id)
+        {
+            var client = _httpClientFactory.CreateClient("Api");
+            var response = await client.GetAsync($"Client/{id}");
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception("Cannont retrieve client");
+            }
+            var jsonString = await response.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<ClientModel>(jsonString);
+            return View(result);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateClient(ClientModel updatedClient)
+        {
+            if (ModelState.IsValid)
+            {
+                var client = _httpClientFactory.CreateClient("Api");
+                var content = JsonConvert.SerializeObject(updatedClient);
+
+                var response = await client.PatchAsync($"Client/{updatedClient.ClientId}", new StringContent(content, Encoding.Default, "application/json"));
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw new Exception("Cannot update the client");
+                }
+                return RedirectToRoute(new { controller = "Client", action = "GetAllClients" });
+            }
+            return View(updatedClient);
+        }
+        [HttpGet("{id}")]
+        public async Task<RedirectToRouteResult> DeleteClient(int id)
+        {
+            var client = _httpClientFactory.CreateClient("Api");
+            var response = await client.DeleteAsync($"Client/{id}");
+            if(!response.IsSuccessStatusCode)
+            {
+                throw new Exception("Cannot delete the client");
+            }
+            return RedirectToRoute(new { controller = "Client", action = "GetAllClients" });
         }
     }
 }

@@ -53,7 +53,6 @@ namespace QienHoursRegistration.Repositories
         {
             Account accountEntity = new Account
             {
-                AccountId = account.AccountId,
                 FirstName = account.FirstName,
                 LastName = account.LastName,
                 Email = account.Email,
@@ -64,7 +63,7 @@ namespace QienHoursRegistration.Repositories
                 MobilePhone = account.MobilePhone,
                 City = account.City,
                 IBAN = account.IBAN,
-                CreationDate = account.CreationDate,
+                CreationDate = DateTime.Now,
                 ProfileImage = account.ProfileImage,
                 IsAdmin = account.IsAdmin,
                 IsActive = account.IsActive,
