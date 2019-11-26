@@ -15,6 +15,7 @@ using Microsoft.Extensions.Hosting;
 using Umbraco.Core;
 using Microsoft.AspNetCore.Mvc;
 using UrenProjectQien.Areas.Identity;
+using Shared;
 
 namespace UrenProjectQien
 {

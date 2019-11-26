@@ -8,7 +8,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Helpers;
 using System.Web.Http;
-using UrenProjectQien.Models;
 
 namespace QienHoursRegistration.Repositories
 {

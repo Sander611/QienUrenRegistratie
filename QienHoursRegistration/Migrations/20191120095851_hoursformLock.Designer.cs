@@ -5,8 +5,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using UrenProjectQien.Models;
-
+using Shared;
 namespace QienHoursRegistration.Migrations
 {
     [DbContext(typeof(UrenProjectQienContext))]

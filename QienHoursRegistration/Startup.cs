@@ -11,8 +11,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using QienHoursRegistration.DataContext;
 using QienHoursRegistration.Repositories;
+using Shared;
 
 //SETUP DATABASE CONNECTION :
 // https://code-maze.com/net-core-web-api-ef-core-code-first/
@@ -31,7 +31,7 @@ namespace QienHoursRegistration
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<RepositoryContext>(opt =>
+            services.AddDbContext<UrenProjectQienContext>(opt =>
                             opt.UseSqlServer(Configuration.GetConnectionString("ConnectAzure")));
             services.AddScoped<IAccountRepository, AccountRepository>();
             services.AddScoped<IClientRepository, ClientRepository>();

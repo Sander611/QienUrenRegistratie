@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using QienHoursRegistration.Repositories;
 using Shared;
-using UrenProjectQien.Models;
+using Shared.Models;
 
 namespace QienHoursRegistration.Repositories
 {

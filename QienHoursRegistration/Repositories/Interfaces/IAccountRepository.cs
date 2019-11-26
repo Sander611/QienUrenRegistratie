@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
-using QienHoursRegistration.DataContext;
 using System.Threading.Tasks;
 using Shared.Models;
+using Shared;
+
+
 namespace QienHoursRegistration.Repositories
 {
     public interface IAccountRepository

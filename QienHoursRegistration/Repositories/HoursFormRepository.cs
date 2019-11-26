@@ -1,17 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using QienHoursRegistration.DataContext;
 using Shared.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Shared;
 
 namespace QienHoursRegistration.Repositories
 {
     public class HoursFormRepository : IHoursFormRepository
     {
-        private readonly RepositoryContext context;
-        public HoursFormRepository(RepositoryContext context)
+        private readonly UrenProjectQienContext context;
+        public HoursFormRepository(UrenProjectQienContext context)
         {
             this.context = context;
         }
