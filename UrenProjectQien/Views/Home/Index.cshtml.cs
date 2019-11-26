@@ -12,7 +12,7 @@ namespace UrenProjectQien.Views.Home
         public void OnGet()
         {
 
-            Redirect("/Account/Login");
+            //Redirect("/Account/Login");
         }
     }
 }

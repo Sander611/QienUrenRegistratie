@@ -20,7 +20,14 @@ namespace UrenProjectQien.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            if (User.Identity.IsAuthenticated == true)
+            {
+                return View();
+            }
+            else
+            {
+                return Redirect("~/Account/Login");
+            }
         }
 
         public IActionResult Privacy()
