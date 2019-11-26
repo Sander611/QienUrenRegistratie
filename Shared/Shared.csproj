@@ -8,6 +8,7 @@
     <PackageReference Include="DataAnnotationsExtensions" Version="5.0.1.27" />
     <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.7" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.0.0" />
+	  <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="3.0.1" />
   </ItemGroup>
 
 </Project>
