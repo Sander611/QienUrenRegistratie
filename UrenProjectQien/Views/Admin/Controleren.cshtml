@@ -14,8 +14,8 @@
         
     </div>
 
-<table class="table">
-    <thead>
+<table class="table table-hover">
+    <thead  style="background-color:#9A33F8;">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Day) 
@@ -43,36 +43,52 @@
             </th>
         </tr>
     </thead>
-    <tbody>
-@foreach(var item in Model)
-{
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Day) - @Html.DisplayFor(modelItem => item.Month)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Hours)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OverTimeHours)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsLeave)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsSick)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Training)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Other)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Reasoning)
-            </td>
-        </tr>
-}
+    <tbody style="background-color:rgba(154, 51, 248, 0.12)">
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Day) - @Html.DisplayFor(modelItem => item.Month)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Hours)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OverTimeHours)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsLeave)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsSick)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Training)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Other)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Reasoning)
+                </td>
+            </tr>
+        }
+        @using (Html.BeginForm("AddComment", "Admin"))
+        {
+            <tr>
+                <td>
+                    <input type="text" style="width:300px; height:100px; text-align:start;"/>
+
+                </td>
+                <td>
+                    <button asp-action="Approve" asp-controller="Admin">Goedkeuren</button>
+                </td>
+                <td>
+                    <button asp-action="Disapprove" asp-controller="Admin">Afkeuren</button>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
 
