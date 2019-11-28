@@ -75,18 +75,35 @@
         }
         @using (Html.BeginForm("AddComment", "Admin"))
         {
-            <tr>
-                <td>
-                    <input type="text" style="width:300px; height:100px; text-align:start;"/>
+    <tr>
+        <td>
+            <input type="text" style="width:300px; height:100px; text-align:start;" />
 
-                </td>
-                <td>
-                    <button asp-action="Approve" asp-controller="Admin">Goedkeuren</button>
-                </td>
-                <td>
-                    <button asp-action="Disapprove" asp-controller="Admin">Afkeuren</button>
-                </td>
-            </tr>
+        </td>
+        <td>
+            <button asp-action="Approve" asp-controller="Admin">Goedkeuren</button>
+        </td>
+        <td>
+            <button asp-action="Disapprove" asp-controller="Admin">Afkeuren</button>
+        </td>
+
+        <td>
+        </td>
+        <td>
+        </td>
+        <td>
+        </td>
+
+        <td>
+            <label style="font-weight:bold">Reden:</label>
+        </td>
+        <td>
+            <textarea disabled style="width:300px; height:100px; resize:none">
+                        Uren kloppen niet
+                    </textarea>
+        </td>
+
+    </tr>
         }
     </tbody>
 </table>
