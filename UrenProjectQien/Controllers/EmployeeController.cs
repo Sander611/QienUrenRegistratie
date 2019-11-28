@@ -136,5 +136,26 @@ namespace UrenProjectQien.Controllers
             return View(model);
 
         }
+
+        public async Task<IActionResult> EmployeePersonalia(int accountID)
+        {
+            AccountModel userInfo = new AccountModel();
+
+            var request = new HttpRequestMessage(HttpMethod.Get,
+                "https://localhost:5001/Account/" + accountID);
+            var client = _httpClientFactory.CreateClient();
+
+            var response = await client.SendAsync(request);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responseStream = await response.Content.ReadAsStringAsync();
+
+                userInfo = JsonConvert.DeserializeObject<AccountModel>(responseStream);
+                ViewBag.currUser = userInfo.FirstName + " " + userInfo.LastName;
+            }
+
+            return View(userInfo);
+        }
     }
 }

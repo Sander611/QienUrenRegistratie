@@ -45,3 +45,10 @@
 h2{
     color:white;
 }
+
+.headertable {
+    font-weight: 900;
+    color: black; 
+    background: lightgray;
+}
+
