@@ -3,75 +3,77 @@
 
 @{
     ViewData["Title"] = "EmployeeDashboard";
-    Layout = "_LayoutEmployee";
 }
 
-    <div class="wrapper">
-        <table id="profile">
-            <tbody>
-                <tr>
-                    <img src="~/Images/QienLogo.png" height="150" width="150" />
-                </tr>
-                <tr>
-                        @if(Model.Account.IsTrainee == true)
+    <div class="row">
+        <div style="border: 3px solid #9A33F8;" class="col-md-2 rounded">
+            <img style="margin-bottom:10px; text-align:center; width:180px; height:180px;" class="img-fluid" src="~/Images/ProfileImages/admin-icon.svg" />
+            <table>
+                <tbody>
+                    <tr>
+                        @if (Model.Account.IsTrainee == true)
                         {
-                            <h2>Trainee</h2>
+                            <p style="text-align:center;">Trainee</p>
                         }
-                        else if(Model.Account.IsQienEmployee == true)
+                        else if (Model.Account.IsQienEmployee == true)
                         {
-                            <h2>Medewerker</h2>
+                            <p style="text-align:center;">Medewerker</p>
                         }
                         else
                         {
-                            <h2>Senior Ontwikkelaar</h2>
+                            <p style="text-align:center;">Senior Ontwikkelaar</p>
                         }
-                </tr>
-                <tr>
-                    <h2>@Model.Account.FirstName @Model.Account.LastName</h2>
-                </tr>
-                <tr>
-                    <h2>[Werkgever]</h2>
-                </tr>
-                <tr>
-                    
-                </tr>
-            </tbody>    
-        </table>
+                    </tr>
+                    <tr>
+                        <p style="text-align:center;"> @Model.Account.FirstName @Model.Account.LastName</p>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div>
+            <div class="col-md-1"></div>
+        </div>
+
+        <div class="col-md-8">
+            <div style="margin-top:10px;" class="row">
+                <div class="col">
+                    <h1 style="text-align:center; margin-bottom:20px; background-color: #9A33F8; color: white;">Takenlijst</h1>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Taak</th>
+                                <th>Deadline</th>
+                                <th>Invullen</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var hourform in Model.Forms)
+                            {
+                                <tr>
+                                    <td>
+                                        Uren registratie @hourform.ProjectMonth @hourform.Year.ToString()
+                                    </td>
+                                    <td>
+                                        @hourform.DateDue
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("Uren Invoeren", "HoursRegistration", new { formId = hourform.FormId });
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+        </div>
     </div>
 
-        <div class="Emp-container">
-            <div id="takenlijst">
-                <h1 id="takenheader">Takenlijst</h1>
-                <table width="60%">
-                    <thead>
-
-                        <tr id="headerrow">
-                            <th>Taak</th>
-                            <th>Deadline</th>
-
-                        </tr>
-                    </thead>
 
 
-                    <tbody>
-                        @foreach (var hourform in Model.Forms)
-                        {
-                            <tr>
-                                <td>
-                                    Uren registratie @hourform.ProjectMonth @hourform.Year.ToString()
-                                </td>
-                                <td>
-                                    @hourform.DateDue
-                                </td>
-                                <td>
-                                    @Html.ActionLink("Uren Invoeren", "HoursRegistration",new { formId = hourform.FormId});
-                                </td>
-                            </tr>
-                        }
-
-                    </tbody>
-                </table>
-            </div>
+     
 
             <div id="personalia">
                 <h1 id="takenheader">Peronalia</h1>

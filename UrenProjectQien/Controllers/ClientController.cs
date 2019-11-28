@@ -55,18 +55,21 @@ namespace UrenProjectQien.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<ClientModel> CreateClient(ClientModel newClient)
+        public async Task<IActionResult> CreateClient(ClientModel newClient)
         {
-            var client = _httpClientFactory.CreateClient("Api");
-            var content = JsonConvert.SerializeObject(newClient);
-
-            var response = await client.PostAsync("Client/create", new StringContent(content, Encoding.Default, "application/json"));
-            if (!response.IsSuccessStatusCode)
+            if (ModelState.IsValid)
             {
-                throw new Exception("Cannot add a new client");
+                var client = _httpClientFactory.CreateClient("Api");
+                var content = JsonConvert.SerializeObject(newClient);
+
+                var response = await client.PostAsync("Client/create", new StringContent(content, Encoding.Default, "application/json"));
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw new Exception("Cannot add a new client");
+                }
+                var createdClient = JsonConvert.DeserializeObject<ClientModel>(await response.Content.ReadAsStringAsync());
             }
-            var createdClient = JsonConvert.DeserializeObject<ClientModel>(await response.Content.ReadAsStringAsync());
-            return createdClient;
+            return View(newClient);
         }
         public async Task<IActionResult> UpdateClient(int id)
         {
